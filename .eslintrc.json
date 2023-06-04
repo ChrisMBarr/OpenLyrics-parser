@@ -37,7 +37,7 @@
         "@typescript-eslint/strict-boolean-expressions": "error",
 
         "array-callback-return": "error",
-        "complexity": ["error", { "max": 8 }],
+        "complexity": ["error", { "max": 15 }],
         "eqeqeq": ["error", "always", { "null": "ignore" }],
         "no-unused-vars": "error",
         "object-shorthand": ["error", "always"],

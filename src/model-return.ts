@@ -3,6 +3,7 @@
 export interface IOpenLyricsSong {
   meta: IOpenLyricsSongMeta;
   properties: IOpenLyricsSongProperties;
+  formatTags: IOpenLyricsSongFormatTag[];
   lyrics: IOpenLyricsSongLyricSection[];
 }
 
@@ -24,6 +25,7 @@ export interface IOpenLyricsSongProperties {
   transposition: number | null;
   tempo: number | null;
   tempoType: string;
+  themes: IOpenLyricsSongTheme[];
   key: string;
   variant: string;
   publisher: string;
@@ -32,10 +34,32 @@ export interface IOpenLyricsSongProperties {
   verseOrder: string;
 }
 
-export interface IOpenLyricsSongAuthor {}
+export interface IOpenLyricsSongAuthor {
+  value: string;
+  type: string;
+  lang: string;
+}
 
-export interface IOpenLyricsSongTitle {}
+export interface IOpenLyricsSongTitle {
+  value: string;
+  lang: string;
+  original: boolean | null;
+}
 
-export interface IOpenLyricsSongBook {}
+export interface IOpenLyricsSongTheme{
+  value: string;
+  lang: string;
+}
+
+export interface IOpenLyricsSongBook {
+  value: string;
+  entry: string;
+}
+
+export interface IOpenLyricsSongFormatTag {
+  name: string;
+  open: string;
+  close: string;
+}
 
 export interface IOpenLyricsSongLyricSection {}

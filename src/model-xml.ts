@@ -14,6 +14,7 @@ export interface IOpenLyricsXmlDocRoot {
 export interface IOpenLyricsXmlDocSong {
   properties: IOpenLyricsXmlDocProperties;
   lyrics: IOpenLyricsXmlDocLyrics;
+  format?: IOpenLyricsXmlDocFormat;
   xmlns: string;
   version: string;
   createdIn: string;
@@ -41,7 +42,7 @@ export interface IOpenLyricsXmlDocProperties {
 }
 
 export interface IOpenLyricsXmlDocTitles {
-  title: (string | { '#text': string; lang?: string })[];
+  title: (string | { '#text': string; lang?: string; original?: boolean })[];
 }
 export interface IOpenLyricsXmlDocAuthors {
   author: (string | { '#text': string; lang?: string; type?: string })[];
@@ -59,6 +60,7 @@ export interface IOpenLyricsXmlDocTempo {
   '#text': number;
   type: string;
 }
+export interface IOpenLyricsXmlDocFormat {}
 export interface IOpenLyricsXmlDocLyrics {
   verse?: IOpenLyricsXmlDocVerse[];
 }
