@@ -1,33 +1,12 @@
 import { XMLParser } from 'fast-xml-parser';
-import {
-  IOpenLyricsSong,
-  IOpenLyricsSongAuthor,
-  IOpenLyricsSongBook,
-  IOpenLyricsSongFormatTag,
-  IOpenLyricsSongLyricSection,
-  IOpenLyricsSongMeta,
-  IOpenLyricsSongProperties,
-  IOpenLyricsSongTheme,
-  IOpenLyricsSongTitle,
-} from './model-return';
-import {
-  IOpenLyricsXmlDocAuthors,
-  IOpenLyricsXmlDocComments,
-  IOpenLyricsXmlDocFormat,
-  IOpenLyricsXmlDocLyrics,
-  IOpenLyricsXmlDocProperties as IOpenLyricsXmlDocProperties,
-  IOpenLyricsXmlDocRoot,
-  IOpenLyricsXmlDocSong,
-  IOpenLyricsXmlDocSongBooks,
-  IOpenLyricsXmlDocThemes,
-  IOpenLyricsXmlDocTitles,
-} from './model-xml';
+import { OpenLyrics as olReturn } from './model-return';
+import { OpenLyricsXml as olXml } from './model-xml';
 
 export class OpenLyrics {
-  parse(fileContent: string): IOpenLyricsSong {
+  parse(fileContent: string): olReturn.ISong {
     //When certain XML nodes only have one item the parser will convert them into objects
     //Here we maintain a list of node paths to always keep as arrays
-    //This keeps our code structure and typedefs more sane and normalized
+    //This keeps our code structure and type definitions more sane and normalized
     const alwaysArray = [
       'song.properties.titles.title',
       'song.properties.titles.title.text',
@@ -52,7 +31,7 @@ export class OpenLyrics {
       // },
     });
 
-    const parsedDoc: IOpenLyricsXmlDocRoot = xmlParser.parse(fileContent);
+    const parsedDoc: olXml.IDocRoot = xmlParser.parse(fileContent);
 
     const meta = this.getSongMeta(parsedDoc.song);
     const properties = this.getSongProperties(parsedDoc.song.properties);
@@ -62,7 +41,7 @@ export class OpenLyrics {
     return { meta, properties, formatTags, lyrics };
   }
 
-  private getSongMeta(olSong: IOpenLyricsXmlDocSong): IOpenLyricsSongMeta {
+  private getSongMeta(olSong: olXml.ISong): olReturn.IMeta {
     // console.log('song', olSong);
     return {
       createdIn: olSong.createdIn,
@@ -72,11 +51,10 @@ export class OpenLyrics {
     };
   }
 
-  private getSongProperties(props: IOpenLyricsXmlDocProperties): IOpenLyricsSongProperties {
+  private getSongProperties(props: olXml.IProperties): olReturn.IProperties {
     // console.log('props', props);
-
     return {
-      authors: this.getSongAuthors(props.authors),
+      authors: this.getSongPropertyAuthors(props.authors),
       ccliNo: props.ccliNo ?? null,
       comments: this.getSongComments(props.comments),
       copyright: props.copyright?.toString() ?? '',
@@ -84,11 +62,11 @@ export class OpenLyrics {
       keywords: props.keywords ?? '',
       publisher: props.publisher ?? '',
       released: props.released ?? null,
-      songBooks: this.getSongBooks(props.songbooks),
+      songBooks: this.getSongPropertySongBooks(props.songbooks),
       tempo: props.tempo?.['#text'] ?? null,
       tempoType: props.tempo?.type ?? '',
-      titles: this.getSongTitles(props.titles),
-      themes: this.getSongThemes(props.themes),
+      themes: this.getSongPropertyThemes(props.themes),
+      titles: this.getSongPropertyTitles(props.titles),
       transposition: props.transposition ?? null,
       variant: props.variant ?? '',
       verseOrder: props.verseOrder ?? '',
@@ -96,87 +74,7 @@ export class OpenLyrics {
     };
   }
 
-  private getSongComments(comments?: IOpenLyricsXmlDocComments): string[] {
-    let commentArr: string[] = [];
-    if (comments) {
-      // console.log('comments', comments.comment);
-      commentArr = comments.comment.map((c) => this.getStringOrTextProp(c));
-    }
-
-    return commentArr;
-  }
-
-  private getSongAuthors(authors?: IOpenLyricsXmlDocAuthors): IOpenLyricsSongAuthor[] {
-    const authorsArr: IOpenLyricsSongAuthor[] = [];
-
-    if (authors) {
-      // console.log('authors', authors.author);
-
-      for (const a of authors.author) {
-        authorsArr.push({
-          value: this.getStringOrTextProp(a),
-          lang: this.getOptionalPropOnPossibleObject(a, 'lang', ''),
-          type: this.getOptionalPropOnPossibleObject(a, 'type', ''),
-        });
-      }
-    }
-
-    return authorsArr;
-  }
-
-  private getSongTitles(titles?: IOpenLyricsXmlDocTitles): IOpenLyricsSongTitle[] {
-    const titlesArr: IOpenLyricsSongTitle[] = [];
-
-    if (titles) {
-      // console.log('titles', titles.title);
-
-      for (const t of titles.title) {
-        titlesArr.push({
-          value: this.getStringOrTextProp(t),
-          lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
-          original: this.getOptionalPropOnPossibleObject(t, 'original', null),
-        });
-      }
-    }
-
-    return titlesArr;
-  }
-
-  private getSongThemes(themes?: IOpenLyricsXmlDocThemes): IOpenLyricsSongTheme[] {
-    const titlesArr: IOpenLyricsSongTheme[] = [];
-
-    if (themes) {
-      // console.log('themes', themes.theme);
-
-      for (const t of themes.theme) {
-        titlesArr.push({
-          value: this.getStringOrTextProp(t),
-          lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
-        });
-      }
-    }
-
-    return titlesArr;
-  }
-
-  private getSongBooks(songBooks?: IOpenLyricsXmlDocSongBooks): IOpenLyricsSongBook[] {
-    const titlesArr: IOpenLyricsSongBook[] = [];
-
-    if (songBooks) {
-      // console.log('songBooks', songBooks.songbook);
-
-      for (const t of songBooks.songbook) {
-        titlesArr.push({
-          value: t.name,
-          entry: t.entry?.toString() ?? '',
-        });
-      }
-    }
-
-    return titlesArr;
-  }
-
-  private getSongFormatTags(format?: IOpenLyricsXmlDocFormat): IOpenLyricsSongFormatTag[] {
+  private getSongFormatTags(format?: olXml.IFormat): olReturn.IFormatTag[] {
     if (format) {
       // console.log('format', format);
     }
@@ -185,16 +83,84 @@ export class OpenLyrics {
   }
 
   // eslint-disable-next-line no-unused-vars
-  private getSongLyrics(_lyrics: IOpenLyricsXmlDocLyrics): IOpenLyricsSongLyricSection[] {
+  private getSongLyrics(_lyrics: olXml.ILyrics): olReturn.ILyricSection[] {
     // console.log('lyrics', lyrics);
     return [];
   }
 
-  private getStringOrTextProp(str: string | { '#text': string }): string {
-    if (typeof str === 'string') {
-      return str;
+  private getSongComments(comments?: olXml.IComments): string[] {
+    let commentArr: string[] = [];
+    if (comments) {
+      // console.log('comments', comments.comment);
+      commentArr = comments.comment.map((c) => this.getStringOrTextProp(c));
     }
-    return str['#text'];
+    return commentArr;
+  }
+
+  //==============================================================================
+  //Specific property methods
+  private getSongPropertyAuthors(authors?: olXml.IAuthors): olReturn.IAuthor[] {
+    const authorsArr: olReturn.IAuthor[] = [];
+    if (authors) {
+      // console.log('authors', authors.author);
+      for (const a of authors.author) {
+        authorsArr.push({
+          lang: this.getOptionalPropOnPossibleObject(a, 'lang', ''),
+          type: this.getOptionalPropOnPossibleObject(a, 'type', ''),
+          value: this.getStringOrTextProp(a),
+        });
+      }
+    }
+    return authorsArr;
+  }
+
+  private getSongPropertyTitles(titles?: olXml.ITitles): olReturn.ITitle[] {
+    const titlesArr: olReturn.ITitle[] = [];
+    if (titles) {
+      // console.log('titles', titles.title);
+      for (const t of titles.title) {
+        titlesArr.push({
+          lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
+          original: this.getOptionalPropOnPossibleObject(t, 'original', null),
+          value: this.getStringOrTextProp(t),
+        });
+      }
+    }
+    return titlesArr;
+  }
+
+  private getSongPropertyThemes(themes?: olXml.IThemes): olReturn.ITheme[] {
+    const titlesArr: olReturn.ITheme[] = [];
+    if (themes) {
+      // console.log('themes', themes.theme);
+      for (const t of themes.theme) {
+        titlesArr.push({
+          lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
+          value: this.getStringOrTextProp(t),
+        });
+      }
+    }
+    return titlesArr;
+  }
+
+  private getSongPropertySongBooks(songBooks?: olXml.ISongBooks): olReturn.ISongBook[] {
+    const titlesArr: olReturn.ISongBook[] = [];
+    if (songBooks) {
+      // console.log('songBooks', songBooks.songbook);
+      for (const t of songBooks.songbook) {
+        titlesArr.push({
+          entry: t.entry?.toString() ?? '',
+          value: t.name,
+        });
+      }
+    }
+    return titlesArr;
+  }
+
+  //==============================================================================
+  //Utility methods
+  private getStringOrTextProp(str: string | { '#text': string }): string {
+    return typeof str === 'string' ? str : str['#text'];
   }
 
   private getOptionalPropOnPossibleObject<T, R>(

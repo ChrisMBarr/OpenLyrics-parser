@@ -4,69 +4,81 @@
 //  { ignoreAttributes: false, attributeNamePrefix: '', parseAttributeValue: true, ignoreDeclaration: true, }
 //  All options here: https://github.com/NaturalIntelligence/fast-xml-parser/blob/master/docs/v4/2.XMLparseOptions.md
 
-export interface IOpenLyricsXmlDocRoot {
-  '?xml-stylesheet': {
-    href: string;
+export namespace OpenLyricsXml {
+  export interface IDocRoot {
+    '?xml-stylesheet': {
+      href: string;
+      type: string;
+    };
+    song: ISong;
+  }
+
+  export interface ISong {
+    properties: IProperties;
+    lyrics: ILyrics;
+    format?: IFormat;
+    xmlns: string;
+    version: string;
+    createdIn: string;
+    modifiedIn: string;
+    modifiedDate: string;
+  }
+
+  export interface IProperties {
+    copyright?: number;
+    ccliNo?: number;
+    released?: number;
+    transposition?: number;
+    key?: string;
+    keywords?: string;
+    variant?: string;
+    publisher?: string;
+    version?: number;
+    verseOrder?: string;
+
+    titles?: ITitles;
+    authors?: IAuthors;
+    comments?: IComments;
+    songbooks?: ISongBooks;
+    tempo?: ITempo;
+    themes?: IThemes;
+  }
+
+  export interface ITitles {
+    title: (string | { '#text': string; lang?: string; original?: boolean })[];
+  }
+
+  export interface IAuthors {
+    author: (string | { '#text': string; lang?: string; type?: string })[];
+  }
+
+  export interface IComments {
+    comment: (string | { '#text': string })[];
+  }
+
+  export interface ISongBooks {
+    songbook: { name: string; entry?: string | number }[];
+  }
+
+  export interface IThemes {
+    theme: (string | { '#text': string; lang?: string })[];
+  }
+
+  export interface ITempo {
+    '#text': number;
     type: string;
-  };
-  song: IOpenLyricsXmlDocSong;
-}
-export interface IOpenLyricsXmlDocSong {
-  properties: IOpenLyricsXmlDocProperties;
-  lyrics: IOpenLyricsXmlDocLyrics;
-  format?: IOpenLyricsXmlDocFormat;
-  xmlns: string;
-  version: string;
-  createdIn: string;
-  modifiedIn: string;
-  modifiedDate: string;
-}
-export interface IOpenLyricsXmlDocProperties {
-  copyright?: number;
-  ccliNo?: number;
-  released?: number;
-  transposition?: number;
-  key?: string;
-  keywords?: string;
-  variant?: string;
-  publisher?: string;
-  version?: number;
-  verseOrder?: string;
+  }
 
-  titles?: IOpenLyricsXmlDocTitles;
-  authors?: IOpenLyricsXmlDocAuthors;
-  comments?: IOpenLyricsXmlDocComments;
-  songbooks?: IOpenLyricsXmlDocSongBooks;
-  tempo?: IOpenLyricsXmlDocTempo;
-  themes?: IOpenLyricsXmlDocThemes;
-}
+  export interface IFormat {}
 
-export interface IOpenLyricsXmlDocTitles {
-  title: (string | { '#text': string; lang?: string; original?: boolean })[];
-}
-export interface IOpenLyricsXmlDocAuthors {
-  author: (string | { '#text': string; lang?: string; type?: string })[];
-}
-export interface IOpenLyricsXmlDocComments {
-  comment: (string | { '#text': string })[];
-}
-export interface IOpenLyricsXmlDocSongBooks {
-  songbook: { name: string; entry?: string | number }[];
-}
-export interface IOpenLyricsXmlDocThemes {
-  theme: (string | { '#text': string; lang?: string })[];
-}
-export interface IOpenLyricsXmlDocTempo {
-  '#text': number;
-  type: string;
-}
-export interface IOpenLyricsXmlDocFormat {}
-export interface IOpenLyricsXmlDocLyrics {
-  verse?: IOpenLyricsXmlDocVerse[];
-}
-export interface IOpenLyricsXmlDocVerse {
-  lines: (string | { '#text': string; part?: string; repeat?: number })[];
-  name: string;
-  lang?: string;
-  translit?: string;
+  export interface ILyrics {
+    verse?: IVerse[];
+  }
+
+  export interface IVerse {
+    lines: (string | { '#text': string; part?: string; repeat?: number })[];
+    name: string;
+    lang?: string;
+    translit?: string;
+  }
 }
