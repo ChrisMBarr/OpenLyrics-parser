@@ -34,15 +34,24 @@
   },
   "license": "MIT",
   "jest": {
-    "moduleDirectories": ["<rootDir>/../", "node_modules"],
-    "moduleFileExtensions": ["js", "json", "ts"],
+    "moduleDirectories": [
+      "<rootDir>/../",
+      "node_modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
     "preset": "ts-jest",
     "rootDir": "./src",
     "testEnvironment": "node",
     "transform": {
       "^.+\\.ts$": [
         "ts-jest",
-        { "tsconfig": "tsconfig.json" }
+        {
+          "tsconfig": "tsconfig.json"
+        }
       ]
     }
   },
