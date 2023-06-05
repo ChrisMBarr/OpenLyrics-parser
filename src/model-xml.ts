@@ -18,7 +18,7 @@ export namespace OpenLyricsXml {
     lyrics: ILyrics;
     format?: IFormat;
     xmlns: string;
-    version: string;
+    version: number;
     createdIn: string;
     modifiedIn: string;
     modifiedDate: string;
@@ -69,7 +69,12 @@ export namespace OpenLyricsXml {
     type: string;
   }
 
-  export interface IFormat {}
+  export interface IFormat {
+    tags: {
+      tag: { open: string; close?: string; name: string }[];
+      application: string;
+    };
+  }
 
   export interface ILyrics {
     verse?: IVerse[];

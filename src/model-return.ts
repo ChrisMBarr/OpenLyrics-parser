@@ -3,12 +3,12 @@ export namespace OpenLyrics {
   export interface ISong {
     meta: IMeta;
     properties: IProperties;
-    formatTags: IFormatTag[];
+    format: IFormat;
     lyrics: ILyricSection[];
   }
 
   export interface IMeta {
-    version: string;
+    version: number;
     createdIn: string;
     modifiedIn: string;
     modifiedDate: Date;
@@ -54,6 +54,11 @@ export namespace OpenLyrics {
   export interface ISongBook {
     value: string;
     entry: string;
+  }
+
+  export interface IFormat {
+    application: string;
+    tags: IFormatTag[];
   }
 
   export interface IFormatTag {

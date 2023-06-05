@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { OpenLyrics as ol } from './model-return';
 import { OpenLyrics } from '.';
 
 describe('OpenLyrics', (): void => {
@@ -23,28 +24,28 @@ describe('OpenLyrics', (): void => {
           modifiedIn: 'MyApp 0.0.1',
           version: 0.8,
         },
-        formatTags: [],
+        format: { application: '', tags: [] },
         properties: {
-          titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
           authors: [],
+          ccliNo: null,
           comments: [],
           copyright: '',
-          ccliNo: null,
+          key: '',
+          keywords: '',
+          publisher: '',
           released: null,
-          transposition: null,
+          songBooks: [],
           tempo: null,
           tempoType: '',
           themes: [],
-          key: '',
+          titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
+          transposition: null,
           variant: '',
-          publisher: '',
-          version: null,
-          keywords: '',
           verseOrder: '',
-          songBooks: [],
+          version: null,
         },
         lyrics: [],
-      });
+      } as ol.ISong);
     });
 
     it('should return a song for file: complex.xml"', () => {
@@ -57,7 +58,7 @@ describe('OpenLyrics', (): void => {
           modifiedIn: 'ChangingSong 0.0.1',
           version: 0.8,
         },
-        formatTags: [],
+        format: { application: '', tags: [] },
         properties: {
           titles: [
             { lang: 'en-US', original: true, value: 'Amazing Grace' },
@@ -87,12 +88,20 @@ describe('OpenLyrics', (): void => {
               value: 'František Foo',
             },
           ],
-          comments: ['This is one of the most popular songs in our congregation.'],
-          copyright: 'public domain',
           ccliNo: 4639462,
+          copyright: 'public domain',
+          comments: ['This is one of the most popular songs in our congregation.'],
+          key: 'C#',
+          keywords: 'something to help with more accurate results',
+          publisher: 'Sparrow Records',
           released: 1779,
-          transposition: 2,
+          songBooks: [
+            { entry: '', value: 'Songbook without Number' },
+            { entry: '48', value: 'Songbook with Number' },
+            { entry: '153c', value: 'Songbook with Letters in Entry Name' },
+          ],
           tempo: 90,
+          tempoType: 'bpm',
           themes: [
             { lang: '', value: 'Adoration' },
             { lang: 'en-US', value: 'Grace' },
@@ -102,21 +111,47 @@ describe('OpenLyrics', (): void => {
             { lang: 'pt-BR', value: 'Adoração' },
             { lang: 'pt-BR', value: 'Salvação' },
           ],
-          tempoType: 'bpm',
-          key: 'C#',
+          transposition: 2,
           variant: 'Newsboys',
-          publisher: 'Sparrow Records',
-          version: 0.99,
-          keywords: 'something to help with more accurate results',
           verseOrder: 'v1 v2  v3 c v4 c1 c2 b b1 b2',
-          songBooks: [
-            { entry: '', value: 'Songbook without Number' },
-            { entry: '48', value: 'Songbook with Number' },
-            { entry: '153c', value: 'Songbook with Letters in Entry Name' },
-          ],
+          version: 0.99,
         },
         lyrics: [],
-      });
+      } as ol.ISong);
+    });
+
+    it('should return a song with format tags for file: format.xml"', () => {
+      const testFile = readFileSync('./sample-files/examples/format.xml').toString();
+
+      expect(olParser.parse(testFile)).toEqual({
+        meta: {
+          createdIn: 'OpenLP 1.9.0',
+          modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
+          modifiedIn: 'OpenLP 1.9.7',
+          version: 0.8,
+        },
+        format: { application: '', tags: [] },
+        properties: {
+          authors: [],
+          ccliNo: null,
+          comments: [],
+          copyright: '',
+          key: '',
+          keywords: '',
+          publisher: '',
+          released: null,
+          songBooks: [],
+          tempo: null,
+          tempoType: '',
+          themes: [],
+          titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
+          transposition: null,
+          variant: '',
+          verseOrder: '',
+          version: null,
+        },
+        lyrics: [],
+      } as ol.ISong);
     });
   });
 });

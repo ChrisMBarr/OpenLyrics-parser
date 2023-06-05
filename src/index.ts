@@ -35,10 +35,10 @@ export class OpenLyrics {
 
     const meta = this.getSongMeta(parsedDoc.song);
     const properties = this.getSongProperties(parsedDoc.song.properties);
-    const formatTags = this.getSongFormatTags(parsedDoc.song.format);
+    const formatTags = this.getSongFormat(parsedDoc.song.format);
     const lyrics = this.getSongLyrics(parsedDoc.song.lyrics);
 
-    return { meta, properties, formatTags, lyrics };
+    return { meta, properties, format: formatTags, lyrics };
   }
 
   private getSongMeta(olSong: olXml.ISong): olReturn.IMeta {
@@ -74,12 +74,13 @@ export class OpenLyrics {
     };
   }
 
-  private getSongFormatTags(format?: olXml.IFormat): olReturn.IFormatTag[] {
+  private getSongFormat(format?: olXml.IFormat): olReturn.IFormat {
+    let application = '';
+    let tags: olReturn.IFormatTag[] = [];
     if (format) {
-      // console.log('format', format);
+      console.log('format', format.tags);
     }
-
-    return [];
+    return { application, tags };
   }
 
   // eslint-disable-next-line no-unused-vars
