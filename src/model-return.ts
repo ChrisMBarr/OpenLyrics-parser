@@ -1,3 +1,4 @@
+import { ILyricSectionLineContent } from './model-return';
 //The models for the objects returned by the OpenLyrics parser
 export namespace OpenLyrics {
   export interface ISong {
@@ -67,8 +68,27 @@ export namespace OpenLyrics {
     close: string;
   }
 
+  export interface ILyricSectionLineContentStandard {
+    type: 'text' | 'comment';
+    value: string;
+  }
+  export interface ILyricSectionLineContentTag {
+    type: 'tag';
+    name: string;
+    value: string;
+  }
+  export interface ILyricSectionLineContentChord {
+    type: 'chord';
+    [key: string]: string;
+  }
+
+  export type ILyricSectionLineContent =
+    | ILyricSectionLineContentStandard
+    | ILyricSectionLineContentTag
+    | ILyricSectionLineContentChord;
+
   export interface ILyricSectionLine {
-    text: string;
+    content: ILyricSectionLineContent[];
     part: string;
   }
 

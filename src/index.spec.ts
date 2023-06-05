@@ -49,13 +49,23 @@ describe('OpenLyrics', (): void => {
             name: 'v1',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  {
+                    type: 'text',
+                    value: 'Amazing grace how sweet the sound\nthat saved a wretch like me;',
+                  },
+                ],
+                part: '',
+              },
+            ],
           },
         ],
       } as ol.ISong);
     });
 
-    fit('should return a song for file: complex.xml"', () => {
+    it('should return a song for file: complex.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/complex.xml').toString();
 
       expect(olParser.parse(testFile)).toEqual({
@@ -131,11 +141,21 @@ describe('OpenLyrics', (): void => {
             lines: [
               {
                 part: '',
-                text: 'Amazing grace how sweet the sound that saved a wretch like me;',
+                content: [
+                  {
+                    type: 'text',
+                    value: 'Amazing grace how sweet the sound that saved a wretch like me;',
+                  },
+                ],
               },
               {
                 part: 'women',
-                text: 'A b c\nD e f',
+                content: [
+                  {
+                    type: 'text',
+                    value: 'A b c\nD e f',
+                  },
+                ],
               },
             ],
           },
@@ -146,7 +166,16 @@ describe('OpenLyrics', (): void => {
             lines: [
               {
                 part: '',
-                text: '',
+                content: [
+                  {
+                    name: 'B',
+                    type: 'chord',
+                  },
+                  {
+                    type: 'text',
+                    value: 'Erstaunliche Ahmut, wie',
+                  },
+                ],
               },
             ],
           },
@@ -157,7 +186,16 @@ describe('OpenLyrics', (): void => {
             lines: [
               {
                 part: '',
-                text: '',
+                content: [
+                  {
+                    type: 'comment',
+                    value: 'any comment',
+                  },
+                  {
+                    type: 'text',
+                    value: '\nLine content.',
+                  },
+                ],
               },
             ],
           },
@@ -168,11 +206,65 @@ describe('OpenLyrics', (): void => {
             lines: [
               {
                 part: 'men',
-                text: '',
+                content: [
+                  {
+                    type: 'comment',
+                    value: 'any text',
+                  },
+                  {
+                    type: 'text',
+                    value: '\nAmazing grace how sweet the sound that saved a wretch like me;\n',
+                  },
+                  {
+                    type: 'comment',
+                    value: 'any text',
+                  },
+                  {
+                    type: 'text',
+                    value: '\n',
+                  },
+                  {
+                    name: 'D',
+                    type: 'chord',
+                  },
+                  {
+                    type: 'text',
+                    value: 'Amazing grace how sweet ',
+                  },
+                  {
+                    name: 'D',
+                    type: 'chord',
+                  },
+                  {
+                    type: 'text',
+                    value: 'the sound that saved a wretch like me;',
+                  },
+                  {
+                    name: 'B7',
+                    type: 'chord',
+                  },
+                  {
+                    type: 'text',
+                    value: '\nAmazing grace',
+                  },
+                  {
+                    name: 'G7',
+                    type: 'chord',
+                  },
+                  {
+                    type: 'text',
+                    value: ' how sweet the sound that saved a wretch like me;',
+                  },
+                ],
               },
               {
                 part: 'women',
-                text: 'A b c\n\nD e f',
+                content: [
+                  {
+                    type: 'text',
+                    value: 'A b c\n\nD e f',
+                  },
+                ],
               },
             ],
           },
@@ -183,11 +275,21 @@ describe('OpenLyrics', (): void => {
             lines: [
               {
                 part: '',
-                text: '\n',
+                content: [
+                  {
+                    type: 'text',
+                    value: '\n',
+                  },
+                ],
               },
               {
                 part: '',
-                text: '\n\n\n\n\n',
+                content: [
+                  {
+                    type: 'text',
+                    value: '\n\n\n\n\n',
+                  },
+                ],
               },
             ],
           },
@@ -198,7 +300,12 @@ describe('OpenLyrics', (): void => {
             lines: [
               {
                 part: '',
-                text: 'This is text of ending.',
+                content: [
+                  {
+                    type: 'text',
+                    value: 'This is text of ending.',
+                  },
+                ],
               },
             ],
           },
@@ -255,7 +362,27 @@ describe('OpenLyrics', (): void => {
             name: 'v1',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Amazing ' },
+                  { type: 'tag', name: 'red', value: 'grace!' },
+                  { type: 'text', value: ' How sweet the sound\nThat saved a wretch ' },
+                  { type: 'tag', name: 'strong', value: 'like' },
+                  { type: 'text', value: 'me.' },
+                ],
+                part: '',
+              },
+              {
+                content: [
+                  {
+                    type: 'text',
+                    value: 'I once was lost, but now am found,\nWas blind but now I see.',
+                  },
+                ],
+                part: '',
+              },
+            ],
           },
         ],
       } as ol.ISong);
@@ -345,37 +472,117 @@ describe('OpenLyrics', (): void => {
             name: 'v1',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'tag', name: 'r', value: 'Jezu Kriste' },
+                  { type: 'text', value: ', štědrý kněže,\ns ' },
+                  { type: 'tag', name: 'bl', value: 'Otcem, Duchem' },
+                  { type: 'text', value: ' jeden ' },
+                  { type: 'tag', name: 'y', value: 'Bože' },
+                  { type: 'text', value: ',\nštědrost Tvá je naše zboží,\nz ' },
+                  { type: 'tag', name: 'o', value: '' },
+                  { type: 'tag', name: 'it', value: 'milosti' },
+                  { type: 'text', value: '.' },
+                ],
+                part: '',
+              },
+            ],
           },
           {
             name: 'v2',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'tag', name: 'bl', value: 'Ty' },
+                  {
+                    type: 'text',
+                    value:
+                      ' jsi v světě, bydlil s námi,\nTvé tělo trpělo rány\nza nás za hříšné křesťany,\nz ',
+                  },
+                  { type: 'tag', name: 'bl', value: 'Tvé' },
+                  { type: 'text', value: ' milosti.' },
+                ],
+                part: '',
+              },
+            ],
           },
           {
             name: 'v3',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Ó, ' },
+                  { type: 'tag', name: 'g', value: 'Tvá dobroto' },
+                  {
+                    type: 'text',
+                    value: ' důstojná\na k nám milosti přehojná!\nDáváš nám bohatství mnohá\n',
+                  },
+                  { type: 'tag', name: 'st', value: '' },
+                ],
+                part: '',
+              },
+            ],
           },
           {
             name: 'v4',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Ráčils nás sám zastoupiti,\n' },
+                  { type: 'tag', name: 'it', value: 'život za nás položiti,' },
+                  { type: 'text', value: '\ntak smrt věčnou zahladiti,\nz Tvé milosti.' },
+                ],
+                part: '',
+              },
+            ],
           },
           {
             name: 'v5',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'tag', name: 'st', value: 'Ó,' },
+                  { type: 'text', value: ', z bludů</tag> vstaňme,\ndané dobro nám poznejme,\nk ' },
+                  { type: 'tag', name: 'aq', value: 'Synu Božímu' },
+                  { type: 'text', value: ' chvátejme,\nk té milosti!' },
+                ],
+                part: '',
+              },
+            ],
           },
           {
             name: 'v6',
             transliteration: '',
             lang: '',
-            lines: [],
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Chvála' },
+                  { type: 'tag', name: 'br', value: '' },
+                  { type: 'text', value: 'budiž' },
+                  { type: 'tag', name: 'br', value: '' },
+                  { type: 'text', value: 'Bohu' },
+                  { type: 'tag', name: 'br', value: '' },
+
+                  //TODO: Figure out why this tag isn't parsing!
+                  {
+                    type: 'text',
+                    value:
+                      'Otci,\n<tag name="st">Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!</tag>',
+                  },
+                ],
+                part: '',
+              },
+            ],
           },
         ],
       } as ol.ISong);

@@ -3,6 +3,11 @@ import { OpenLyrics as olReturn } from './model-return';
 import { OpenLyricsXml as olXml } from './model-xml';
 
 export class OpenLyrics {
+  private readonly lyricLineParser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: '',
+  });
+
   public parse(fileContent: string): olReturn.ISong {
     //When certain XML nodes only have one item the parser will convert them into objects
     //Here we maintain a list of node paths to always keep as arrays
@@ -34,12 +39,14 @@ export class OpenLyrics {
 
         if (jPath === 'song.lyrics.verse.lines') {
           //Inside of a verse line...
-          return tagValue
-          //replace all correctly and incorrectly formatted <br> </br> and </br> tags with new lines
-          //Sometimes these will already have a newline after them, remove that so that newlines aren't doubled
-          .replace(/<\/?br\/?>(\n)?/gi, '\n')
-          //Remove all XML/HTML comments
-          .replace(/<!--.+?-->/g, '');
+          return (
+            tagValue
+              //replace all correctly and incorrectly formatted <br> </br> and </br> tags with new lines
+              //Sometimes these will already have a newline after them, remove that so that newlines aren't doubled
+              .replace(/<\/?br\/?>(\n)?/gi, '\n')
+              //Remove all XML/HTML comments
+              .replace(/<!--.+?-->/g, '')
+          );
         }
 
         //return everything else as is
@@ -128,13 +135,54 @@ export class OpenLyrics {
   }
 
   private getLyricSectionLines(lines: olXml.IVerseLine[]): olReturn.ILyricSectionLine[] {
-    //Each line will come back as
-
+    //Each line will come back as a string that might have XML nodes in it (comments, chords, ???)
+    //To make line breaks not screw the text up we had to stop the XML parsing at this point in the
+    //document, so now we must manually parse what is left
     const linesArr: olReturn.ILyricSectionLine[] = [];
     for (const line of lines) {
-      console.log(line);
+      // console.log(line);
+      const rawLineTextAndXml = this.getStringOrTextProp(line);
+      const textAndXmlArr = rawLineTextAndXml
+        //Find all the XML nodes, and split the string into an array that separates these parts
+        .split(/(<[^/]+?>.+?<\/.+?>)|(<[^/]+?\/>)/g)
+        //Now remove all empty elements form the array since that pattern has 2 groups and
+        //only one could match for each split
+        .filter((x) => x !== '' && typeof x !== 'undefined');
+
+      const contentArr: olReturn.ILyricSectionLineContent[] = [];
+      for (const part of textAndXmlArr) {
+        if (part.startsWith('<')) {
+          //an XML tag, parse it!
+          const parsedTag = this.lyricLineParser.parse(part);
+          if (parsedTag.comment != null) {
+            contentArr.push({
+              type: 'comment',
+              value: parsedTag.comment,
+            });
+          } else if (parsedTag.tag != null) {
+            contentArr.push({
+              type: 'tag',
+              name: parsedTag.tag.name,
+              value: parsedTag.tag['#text'] ?? '',
+            });
+          } else if (parsedTag.chord != null) {
+            const chord: olReturn.ILyricSectionLineContentChord = { type: 'chord' };
+            Object.keys(parsedTag.chord).forEach((k) => {
+              chord[k] = parsedTag.chord[k] as string;
+            });
+            contentArr.push(chord);
+          }
+        } else {
+          //plain text, just add it
+          contentArr.push({
+            type: 'text',
+            value: part,
+          });
+        }
+      }
+
       linesArr.push({
-        text: this.getStringOrTextProp(line),
+        content: contentArr,
         part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
       });
     }
