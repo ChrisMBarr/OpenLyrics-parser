@@ -388,7 +388,7 @@ describe('OpenLyrics', (): void => {
       } as ol.ISong);
     });
 
-    it('should return a song with format tags for file: format2.xml"', () => {
+    fit('should return a song with format tags for file: format2.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/format2.xml').toString();
 
       expect(olParser.parse(testFile)).toEqual({
@@ -573,11 +573,12 @@ describe('OpenLyrics', (): void => {
                   { type: 'text', value: 'Bohu' },
                   { type: 'tag', name: 'br', value: '' },
 
-                  //TODO: Figure out why this tag isn't parsing!
+                  { type: 'text', value: 'Otci,\n' },
                   {
-                    type: 'text',
+                    name: 'st',
+                    type: 'tag',
                     value:
-                      'Otci,\n<tag name="st">Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!</tag>',
+                      'Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!',
                   },
                 ],
                 part: '',

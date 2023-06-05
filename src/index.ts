@@ -144,7 +144,7 @@ export class OpenLyrics {
       const rawLineTextAndXml = this.getStringOrTextProp(line);
       const textAndXmlArr = rawLineTextAndXml
         //Find all the XML nodes, and split the string into an array that separates these parts
-        .split(/(<[^/]+?>.+?<\/.+?>)|(<[^/]+?\/>)/g)
+        .split(/(<[^/]+?>[\s\S]+?<\/.+?>)|(<[^/]+?\/>)/g)
         //Now remove all empty elements form the array since that pattern has 2 groups and
         //only one could match for each split
         .filter((x) => x !== '' && typeof x !== 'undefined');
@@ -154,6 +154,7 @@ export class OpenLyrics {
         if (part.startsWith('<')) {
           //an XML tag, parse it!
           const parsedTag = this.lyricLineParser.parse(part);
+
           if (parsedTag.comment != null) {
             contentArr.push({
               type: 'comment',
