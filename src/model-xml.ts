@@ -19,9 +19,9 @@ export namespace OpenLyricsXml {
     format?: IFormat;
     xmlns: string;
     version: string;
-    createdIn: string;
-    modifiedIn: string;
-    modifiedDate: string;
+    createdIn?: string;
+    modifiedIn?: string;
+    modifiedDate?: string;
   }
 
   export interface IProperties {

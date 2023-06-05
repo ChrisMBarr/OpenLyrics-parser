@@ -72,9 +72,9 @@ export class OpenLyrics {
   private getSongMeta(olSong: olXml.ISong): olReturn.IMeta {
     // console.log('song', olSong);
     return {
-      createdIn: olSong.createdIn,
-      modifiedDate: new Date(olSong.modifiedDate),
-      modifiedIn: olSong.modifiedIn,
+      createdIn: olSong.createdIn ?? '',
+      modifiedDate: olSong.modifiedDate != null ? new Date(olSong.modifiedDate) : null,
+      modifiedIn: olSong.modifiedIn ?? '',
       version: olSong.version.toString(),
     };
   }
@@ -158,7 +158,7 @@ export class OpenLyrics {
     return linesArr;
   }
 
-  private getLyricContentObjects(textAndXmlArr: string[]): olReturn.ILyricSectionLineContent[]{
+  private getLyricContentObjects(textAndXmlArr: string[]): olReturn.ILyricSectionLineContent[] {
     const contentArr: olReturn.ILyricSectionLineContent[] = [];
 
     //Here we get an array of strings. Some might be plain text, others will be only XML nodes
@@ -182,10 +182,13 @@ export class OpenLyrics {
             value: parsedTag.tag['#text'] ?? '',
           });
         } else if (parsedTag.chord != null) {
-          //A <chord /> node. This can have a lot of properties, so we just add whatever is there
+          //A <chord name="A" /> node. This can have a lot of properties, so we just add whatever is there
+          //Sometimes chords can have ending tags too: <chord root="E" structure="m3-5-7-9-a11-13" bass="C#">ipsum</chord>
           const chord: olReturn.ILyricSectionLineContentChord = { type: 'chord' };
           Object.keys(parsedTag.chord).forEach((k) => {
-            chord[k] = parsedTag.chord[k] as string;
+            //When we have an ending tag we want to add the inner text between the tags as a value property
+            const keyName = k === '#text' ? 'value' : k;
+            chord[keyName] = parsedTag.chord[k] as string;
           });
           contentArr.push(chord);
         }

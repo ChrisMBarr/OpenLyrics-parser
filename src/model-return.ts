@@ -12,7 +12,7 @@ export namespace OpenLyrics {
     version: string;
     createdIn: string;
     modifiedIn: string;
-    modifiedDate: Date;
+    modifiedDate: Date | null;
   }
 
   export interface IProperties {
