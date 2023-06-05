@@ -44,7 +44,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -133,7 +133,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: 'v1 v2  v3 c v4 c1 c2 b b1 b2',
         version: '0.99',
       });
-      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -357,7 +357,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -467,7 +467,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -621,7 +621,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: 'i v1 v2',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
         {
           lang: '',
           lines: [
@@ -868,7 +868,36 @@ describe('OpenLyrics', (): void => {
       ]);
       expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
         {
-          lines: [],
+          lines: [
+            {
+              content: [
+                {
+                  chords: [
+                    { root: 'D', type: 'chord' },
+                    { root: 'D', structure: 'sus4', type: 'chord' },
+                  ],
+                  type: 'beat',
+                },
+                {
+                  chords: [
+                    { root: 'D', type: 'chord' },
+                    { root: 'D', structure: 'sus4', type: 'chord' },
+                  ],
+                  type: 'beat',
+                },
+                {
+                  chords: [
+                    { root: 'G', type: 'chord' },
+                    { root: 'A', type: 'chord' },
+                  ],
+                  type: 'beat',
+                },
+                { root: 'D', type: 'chord' },
+                { root: 'D', structure: 'sus4', type: 'chord' },
+              ],
+              part: '',
+            },
+          ],
           name: 'i',
         },
       ]);

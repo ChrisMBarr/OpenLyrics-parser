@@ -6,6 +6,10 @@ export class OpenLyrics {
   private readonly lyricLineParser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: '',
+    isArray: (_n, jPath: string): boolean => {
+      // console.log(jPath)
+      return ['beat.chord'].includes(jPath);
+    },
   });
 
   public parse(fileContent: string): olReturn.ISong {
@@ -69,7 +73,7 @@ export class OpenLyrics {
       properties,
       format,
       verses,
-      instruments
+      instruments,
     };
   }
 
@@ -123,60 +127,81 @@ export class OpenLyrics {
     return { application, tags };
   }
 
-  private getSongVerses(verses?: olXml.IVerse[]): olReturn.ILyricSectionVerse[] {
-    const versesArr: olReturn.ILyricSectionVerse[] = [];
+  private getSongVerses(verses?: olXml.IVerse[]): olReturn.IVerse[] {
+    const versesArr: olReturn.IVerse[] = [];
     if (verses) {
       for (const v of verses) {
         versesArr.push({
           name: v.name,
           lang: v.lang ?? '',
           transliteration: v.translit ?? '',
-          lines: this.getLyricSectionLines(v.lines),
+          lines: this.getVerseLines(v.lines),
         });
       }
     }
     return versesArr;
   }
 
-  private getSongInstruments(instruments?: olXml.IInstrument[]): olReturn.ILyricSectionInstrument[] {
+  private getSongInstruments(
+    instruments?: olXml.IInstrument[]
+  ): olReturn.ILyricSectionInstrument[] {
     const instrumentsArr: olReturn.ILyricSectionInstrument[] = [];
     if (instruments) {
       for (const i of instruments) {
         instrumentsArr.push({
           name: i.name,
-          lines: [],
+          lines: this.getInstrumentLines(i.lines),
         });
       }
     }
     return instrumentsArr;
   }
 
-  private getLyricSectionLines(lines: olXml.IVerseOrInstrumentLine[]): olReturn.ILyricSectionLine[] {
+  private getVerseLines(lines: olXml.IVerseOrInstrumentLineUnparsed[]): olReturn.IVerseLine[] {
+    const linesArr: olReturn.IVerseLine[] = [];
+    for (const line of lines) {
+      // console.log('verse', typeof line, line);
+      const rawLineTextAndXml = this.getStringOrTextProp(line);
+      const textAndXmlArr = this.parseLineTextForXml(rawLineTextAndXml);
+      linesArr.push({
+        content: this.getVerseContentObjects(textAndXmlArr),
+        part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
+      });
+    }
+    return linesArr;
+  }
+
+  private getInstrumentLines(lines: olXml.IVerseOrInstrumentLineUnparsed[]): olReturn.IInstrumentLine[] {
+    const linesArr: olReturn.IInstrumentLine[] = [];
+    for (const line of lines) {
+      // console.log('instrument', typeof line, line);
+      const rawLineTextAndXml = this.getStringOrTextProp(line);
+      const textAndXmlArr = this.parseLineTextForXml(rawLineTextAndXml);
+      linesArr.push({
+        content: this.getInstrumentContentObjects(textAndXmlArr),
+        part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
+      });
+    }
+    return linesArr;
+  }
+
+  private parseLineTextForXml(str: string): string[] {
     //Each line will come back as a string that might have XML nodes in it (comments, chords, ???)
     //To make line breaks not screw the text up we had to stop the XML parsing at this point in the
     //document, so now we must manually parse what is left
-    const linesArr: olReturn.ILyricSectionLine[] = [];
-    for (const line of lines) {
-      // console.log(line);
-      const rawLineTextAndXml = this.getStringOrTextProp(line);
-      const textAndXmlArr = rawLineTextAndXml
+
+    return (
+      str
         //Find all the XML nodes, and split the string into an array that separates these parts
         .split(/(<[^/]+?>[\s\S]+?<\/.+?>)|(<[^/]+?\/>)/g)
         //Now remove all empty elements form the array since that pattern has 2 groups and
         //only one could match for each split
-        .filter((x) => x !== '' && typeof x !== 'undefined');
-
-      linesArr.push({
-        content: this.getLyricContentObjects(textAndXmlArr),
-        part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
-      });
-    }
-
-    return linesArr;
+        .filter((x) => x !== '' && typeof x !== 'undefined')
+    );
   }
 
-  private getLyricContentObjects(textAndXmlArr: string[]): olReturn.ILyricSectionLineContent[] {
-    const contentArr: olReturn.ILyricSectionLineContent[] = [];
+  private getVerseContentObjects(textAndXmlArr: string[]): olReturn.IVerseLineContent[] {
+    const contentArr: olReturn.IVerseLineContent[] = [];
 
     //Here we get an array of strings. Some might be plain text, others will be only XML nodes
     //We add an object for each item to describe it's type and all the properties it has
@@ -199,15 +224,9 @@ export class OpenLyrics {
             value: parsedTag.tag['#text'] ?? '',
           });
         } else if (parsedTag.chord != null) {
-          //A <chord name="A" /> node. This can have a lot of properties, so we just add whatever is there
-          //Sometimes chords can have ending tags too: <chord root="E" structure="m3-5-7-9-a11-13" bass="C#">ipsum</chord>
-          const chord: olReturn.ILyricSectionLineContentChord = { type: 'chord' };
-          Object.keys(parsedTag.chord).forEach((k) => {
-            //When we have an ending tag we want to add the inner text between the tags as a value property
-            const keyName = k === '#text' ? 'value' : k;
-            chord[keyName] = parsedTag.chord[k] as string;
-          });
-          contentArr.push(chord);
+          contentArr.push(this.getChordObject(parsedTag.chord));
+        } else if (parsedTag.beat != null) {
+          console.log(parsedTag.beat);
         }
       } else {
         //plain text, just add it
@@ -219,6 +238,40 @@ export class OpenLyrics {
     }
 
     return contentArr;
+  }
+
+  private getInstrumentContentObjects(textAndXmlArr: string[]): olReturn.IInstrumentLineContent[] {
+    const contentArr: olReturn.IInstrumentLineContent[] = [];
+    //Here we get an array of strings. These should all be XML nodes only since that's all that is allowed for instrument content
+    //We add an object for each item to describe it's type and all the properties it has
+    for (const part of textAndXmlArr) {
+      //an XML tag, parse it!
+      const parsedTag = this.lyricLineParser.parse(part);
+      // console.log(parsedTag)
+
+      if (parsedTag.chord != null) {
+        contentArr.push(this.getChordObject(parsedTag.chord));
+      } else if (parsedTag.beat != null) {
+        contentArr.push({
+          type: 'beat',
+          chords: parsedTag.beat.chord.map((c: any) => this.getChordObject(c)),
+        });
+      }
+    }
+
+    return contentArr;
+  }
+
+  private getChordObject(chordObj: olXml.ILineChord): olReturn.IVerseAndInstrumentLineContentChord {
+    //A <chord name="A" /> node. This can have a lot of properties, so we just add whatever is there
+    //Sometimes chords can have ending tags too: <chord root="E" structure="m3-5-7-9-a11-13" bass="C#">ipsum</chord>
+    const chord: olReturn.IVerseAndInstrumentLineContentChord = { type: 'chord' };
+    Object.keys(chordObj).forEach((k) => {
+      //When we have an ending tag we want to add the inner text between the tags as a value property
+      const keyName = k === '#text' ? 'value' : k;
+      chord[keyName] = chordObj[k] ?? '';
+    });
+    return chord;
   }
 
   //==============================================================================

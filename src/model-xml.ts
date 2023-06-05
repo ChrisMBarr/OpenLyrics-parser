@@ -81,17 +81,30 @@ export namespace OpenLyricsXml {
     verse?: IVerse[];
   }
 
-export type IVerseOrInstrumentLine = (string | { '#text': string; part?: string; repeat?: string });
+  export type IVerseOrInstrumentLineUnparsed = string | { '#text': string; part?: string; repeat?: string };
 
   export interface IVerse {
-    lines: IVerseOrInstrumentLine[];
+    lines: IVerseOrInstrumentLineUnparsed[];
     name: string;
     lang?: string;
     translit?: string;
   }
 
+  export interface IInstrumentLine {
+    part?: string;
+    repeat?: string;
+  }
+
   export interface IInstrument {
-    lines: IVerseOrInstrumentLine[];
+    lines: IVerseOrInstrumentLineUnparsed[];
     name: string;
+  }
+
+  export interface ILineChord {
+    [key: string]: string | undefined;
+    name?: string;
+    root?: string;
+    structure?: string;
+    upbeat?: string;
   }
 }

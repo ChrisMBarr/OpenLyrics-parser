@@ -4,10 +4,12 @@ export namespace OpenLyrics {
     meta: IMeta;
     properties: IProperties;
     format: IFormat;
-    verses: ILyricSectionVerse[];
+    verses: IVerse[];
     instruments: ILyricSectionInstrument[];
   }
 
+  //============================================
+  //Meta
   export interface IMeta {
     version: string;
     createdIn: string;
@@ -15,6 +17,8 @@ export namespace OpenLyrics {
     modifiedDate: Date | null;
   }
 
+  //============================================
+  //Properties
   export interface IProperties {
     authors: IAuthor[];
     titles: ITitle[];
@@ -57,6 +61,8 @@ export namespace OpenLyrics {
     entry: string;
   }
 
+  //============================================
+  //Format
   export interface IFormat {
     application: string;
     tags: IFormatTag[];
@@ -68,44 +74,61 @@ export namespace OpenLyrics {
     close: string;
   }
 
-  export interface ILyricSectionLineContentStandard {
-    type: 'text' | 'comment';
-    value: string;
-  }
-  export interface ILyricSectionLineContentTag {
-    type: 'tag';
-    name: string;
-    value: string;
-  }
-  export interface ILyricSectionLineContentChord {
+  //============================================
+  //Verses & Instruments (Shared)
+  export interface IVerseAndInstrumentLineContentChord {
     type: 'chord';
     [key: string]: string;
   }
 
-  export interface ILyricSectionLineContentBeat {
-    type: 'beat';
-    chords: ILyricSectionLineContentChord[]
-  }
-
-  export type ILyricSectionLineContent =
-    | ILyricSectionLineContentStandard
-    | ILyricSectionLineContentTag
-    | ILyricSectionLineContentChord;
-
-  export interface ILyricSectionLine {
-    content: ILyricSectionLineContent[];
-    part: string;
-  }
-
-  export interface ILyricSectionVerse {
+  //============================================
+  //Lyrics
+  export interface IVerse {
     name: string;
     lang: string;
     transliteration: string;
-    lines: ILyricSectionLine[];
+    lines: IVerseLine[];
   }
 
+  export interface IVerseLine {
+    content: IVerseLineContent[];
+    part: string;
+  }
+
+  export type IVerseLineContent =
+    | IVerseLineContentStandard
+    | IVerseLineContentTag
+    | IVerseAndInstrumentLineContentChord;
+
+  export interface IVerseLineContentStandard {
+    type: 'text' | 'comment';
+    value: string;
+  }
+
+  export interface IVerseLineContentTag {
+    type: 'tag';
+    name: string;
+    value: string;
+  }
+
+  //============================================
+  //Instruments
   export interface ILyricSectionInstrument {
     name: string;
-    lines: (ILyricSectionLineContentBeat | ILyricSectionLineContentChord)[];
+    lines: IInstrumentLine[];
   }
+
+  export interface IInstrumentLine {
+    content: IInstrumentLineContent[];
+    part: string;
+  }
+
+  export interface IInstrumentLineContentBeat {
+    type: 'beat';
+    chords: IVerseAndInstrumentLineContentChord[];
+  }
+
+  export type IInstrumentLineContent =
+    | IInstrumentLineContentBeat
+    | IVerseAndInstrumentLineContentChord;
 }
