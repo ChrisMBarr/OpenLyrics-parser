@@ -44,7 +44,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.lyrics).toEqual<ol.ILyricSection[]>([
+      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -62,6 +62,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
     });
 
     it('should return a song for file: complex.xml"', () => {
@@ -132,7 +133,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: 'v1 v2  v3 c v4 c1 c2 b b1 b2',
         version: '0.99',
       });
-      expect(parsedSong.lyrics).toEqual<ol.ILyricSection[]>([
+      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -309,6 +310,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
     });
 
     it('should return a song with format tags for file: format.xml"', () => {
@@ -355,7 +357,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.lyrics).toEqual<ol.ILyricSection[]>([
+      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -383,6 +385,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
     });
 
     it('should return a song with format tags for file: format2.xml"', () => {
@@ -464,7 +467,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.lyrics).toEqual<ol.ILyricSection[]>([
+      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -582,9 +585,10 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
     });
 
-    fit('should return a song with instrument tags in the lyrics for file: laboratory.xml"', () => {
+    it('should return a song with instrument tags in the lyrics for file: laboratory.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/laboratory.xml').toString();
       const parsedSong = olParser.parse(testFile);
 
@@ -617,7 +621,7 @@ describe('OpenLyrics', (): void => {
         verseOrder: 'i v1 v2',
         version: '',
       });
-      expect(parsedSong.lyrics).toEqual<ol.ILyricSection[]>([
+      expect(parsedSong.verses).toEqual<ol.ILyricSectionVerse[]>([
         {
           lang: '',
           lines: [
@@ -852,7 +856,7 @@ describe('OpenLyrics', (): void => {
                 {
                   type: 'text',
                   value:
-                    'efficitur vel dolor.\n        Praesent rhoncus turpis at libero faucibus euismod.\n \n        Nulla congue fringilla nisi in auctor.\n \n        Pellentesque laoreet arcu eu justo aliquam,\n        nec suscipit eros imperdiet. Nunc vel iaculis elit.\n      ',
+                    'efficitur vel dolor.\n        Praesent rhoncus turpis at libero faucibus euismod.\n        Nulla congue fringilla nisi in auctor.\n        Pellentesque laoreet arcu eu justo aliquam,\n        nec suscipit eros imperdiet. Nunc vel iaculis elit.\n      ',
                 },
               ],
               part: '',
@@ -860,6 +864,12 @@ describe('OpenLyrics', (): void => {
           ],
           name: 'v2',
           transliteration: '',
+        },
+      ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
+        {
+          lines: [],
+          name: 'i',
         },
       ]);
     });

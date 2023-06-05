@@ -21,6 +21,8 @@ export class OpenLyrics {
       'song.properties.themes.theme',
       'song.lyrics.verse',
       'song.lyrics.verse.lines',
+      'song.lyrics.instrument',
+      'song.lyrics.instrument.lines',
     ];
 
     const xmlParser = new XMLParser({
@@ -32,7 +34,7 @@ export class OpenLyrics {
       parseAttributeValue: true,
       //the XML parser doesn't deal with `<br>` tags very well, so we need to stop parsing
       //when we get to the verse lines and then deal with this separately
-      stopNodes: ['song.lyrics.verse.lines'],
+      stopNodes: ['song.lyrics.verse.lines', 'song.lyrics.instrument.lines'],
       isArray: (_name, jPath: string): boolean => alwaysArray.includes(jPath),
       tagValueProcessor: (_tagName, tagValue, jPath): string | boolean | null => {
         //console.log(`<${_tagName}> at path: "${jPath}"`, '\n' + tagValue);
@@ -59,13 +61,15 @@ export class OpenLyrics {
     const meta = this.getSongMeta(parsedDoc.song);
     const properties = this.getSongProperties(parsedDoc.song.properties);
     const format = this.getSongFormat(parsedDoc.song.format);
-    const lyrics = this.getSongLyrics(parsedDoc.song.lyrics);
+    const verses = this.getSongVerses(parsedDoc.song.lyrics.verse);
+    const instruments = this.getSongInstruments(parsedDoc.song.lyrics.instrument);
 
     return {
       meta,
       properties,
       format,
-      lyrics,
+      verses,
+      instruments
     };
   }
 
@@ -119,11 +123,11 @@ export class OpenLyrics {
     return { application, tags };
   }
 
-  private getSongLyrics(lyrics: olXml.ILyrics): olReturn.ILyricSection[] {
-    const lyricSections: olReturn.ILyricSection[] = [];
-    if (lyrics.verse) {
-      for (const v of lyrics.verse) {
-        lyricSections.push({
+  private getSongVerses(verses?: olXml.IVerse[]): olReturn.ILyricSectionVerse[] {
+    const versesArr: olReturn.ILyricSectionVerse[] = [];
+    if (verses) {
+      for (const v of verses) {
+        versesArr.push({
           name: v.name,
           lang: v.lang ?? '',
           transliteration: v.translit ?? '',
@@ -131,10 +135,23 @@ export class OpenLyrics {
         });
       }
     }
-    return lyricSections;
+    return versesArr;
   }
 
-  private getLyricSectionLines(lines: olXml.IVerseLine[]): olReturn.ILyricSectionLine[] {
+  private getSongInstruments(instruments?: olXml.IInstrument[]): olReturn.ILyricSectionInstrument[] {
+    const instrumentsArr: olReturn.ILyricSectionInstrument[] = [];
+    if (instruments) {
+      for (const i of instruments) {
+        instrumentsArr.push({
+          name: i.name,
+          lines: [],
+        });
+      }
+    }
+    return instrumentsArr;
+  }
+
+  private getLyricSectionLines(lines: olXml.IVerseOrInstrumentLine[]): olReturn.ILyricSectionLine[] {
     //Each line will come back as a string that might have XML nodes in it (comments, chords, ???)
     //To make line breaks not screw the text up we had to stop the XML parsing at this point in the
     //document, so now we must manually parse what is left

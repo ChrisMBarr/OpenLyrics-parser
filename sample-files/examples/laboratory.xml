@@ -21,7 +21,8 @@
         <beat><chord root="D"/><chord root="D" structure="sus4" /></beat>
         <beat><chord root="D"/><chord root="D" structure="sus4"/></beat>
         <beat><chord root="G"/><chord root="A"/></beat>
-        <beat><chord root="D"/><chord root="D" structure="sus4" /></beat>
+        <chord root="D"/>
+        <chord root="D" structure="sus4" />
       </lines>
     </instrument>
     <verse name="v1">
@@ -38,8 +39,8 @@
         <chord root="G" bass="B"/>Accumsan <chord root="A" structure="sus2"/>eget neque.<br/>
         <chord root="A" bass="C#" structure="sus2"/>Vestibulum <chord root="D"/>facilisis lacus non feugiat pulvinar. <chord root="A" structure="sus2"/><br/>
         <chord root="D"/>Cras nulla leo, <chord root="G#"/>placerat a <chord root="B"/>bibendum ac, <chord root="F"/>efficitur vel dolor.<br/>
-        Praesent rhoncus turpis at libero faucibus euismod.<br/> 
-        Nulla congue fringilla nisi in auctor.<br/> 
+        Praesent rhoncus turpis at libero faucibus euismod.<br/>
+        Nulla congue fringilla nisi in auctor.<br/>
         Pellentesque laoreet arcu eu justo aliquam,<br/>
         nec suscipit eros imperdiet. Nunc vel iaculis elit.
       </lines>

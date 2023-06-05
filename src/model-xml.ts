@@ -77,15 +77,21 @@ export namespace OpenLyricsXml {
   }
 
   export interface ILyrics {
+    instrument?: IInstrument[];
     verse?: IVerse[];
   }
 
-export type IVerseLine = (string | { '#text': string; part?: string; repeat?: string });
+export type IVerseOrInstrumentLine = (string | { '#text': string; part?: string; repeat?: string });
 
   export interface IVerse {
-    lines: IVerseLine[];
+    lines: IVerseOrInstrumentLine[];
     name: string;
     lang?: string;
     translit?: string;
+  }
+
+  export interface IInstrument {
+    lines: IVerseOrInstrumentLine[];
+    name: string;
   }
 }

@@ -1,11 +1,11 @@
-import { ILyricSectionLineContent } from './model-return';
 //The models for the objects returned by the OpenLyrics parser
 export namespace OpenLyrics {
   export interface ISong {
     meta: IMeta;
     properties: IProperties;
     format: IFormat;
-    lyrics: ILyricSection[];
+    verses: ILyricSectionVerse[];
+    instruments: ILyricSectionInstrument[];
   }
 
   export interface IMeta {
@@ -82,6 +82,11 @@ export namespace OpenLyrics {
     [key: string]: string;
   }
 
+  export interface ILyricSectionLineContentBeat {
+    type: 'beat';
+    chords: ILyricSectionLineContentChord[]
+  }
+
   export type ILyricSectionLineContent =
     | ILyricSectionLineContentStandard
     | ILyricSectionLineContentTag
@@ -92,10 +97,15 @@ export namespace OpenLyrics {
     part: string;
   }
 
-  export interface ILyricSection {
+  export interface ILyricSectionVerse {
     name: string;
     lang: string;
     transliteration: string;
     lines: ILyricSectionLine[];
+  }
+
+  export interface ILyricSectionInstrument {
+    name: string;
+    lines: (ILyricSectionLineContentBeat | ILyricSectionLineContentChord)[];
   }
 }
