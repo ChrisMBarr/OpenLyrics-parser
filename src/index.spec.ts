@@ -63,7 +63,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([]);
     });
 
     it('should return a song for file: complex.xml"', () => {
@@ -86,26 +86,10 @@ describe('OpenLyrics', (): void => {
           { lang: 'de-DE', original: null, value: 'Erstaunliche Anmut' },
         ],
         authors: [
-          {
-            lang: '',
-            type: '',
-            value: 'John Newton',
-          },
-          {
-            lang: '',
-            type: 'words',
-            value: 'Chris Rice',
-          },
-          {
-            lang: '',
-            type: 'music',
-            value: 'Richard Wagner',
-          },
-          {
-            lang: 'cs',
-            type: 'translation',
-            value: 'František Foo',
-          },
+          { lang: '', type: '', value: 'John Newton' },
+          { lang: '', type: 'words', value: 'Chris Rice' },
+          { lang: '', type: 'music', value: 'Richard Wagner' },
+          { lang: 'cs', type: 'translation', value: 'František Foo' },
         ],
         ccliNo: '4639462',
         copyright: 'public domain',
@@ -242,7 +226,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([]);
     });
 
     it('should return a song with format tags for file: format.xml"', () => {
@@ -318,7 +302,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([]);
     });
 
     it('should return a song with format tags for file: format2.xml"', () => {
@@ -522,7 +506,7 @@ describe('OpenLyrics', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([]);
     });
 
     it('should return a song with instrument tags in the lyrics for file: laboratory.xml"', () => {
@@ -657,7 +641,7 @@ describe('OpenLyrics', (): void => {
           transliteration: '',
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([
         {
           lines: [
             {
@@ -747,7 +731,7 @@ describe('OpenLyrics', (): void => {
           transliteration: '',
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([
         {
           lines: [
             {
@@ -945,7 +929,7 @@ describe('OpenLyrics', (): void => {
           transliteration: '',
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([
         {
           lines: [
             {
@@ -1363,7 +1347,7 @@ describe('OpenLyrics', (): void => {
           transliteration: '',
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([]);
     });
 
     it('should return a song for the HEBREW file: Hava Nagila.xml"', () => {
@@ -1579,7 +1563,7 @@ describe('OpenLyrics', (): void => {
           transliteration: '',
         },
       ]);
-      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<ol.IInstrument[]>([]);
     });
   });
 

@@ -5,7 +5,7 @@ export namespace OpenLyrics {
     properties: IProperties;
     format: IFormat;
     verses: IVerse[];
-    instruments: ILyricSectionInstrument[];
+    instruments: IInstrument[];
   }
 
   //============================================
@@ -78,8 +78,13 @@ export namespace OpenLyrics {
   //============================================
   //Verses & Instruments (Shared)
   export interface IVerseAndInstrumentLineContentChord {
+    [key: string]: string | undefined;
     type: 'chord';
-    [key: string]: string;
+    value?: string;
+    name?: string;
+    root?: string;
+    structure?: string;
+    upbeat?: string;
   }
 
   //============================================
@@ -114,7 +119,7 @@ export namespace OpenLyrics {
 
   //============================================
   //Instruments
-  export interface ILyricSectionInstrument {
+  export interface IInstrument {
     name: string;
     lines: IInstrumentLine[];
   }

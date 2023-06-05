@@ -145,8 +145,8 @@ export class OpenLyrics {
 
   private getSongInstruments(
     instruments?: olXml.IInstrument[]
-  ): olReturn.ILyricSectionInstrument[] {
-    const instrumentsArr: olReturn.ILyricSectionInstrument[] = [];
+  ): olReturn.IInstrument[] {
+    const instrumentsArr: olReturn.IInstrument[] = [];
     if (instruments) {
       for (const i of instruments) {
         instrumentsArr.push({
