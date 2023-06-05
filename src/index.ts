@@ -35,10 +35,15 @@ export class OpenLyrics {
 
     const meta = this.getSongMeta(parsedDoc.song);
     const properties = this.getSongProperties(parsedDoc.song.properties);
-    const formatTags = this.getSongFormat(parsedDoc.song.format);
+    const format = this.getSongFormat(parsedDoc.song.format);
     const lyrics = this.getSongLyrics(parsedDoc.song.lyrics);
 
-    return { meta, properties, format: formatTags, lyrics };
+    return {
+      meta,
+      properties,
+      format,
+      lyrics,
+    };
   }
 
   private getSongMeta(olSong: olXml.ISong): olReturn.IMeta {
@@ -56,7 +61,7 @@ export class OpenLyrics {
     return {
       authors: this.getSongPropertyAuthors(props.authors),
       ccliNo: props.ccliNo ?? null,
-      comments: this.getSongComments(props.comments),
+      comments: this.getSongPropertyComments(props.comments),
       copyright: props.copyright?.toString() ?? '',
       key: props.key ?? '',
       keywords: props.keywords ?? '',
@@ -84,7 +89,8 @@ export class OpenLyrics {
         return {
           name: t.name,
           open: t.open,
-          close: t.close ?? '' };
+          close: t.close ?? '',
+        };
       });
     }
     return { application, tags };
@@ -94,15 +100,6 @@ export class OpenLyrics {
   private getSongLyrics(_lyrics: olXml.ILyrics): olReturn.ILyricSection[] {
     // console.log('lyrics', lyrics);
     return [];
-  }
-
-  private getSongComments(comments?: olXml.IComments): string[] {
-    let commentArr: string[] = [];
-    if (comments) {
-      // console.log('comments', comments.comment);
-      commentArr = comments.comment.map((c) => this.getStringOrTextProp(c));
-    }
-    return commentArr;
   }
 
   //==============================================================================
@@ -122,19 +119,13 @@ export class OpenLyrics {
     return authorsArr;
   }
 
-  private getSongPropertyTitles(titles?: olXml.ITitles): olReturn.ITitle[] {
-    const titlesArr: olReturn.ITitle[] = [];
-    if (titles) {
-      // console.log('titles', titles.title);
-      for (const t of titles.title) {
-        titlesArr.push({
-          lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
-          original: this.getOptionalPropOnPossibleObject(t, 'original', null),
-          value: this.getStringOrTextProp(t),
-        });
-      }
+  private getSongPropertyComments(comments?: olXml.IComments): string[] {
+    let commentArr: string[] = [];
+    if (comments) {
+      // console.log('comments', comments.comment);
+      commentArr = comments.comment.map((c) => this.getStringOrTextProp(c));
     }
-    return titlesArr;
+    return commentArr;
   }
 
   private getSongPropertyThemes(themes?: olXml.IThemes): olReturn.ITheme[] {
@@ -144,6 +135,21 @@ export class OpenLyrics {
       for (const t of themes.theme) {
         titlesArr.push({
           lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
+          value: this.getStringOrTextProp(t),
+        });
+      }
+    }
+    return titlesArr;
+  }
+
+  private getSongPropertyTitles(titles?: olXml.ITitles): olReturn.ITitle[] {
+    const titlesArr: olReturn.ITitle[] = [];
+    if (titles) {
+      // console.log('titles', titles.title);
+      for (const t of titles.title) {
+        titlesArr.push({
+          lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
+          original: this.getOptionalPropOnPossibleObject(t, 'original', null),
           value: this.getStringOrTextProp(t),
         });
       }
