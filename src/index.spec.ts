@@ -150,12 +150,7 @@ describe('OpenLyrics', (): void => {
             },
             {
               part: 'women',
-              content: [
-                {
-                  type: 'text',
-                  value: 'A b c\nD e f',
-                },
-              ],
+              content: [{ type: 'text', value: 'A b c\nD e f' }],
             },
           ],
         },
@@ -167,14 +162,8 @@ describe('OpenLyrics', (): void => {
             {
               part: '',
               content: [
-                {
-                  name: 'B',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'Erstaunliche Ahmut, wie',
-                },
+                { name: 'B', type: 'chord' },
+                { type: 'text', value: 'Erstaunliche Ahmut, wie' },
               ],
             },
           ],
@@ -187,14 +176,8 @@ describe('OpenLyrics', (): void => {
             {
               part: '',
               content: [
-                {
-                  type: 'comment',
-                  value: 'any comment',
-                },
-                {
-                  type: 'text',
-                  value: '\nLine content.',
-                },
+                { type: 'comment', value: 'any comment' },
+                { type: 'text', value: '\nLine content.' },
               ],
             },
           ],
@@ -207,64 +190,26 @@ describe('OpenLyrics', (): void => {
             {
               part: 'men',
               content: [
-                {
-                  type: 'comment',
-                  value: 'any text',
-                },
+                { type: 'comment', value: 'any text' },
                 {
                   type: 'text',
                   value: '\nAmazing grace how sweet the sound that saved a wretch like me;\n',
                 },
-                {
-                  type: 'comment',
-                  value: 'any text',
-                },
-                {
-                  type: 'text',
-                  value: '\n',
-                },
-                {
-                  name: 'D',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'Amazing grace how sweet ',
-                },
-                {
-                  name: 'D',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'the sound that saved a wretch like me;',
-                },
-                {
-                  name: 'B7',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: '\nAmazing grace',
-                },
-                {
-                  name: 'G7',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: ' how sweet the sound that saved a wretch like me;',
-                },
+                { type: 'comment', value: 'any text' },
+                { type: 'text', value: '\n' },
+                { name: 'D', type: 'chord' },
+                { type: 'text', value: 'Amazing grace how sweet ' },
+                { name: 'D', type: 'chord' },
+                { type: 'text', value: 'the sound that saved a wretch like me;' },
+                { name: 'B7', type: 'chord' },
+                { type: 'text', value: '\nAmazing grace' },
+                { name: 'G7', type: 'chord' },
+                { type: 'text', value: ' how sweet the sound that saved a wretch like me;' },
               ],
             },
             {
               part: 'women',
-              content: [
-                {
-                  type: 'text',
-                  value: 'A b c\n\nD e f',
-                },
-              ],
+              content: [{ type: 'text', value: 'A b c\n\nD e f' }],
             },
           ],
         },
@@ -275,21 +220,11 @@ describe('OpenLyrics', (): void => {
           lines: [
             {
               part: '',
-              content: [
-                {
-                  type: 'text',
-                  value: '\n',
-                },
-              ],
+              content: [{ type: 'text', value: '\n' }],
             },
             {
               part: '',
-              content: [
-                {
-                  type: 'text',
-                  value: '\n\n\n\n\n',
-                },
-              ],
+              content: [{ type: 'text', value: '\n\n\n\n\n' }],
             },
           ],
         },
@@ -300,12 +235,7 @@ describe('OpenLyrics', (): void => {
           lines: [
             {
               part: '',
-              content: [
-                {
-                  type: 'text',
-                  value: 'This is text of ending.',
-                },
-              ],
+              content: [{ type: 'text', value: 'This is text of ending.' }],
             },
           ],
         },
@@ -627,28 +557,14 @@ describe('OpenLyrics', (): void => {
           lines: [
             {
               content: [
-                {
-                  type: 'text',
-                  value: '\n        ',
-                },
+                { type: 'text', value: '\n        ' },
                 {
                   type: 'comment',
                   value: 'normal 0.9-style chords mixed: <chord>text</chord> <chord/>text',
                 },
-                {
-                  type: 'text',
-                  value: '\n        ',
-                },
-                {
-                  value: 'Lorem',
-                  root: 'D',
-                  type: 'chord',
-                  upbeat: 'true',
-                },
-                {
-                  type: 'text',
-                  value: ' ',
-                },
+                { type: 'text', value: '\n        ' },
+                { value: 'Lorem', root: 'D', type: 'chord', upbeat: 'true' },
+                { type: 'text', value: ' ' },
                 {
                   value: 'ipsum',
                   bass: 'C#',
@@ -656,10 +572,7 @@ describe('OpenLyrics', (): void => {
                   structure: 'm3-5-7-9-a11-13',
                   type: 'chord',
                 },
-                {
-                  type: 'text',
-                  value: ' ',
-                },
+                { type: 'text', value: ' ' },
                 {
                   value: 'dolor sit amet,',
                   bass: 'C#',
@@ -667,10 +580,7 @@ describe('OpenLyrics', (): void => {
                   structure: 'sus2',
                   type: 'chord',
                 },
-                {
-                  type: 'text',
-                  value: '\n        consectetur ',
-                },
+                { type: 'text', value: '\n        consectetur ' },
                 {
                   value: 'adipiscing elit',
                   root: 'B',
@@ -678,84 +588,22 @@ describe('OpenLyrics', (): void => {
                   type: 'chord',
                   upbeat: 'true',
                 },
-                {
-                  type: 'text',
-                  value: '. ',
-                },
-                {
-                  value: 'Maecenas turpis',
-                  root: 'G',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: ' ',
-                },
-                {
-                  value: 'tor',
-                  bass: 'F#',
-                  root: 'D',
-                  structure: '3-5',
-                  type: 'chord',
-                },
-                {
-                  value: 'tor,',
-                  bass: 'B',
-                  root: 'F',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: '\n        ',
-                },
-                {
-                  value: 'tempor',
-                  bass: 'F#',
-                  root: 'D',
-                  type: 'chord',
-                  upbeat: 'true',
-                },
-                {
-                  type: 'text',
-                  value: ' ',
-                },
-                {
-                  value: 'eget lacinia',
-                  bass: 'C#',
-                  root: 'D',
-                  structure: 'sus2',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: ' ',
-                },
-                {
-                  value: 'quis',
-                  root: 'G',
-                  structure: 'sus2',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: '. ',
-                },
-                {
-                  root: 'C',
-                  type: 'chord',
-                },
-                {
-                  root: 'G',
-                  type: 'chord',
-                },
-                {
-                  root: 'D',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: '\n      ',
-                },
+                { type: 'text', value: '. ' },
+                { value: 'Maecenas turpis', root: 'G', type: 'chord' },
+                { type: 'text', value: ' ' },
+                { value: 'tor', bass: 'F#', root: 'D', structure: '3-5', type: 'chord' },
+                { value: 'tor,', bass: 'B', root: 'F', type: 'chord' },
+                { type: 'text', value: '\n        ' },
+                { value: 'tempor', bass: 'F#', root: 'D', type: 'chord', upbeat: 'true' },
+                { type: 'text', value: ' ' },
+                { value: 'eget lacinia', bass: 'C#', root: 'D', structure: 'sus2', type: 'chord' },
+                { type: 'text', value: ' ' },
+                { value: 'quis', root: 'G', structure: 'sus2', type: 'chord' },
+                { type: 'text', value: '. ' },
+                { root: 'C', type: 'chord' },
+                { root: 'G', type: 'chord' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: '\n      ' },
               ],
               part: '',
             },
@@ -768,91 +616,26 @@ describe('OpenLyrics', (): void => {
           lines: [
             {
               content: [
-                {
-                  type: 'text',
-                  value: '\n        ',
-                },
-                {
-                  type: 'comment',
-                  value: 'only empty chords in 0.9: <chord/>text',
-                },
-                {
-                  type: 'text',
-                  value: '\n        ',
-                },
-                {
-                  bass: 'B',
-                  root: 'G',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'Accumsan ',
-                },
-                {
-                  root: 'A',
-                  structure: 'sus2',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'eget neque.\n        ',
-                },
-                {
-                  bass: 'C#',
-                  root: 'A',
-                  structure: 'sus2',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'Vestibulum ',
-                },
-                {
-                  root: 'D',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'facilisis lacus non feugiat pulvinar. ',
-                },
-                {
-                  root: 'A',
-                  structure: 'sus2',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: '\n        ',
-                },
-                {
-                  root: 'D',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'Cras nulla leo, ',
-                },
-                {
-                  root: 'G#',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'placerat a ',
-                },
-                {
-                  root: 'B',
-                  type: 'chord',
-                },
-                {
-                  type: 'text',
-                  value: 'bibendum ac, ',
-                },
-                {
-                  root: 'F',
-                  type: 'chord',
-                },
+                { type: 'text', value: '\n        ' },
+                { type: 'comment', value: 'only empty chords in 0.9: <chord/>text' },
+                { type: 'text', value: '\n        ' },
+                { bass: 'B', root: 'G', type: 'chord' },
+                { type: 'text', value: 'Accumsan ' },
+                { root: 'A', structure: 'sus2', type: 'chord' },
+                { type: 'text', value: 'eget neque.\n        ' },
+                { bass: 'C#', root: 'A', structure: 'sus2', type: 'chord' },
+                { type: 'text', value: 'Vestibulum ' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: 'facilisis lacus non feugiat pulvinar. ' },
+                { root: 'A', structure: 'sus2', type: 'chord' },
+                { type: 'text', value: '\n        ' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: 'Cras nulla leo, ' },
+                { root: 'G#', type: 'chord' },
+                { type: 'text', value: 'placerat a ' },
+                { root: 'B', type: 'chord' },
+                { type: 'text', value: 'bibendum ac, ' },
+                { root: 'F', type: 'chord' },
                 {
                   type: 'text',
                   value:
