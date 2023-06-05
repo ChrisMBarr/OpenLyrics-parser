@@ -22,33 +22,40 @@ describe('OpenLyrics', (): void => {
           createdIn: 'OpenLP 1.9.0',
           modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
           modifiedIn: 'MyApp 0.0.1',
-          version: 0.8,
+          version: '0.8',
         },
         format: { application: '', tags: [] },
         properties: {
           authors: [],
-          ccliNo: null,
+          ccliNo: '',
           comments: [],
           copyright: '',
           key: '',
           keywords: '',
           publisher: '',
-          released: null,
+          released: '',
           songBooks: [],
-          tempo: null,
+          tempo: '',
           tempoType: '',
           themes: [],
           titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
-          transposition: null,
+          transposition: '',
           variant: '',
           verseOrder: '',
-          version: null,
+          version: '',
         },
-        lyrics: [],
+        lyrics: [
+          {
+            name: 'v1',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+        ],
       } as ol.ISong);
     });
 
-    it('should return a song for file: complex.xml"', () => {
+    fit('should return a song for file: complex.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/complex.xml').toString();
 
       expect(olParser.parse(testFile)).toEqual({
@@ -56,7 +63,7 @@ describe('OpenLyrics', (): void => {
           createdIn: 'OpenLP 1.9.0',
           modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
           modifiedIn: 'ChangingSong 0.0.1',
-          version: 0.8,
+          version: '0.8',
         },
         format: { application: '', tags: [] },
         properties: {
@@ -88,19 +95,19 @@ describe('OpenLyrics', (): void => {
               value: 'František Foo',
             },
           ],
-          ccliNo: 4639462,
+          ccliNo: '4639462',
           copyright: 'public domain',
           comments: ['This is one of the most popular songs in our congregation.'],
           key: 'C#',
           keywords: 'something to help with more accurate results',
           publisher: 'Sparrow Records',
-          released: 1779,
+          released: '1779',
           songBooks: [
             { entry: '', name: 'Songbook without Number' },
             { entry: '48', name: 'Songbook with Number' },
             { entry: '153c', name: 'Songbook with Letters in Entry Name' },
           ],
-          tempo: 90,
+          tempo: '90',
           tempoType: 'bpm',
           themes: [
             { lang: '', value: 'Adoration' },
@@ -111,12 +118,91 @@ describe('OpenLyrics', (): void => {
             { lang: 'pt-BR', value: 'Adoração' },
             { lang: 'pt-BR', value: 'Salvação' },
           ],
-          transposition: 2,
+          transposition: '2',
           variant: 'Newsboys',
           verseOrder: 'v1 v2  v3 c v4 c1 c2 b b1 b2',
-          version: 0.99,
+          version: '0.99',
         },
-        lyrics: [],
+        lyrics: [
+          {
+            name: 'v1',
+            transliteration: '',
+            lang: 'en',
+            lines: [
+              {
+                part: '',
+                text: 'Amazing grace how sweet the sound that saved a wretch like me;',
+              },
+              {
+                part: 'women',
+                text: 'A b c\nD e f',
+              },
+            ],
+          },
+          {
+            name: 'v1',
+            transliteration: '',
+            lang: 'de',
+            lines: [
+              {
+                part: '',
+                text: '',
+              },
+            ],
+          },
+          {
+            name: 'c',
+            transliteration: '',
+            lang: '',
+            lines: [
+              {
+                part: '',
+                text: '',
+              },
+            ],
+          },
+          {
+            name: 'v2',
+            transliteration: '',
+            lang: 'en-US',
+            lines: [
+              {
+                part: 'men',
+                text: '',
+              },
+              {
+                part: 'women',
+                text: 'A b c\n\nD e f',
+              },
+            ],
+          },
+          {
+            name: 'emptyline',
+            transliteration: '',
+            lang: 'de',
+            lines: [
+              {
+                part: '',
+                text: '\n',
+              },
+              {
+                part: '',
+                text: '\n\n\n\n\n',
+              },
+            ],
+          },
+          {
+            name: 'e',
+            transliteration: '',
+            lang: 'de',
+            lines: [
+              {
+                part: '',
+                text: 'This is text of ending.',
+              },
+            ],
+          },
+        ],
       } as ol.ISong);
     });
 
@@ -128,7 +214,7 @@ describe('OpenLyrics', (): void => {
           createdIn: 'OpenLP 1.9.0',
           modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
           modifiedIn: 'OpenLP 1.9.7',
-          version: 0.8,
+          version: '0.8',
         },
         format: {
           application: 'OpenLP',
@@ -147,24 +233,31 @@ describe('OpenLyrics', (): void => {
         },
         properties: {
           authors: [],
-          ccliNo: null,
+          ccliNo: '',
           comments: [],
           copyright: '',
           key: '',
           keywords: '',
           publisher: '',
-          released: null,
+          released: '',
           songBooks: [],
-          tempo: null,
+          tempo: '',
           tempoType: '',
           themes: [],
           titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
-          transposition: null,
+          transposition: '',
           variant: '',
           verseOrder: '',
-          version: null,
+          version: '',
         },
-        lyrics: [],
+        lyrics: [
+          {
+            name: 'v1',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+        ],
       } as ol.ISong);
     });
 
@@ -176,7 +269,7 @@ describe('OpenLyrics', (): void => {
           createdIn: 'OpenLP 1.9.7',
           modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
           modifiedIn: 'OpenLP 1.9.7',
-          version: 0.8,
+          version: '0.8',
         },
         format: {
           application: 'OpenLP',
@@ -230,24 +323,61 @@ describe('OpenLyrics', (): void => {
         },
         properties: {
           authors: [{ lang: '', type: '', value: 'M. Jan Hus' }],
-          ccliNo: null,
+          ccliNo: '',
           comments: [],
           copyright: '',
           key: '',
           keywords: '',
           publisher: '',
-          released: null,
+          released: '',
           songBooks: [{ entry: '', name: 'Jistebnický kancionál' }],
-          tempo: null,
+          tempo: '',
           tempoType: '',
           themes: [],
           titles: [{ lang: '', original: null, value: 'Jezu Kriste, štědrý kněže' }],
-          transposition: null,
+          transposition: '',
           variant: '',
           verseOrder: '',
-          version: null,
+          version: '',
         },
-        lyrics: [],
+        lyrics: [
+          {
+            name: 'v1',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+          {
+            name: 'v2',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+          {
+            name: 'v3',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+          {
+            name: 'v4',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+          {
+            name: 'v5',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+          {
+            name: 'v6',
+            transliteration: '',
+            lang: '',
+            lines: [],
+          },
+        ],
       } as ol.ISong);
     });
   });

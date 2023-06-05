@@ -8,7 +8,7 @@ export namespace OpenLyrics {
   }
 
   export interface IMeta {
-    version: number;
+    version: string;
     createdIn: string;
     modifiedIn: string;
     modifiedDate: Date;
@@ -20,16 +20,16 @@ export namespace OpenLyrics {
     songBooks: ISongBook[];
     comments: string[];
     copyright: string;
-    ccliNo: number | null;
-    released: number | null;
-    transposition: number | null;
-    tempo: number | null;
+    ccliNo: string;
+    released: string;
+    transposition: string;
+    tempo: string;
     tempoType: string;
     themes: ITheme[];
     key: string;
     variant: string;
     publisher: string;
-    version: number | null;
+    version: string;
     keywords: string;
     verseOrder: string;
   }
@@ -67,5 +67,15 @@ export namespace OpenLyrics {
     close: string;
   }
 
-  export interface ILyricSection {}
+  export interface ILyricSectionLine {
+    text: string;
+    part: string;
+  }
+
+  export interface ILyricSection {
+    name: string;
+    lang: string;
+    transliteration: string;
+    lines: ILyricSectionLine[];
+  }
 }

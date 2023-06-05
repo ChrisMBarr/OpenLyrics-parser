@@ -18,22 +18,22 @@ export namespace OpenLyricsXml {
     lyrics: ILyrics;
     format?: IFormat;
     xmlns: string;
-    version: number;
+    version: string;
     createdIn: string;
     modifiedIn: string;
     modifiedDate: string;
   }
 
   export interface IProperties {
-    copyright?: number;
-    ccliNo?: number;
-    released?: number;
-    transposition?: number;
+    copyright?: string | number;
+    ccliNo?: string | number;
+    released?: string | number;
+    transposition?: string | number;
     key?: string;
     keywords?: string;
     variant?: string;
     publisher?: string;
-    version?: number;
+    version?: string | number;
     verseOrder?: string;
 
     titles?: ITitles;
@@ -65,7 +65,7 @@ export namespace OpenLyricsXml {
   }
 
   export interface ITempo {
-    '#text': number;
+    '#text': string | number;
     type: string;
   }
 
@@ -80,8 +80,10 @@ export namespace OpenLyricsXml {
     verse?: IVerse[];
   }
 
+export type IVerseLine = (string | { '#text': string; part?: string; repeat?: string });
+
   export interface IVerse {
-    lines: (string | { '#text': string; part?: string; repeat?: number })[];
+    lines: IVerseLine[];
     name: string;
     lang?: string;
     translit?: string;

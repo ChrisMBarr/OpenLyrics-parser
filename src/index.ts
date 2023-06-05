@@ -3,7 +3,7 @@ import { OpenLyrics as olReturn } from './model-return';
 import { OpenLyricsXml as olXml } from './model-xml';
 
 export class OpenLyrics {
-  parse(fileContent: string): olReturn.ISong {
+  public parse(fileContent: string): olReturn.ISong {
     //When certain XML nodes only have one item the parser will convert them into objects
     //Here we maintain a list of node paths to always keep as arrays
     //This keeps our code structure and type definitions more sane and normalized
@@ -23,12 +23,28 @@ export class OpenLyrics {
       ignoreAttributes: false,
       ignoreDeclaration: true,
       attributeNamePrefix: '',
+      parseTagValue: true,
       parseAttributeValue: true,
-      // stopNodes: ['song.lyrics.verse.lines'],
+      //the XML parser doesn't deal with `<br>` tags very well, so we need to stop parsing
+      //when we get to the verse lines and then deal with this separately
+      stopNodes: ['song.lyrics.verse.lines'],
       isArray: (_name, jPath: string): boolean => alwaysArray.includes(jPath),
-      // tagValueProcessor: (_tagName, tagValue, jPath): string | null => {
-      //   return jPath === 'song.lyrics.verse.lines' ? tagValue : null;
-      // },
+      tagValueProcessor: (_tagName, tagValue, jPath): string | boolean | null => {
+        //console.log(`<${_tagName}> at path: "${jPath}"`, '\n' + tagValue);
+
+        if (jPath === 'song.lyrics.verse.lines') {
+          //Inside of a verse line...
+          return tagValue
+          //replace all correctly and incorrectly formatted <br> </br> and </br> tags with new lines
+          //Sometimes these will already have a newline after them, remove that so that newlines aren't doubled
+          .replace(/<\/?br\/?>(\n)?/gi, '\n')
+          //Remove all XML/HTML comments
+          .replace(/<!--.+?-->/g, '');
+        }
+
+        //return everything else as is
+        return null;
+      },
     });
 
     const parsedDoc: olXml.IDocRoot = xmlParser.parse(fileContent);
@@ -52,7 +68,7 @@ export class OpenLyrics {
       createdIn: olSong.createdIn,
       modifiedDate: new Date(olSong.modifiedDate),
       modifiedIn: olSong.modifiedIn,
-      version: olSong.version,
+      version: olSong.version.toString(),
     };
   }
 
@@ -60,22 +76,22 @@ export class OpenLyrics {
     // console.log('props', props);
     return {
       authors: this.getSongPropertyAuthors(props.authors),
-      ccliNo: props.ccliNo ?? null,
+      ccliNo: props.ccliNo?.toString() ?? '',
       comments: this.getSongPropertyComments(props.comments),
       copyright: props.copyright?.toString() ?? '',
       key: props.key ?? '',
       keywords: props.keywords ?? '',
       publisher: props.publisher ?? '',
-      released: props.released ?? null,
+      released: props.released?.toString() ?? '',
       songBooks: this.getSongPropertySongBooks(props.songbooks),
-      tempo: props.tempo?.['#text'] ?? null,
+      tempo: props.tempo?.['#text'].toString() ?? '',
       tempoType: props.tempo?.type ?? '',
       themes: this.getSongPropertyThemes(props.themes),
       titles: this.getSongPropertyTitles(props.titles),
-      transposition: props.transposition ?? null,
+      transposition: props.transposition?.toString() ?? '',
       variant: props.variant ?? '',
       verseOrder: props.verseOrder ?? '',
-      version: props.version ?? null,
+      version: props.version?.toString() ?? '',
     };
   }
 
@@ -96,10 +112,34 @@ export class OpenLyrics {
     return { application, tags };
   }
 
-  // eslint-disable-next-line no-unused-vars
-  private getSongLyrics(_lyrics: olXml.ILyrics): olReturn.ILyricSection[] {
-    // console.log('lyrics', lyrics);
-    return [];
+  private getSongLyrics(lyrics: olXml.ILyrics): olReturn.ILyricSection[] {
+    const lyricSections: olReturn.ILyricSection[] = [];
+    if (lyrics.verse) {
+      for (const v of lyrics.verse) {
+        lyricSections.push({
+          name: v.name,
+          lang: v.lang ?? '',
+          transliteration: v.translit ?? '',
+          lines: this.getLyricSectionLines(v.lines),
+        });
+      }
+    }
+    return lyricSections;
+  }
+
+  private getLyricSectionLines(lines: olXml.IVerseLine[]): olReturn.ILyricSectionLine[] {
+    //Each line will come back as
+
+    const linesArr: olReturn.ILyricSectionLine[] = [];
+    for (const line of lines) {
+      console.log(line);
+      linesArr.push({
+        text: this.getStringOrTextProp(line),
+        part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
+      });
+    }
+
+    return linesArr;
   }
 
   //==============================================================================
