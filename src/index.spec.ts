@@ -481,7 +481,10 @@ describe('OpenLyrics', (): void => {
             {
               content: [
                 { type: 'tag', name: 'st', value: 'Ó,' },
-                { type: 'text', value: ', z bludů</tag> vstaňme,\ndané dobro nám poznejme,\nk ' },
+                {
+                  type: 'text',
+                  value: ', z bludů</tag> vstaňme,\ndané dobro nám poznejme,\nk ',
+                },
                 { type: 'tag', name: 'aq', value: 'Synu Božímu' },
                 { type: 'text', value: ' chvátejme,\nk té milosti!' },
               ],
@@ -507,7 +510,8 @@ describe('OpenLyrics', (): void => {
                 {
                   name: 'st',
                   type: 'tag',
-                  value: 'Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!',
+                  value:
+                    'Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!',
                 },
               ],
               part: '',
@@ -969,15 +973,617 @@ describe('OpenLyrics', (): void => {
     });
   });
 
+  describe('Songs', () => {
+    it('should return a song for file: A Mighty Fortress is Our God.xml"', () => {
+      const testFile = readFileSync(
+        './sample-files/songs/A Mighty Fortress is Our God.xml'
+      ).toString();
+      const parsedSong = olParser.parse(testFile);
+
+      expect(parsedSong.meta).toEqual<ol.IMeta>({
+        createdIn: 'opensong2openlyrics.py 0.3',
+        modifiedDate: new Date('2012-04-10T21:31:48.233581'),
+        modifiedIn: 'convert-schema.py',
+        version: '0.9',
+      });
+      expect(parsedSong.format).toEqual<ol.IFormat>({
+        application: '',
+        tags: [],
+      });
+      expect(parsedSong.properties).toEqual<ol.IProperties>({
+        authors: [{ lang: '', type: '', value: 'Martin Luther' }],
+        ccliNo: '',
+        comments: [],
+        copyright: 'Public Domain',
+        key: '',
+        keywords: '',
+        publisher: '',
+        released: '',
+        songBooks: [],
+        tempo: '',
+        tempoType: '',
+        themes: [
+          { lang: '', value: 'Assurance' },
+          { lang: '', value: 'Trust' },
+        ],
+        titles: [{ lang: '', original: null, value: 'A Mighty Fortress is Our God' }],
+        transposition: '3',
+        variant: '',
+        verseOrder: 'v1 v2 v3 v4',
+        version: '',
+      });
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
+        {
+          lang: '',
+          lines: [
+            {
+              content: [
+                { type: 'text', value: '\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'A mighty ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'fortress ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'is our ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'God, a ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'Bulwark ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'never ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'fa' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'i' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'ling;\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'Our Helper ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'He a' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'mid the ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'flood of ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'mortal ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'ills pre' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'va' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'i' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'ling;\n        For ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'still our ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'an' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'cient ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'Foe doth ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'seek to ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'work us ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'woe;\n        His ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'craft and ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: "pow'r " },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'are ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'great, and ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'armed with ' },
+                { root: 'C', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'cruel ' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: 'hate,\n        On ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'earth is ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'not his ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'e' },
+                { root: 'F', type: 'chord' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'qual.\n      ' },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v1',
+          transliteration: '',
+        },
+        {
+          lang: '',
+          lines: [
+            {
+              content: [
+                { type: 'text', value: '\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'Did we in ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'our own ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'strength con' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'fide, our ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'striving ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'would be ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'lo' },
+                { root: 'F', type: 'chord' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'sing;\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'Were not the ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'right Man ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'on our ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'side, the ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'Man of ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: "God's own " },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'cho' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'o' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'sing;\n        Dost' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: ' ask who ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'that ' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'may ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'be: Christ ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'Jesus ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'it is ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'He;\n        Lord ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'Sabba' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'oth ' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'His ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'name, from ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'age to ' },
+                { root: 'C', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'age the ' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: 'same,\n        And ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'He must ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'win the ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'bat' },
+                { root: 'F', type: 'chord' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'tle.\n      ' },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v2',
+          transliteration: '',
+        },
+        {
+          lang: '',
+          lines: [
+            {
+              content: [
+                { type: 'text', value: '\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'And though this ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'world with ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'devils ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'filled should ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'threaten ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'to un' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'do ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: ' ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'us;\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'We will not ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'fear for ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'God hath ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'willed His ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'truth to ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'triumph ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'thr' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'ough ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'us:\n        The ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'prince of ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'dark' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'ness ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'grim, we ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'tremble ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'not for ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'him;\n        His ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'rage we ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'can ' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'en' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'dure for ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'lo, his ' },
+                { root: 'C', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'doom is ' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: 'sure,\n        One ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'little ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'word shall ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'fel' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'l ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'him.\n      ' },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v3',
+          transliteration: '',
+        },
+        {
+          lang: '',
+          lines: [
+            {
+              content: [
+                { type: 'text', value: '\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'That Word a' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'bove all ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'earthly ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: "pow'r, no " },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'thanks to ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'them a' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'bid' },
+                { root: 'F', type: 'chord' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'eth;\n        ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'The Spirit ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'and the ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'gifts are ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'ours through ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'Him who ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'with us ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'si' },
+                { root: 'F', type: 'chord' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'deth;\n        Let ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'goods and ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'kin' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'dred ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: 'go, this ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'mortal ' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'life al' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'so;\n        The ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'body ' },
+                { root: 'C', structure: 'sus4', type: 'chord' },
+                { type: 'text', value: 'they ' },
+                { root: 'C', type: 'chord' },
+                { type: 'text', value: 'may ' },
+                { root: 'F', type: 'chord' },
+                { type: 'text', value: "kill; God's " },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'truth a' },
+                { root: 'C', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'bideth ' },
+                { root: 'D', type: 'chord' },
+                { type: 'text', value: 'still,\n        His ' },
+                { root: 'G', structure: 'min', type: 'chord' },
+                { type: 'text', value: 'kingdom ' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'is for' },
+                { root: 'Eb', type: 'chord' },
+                { type: 'text', value: 'e' },
+                { root: 'F', type: 'chord' },
+                { root: 'Bb', type: 'chord' },
+                { type: 'text', value: 'ver!\n      ' },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v4',
+          transliteration: '',
+        },
+      ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+    });
+
+    it('should return a song for the HEBREW file: Hava Nagila.xml"', () => {
+      const testFile = readFileSync('./sample-files/songs/Hava Nagila.xml').toString();
+      const parsedSong = olParser.parse(testFile);
+
+      expect(parsedSong.meta).toEqual<ol.IMeta>({
+        createdIn: 'Trac 0.11.2',
+        modifiedDate: new Date('2012-04-10T21:31:49.006882'),
+        modifiedIn: 'convert-schema.py',
+        version: '0.9',
+      });
+      expect(parsedSong.format).toEqual<ol.IFormat>({
+        application: '',
+        tags: [],
+      });
+      expect(parsedSong.properties).toEqual<ol.IProperties>({
+        authors: [],
+        ccliNo: '',
+        comments: [],
+        copyright: 'public domain',
+        key: '',
+        keywords: '',
+        publisher: '',
+        released: '',
+        songBooks: [],
+        tempo: '',
+        tempoType: '',
+        themes: [
+          { lang: 'he', value: 'הבה נגילה' },
+          { lang: 'he', value: 'Hava Nagila' },
+          { lang: 'en', value: 'Rejoice' },
+        ],
+        titles: [
+          { lang: 'he', original: null, value: 'הבה נגילה' },
+          { lang: 'he', original: null, value: 'Hava Nagila' },
+          { lang: 'he', original: null, value: 'Hava naguila' },
+          { lang: 'en', original: null, value: 'Let Us Rejoice' },
+          { lang: 'fr', original: null, value: 'Réjouissons-nous' },
+        ],
+        transposition: '',
+        variant: 'Hebrew folk song',
+        verseOrder: '',
+        version: '',
+      });
+
+      //NOTE: The below Hebrew characters have an invisible control
+      //  character to switch the text direction to RTL!!!
+      //  Had to use string template quotes to work around this in testing
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
+        {
+          lang: 'he',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value: `
+        הבה נגילה
+        הבה נגילה
+        הבה נגילה ונשמחה
+      `,
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v1',
+          transliteration: '',
+        },
+        {
+          lang: 'he',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    "\n        Hava nagila\n        Hava nagila\n        Hava nagila vi nis'mecha\n      ",
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v1',
+          transliteration: 'en',
+        },
+        {
+          lang: 'en',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    "\n        Let's rejoice\n        Let's rejoice\n        Let's rejoice and be happy\n      ",
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v1',
+          transliteration: '',
+        },
+        {
+          lang: 'he',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value: `
+        הבה נרננה
+        הבה נרננה
+        הבה נרננה ונשמחה
+      `,
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'c',
+          transliteration: '',
+        },
+        {
+          lang: 'he',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    "\n        Hava neranenah\n        Hava neranenah\n        Hava neranenah vi nis'mecha\n      ",
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'c',
+          transliteration: 'en',
+        },
+        {
+          lang: 'en',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    "\n        Let's sing\n        Let's sing\n        Let's sing and be happy\n      ",
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'c',
+          transliteration: '',
+        },
+        {
+          lang: 'he',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value: `
+        !עורו, עורו אחים
+        עורו אחים בלב שמח
+        !עורו אחים, עורו אחים
+        בלב שמח
+      `,
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'b',
+          transliteration: '',
+        },
+        {
+          lang: 'he',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    "\n        Uru, uru achim!\n        Uru achim b'lev sameach\n\n        Uru achim, uru achim!\n        B'lev sameach\n      ",
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'b',
+          transliteration: 'en',
+        },
+        {
+          lang: 'en',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    '\n        Awake, awake, brothers!\n        Awake brothers with a happy heart\n        Awake, brothers, awake, brothers!\n        With a happy heart\n      ',
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'b',
+          transliteration: '',
+        },
+      ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+    });
+  });
+
   // it('should return a song for file: XXX.xml"', () => {
-  //   const testFile = readFileSync('./sample-files/examples/XXX.xml').toString();
+  //   const testFile = readFileSync('./sample-files/songs/XXX.xml').toString();
   //   const parsedSong = olParser.parse(testFile);
 
   //   expect(parsedSong.meta).toEqual<ol.IMeta>({
   //     createdIn: '',
-  //     modifiedDate: null,
-  //     modifiedIn: '',
-  //     version: '',
+  //     modifiedDate: new Date('2012-04-10T21:31:48.233581'),
+  //     modifiedIn: 'convert-schema.py',
+  //     version: '0.9',
   //   });
   //   expect(parsedSong.format).toEqual<ol.IFormat>({
   //     application: '',
