@@ -686,41 +686,323 @@ describe('OpenLyrics', (): void => {
       ]);
     });
 
-    // xit('should return a song for file: XXX.xml"', () => {
-    //   const testFile = readFileSync('./sample-files/examples/XXX.xml').toString();
-    //   const parsedSong = olParser.parse(testFile);
+    it('should return a song for file: test0.9.xml"', () => {
+      const testFile = readFileSync('./sample-files/examples/test0.9.xml').toString();
+      const parsedSong = olParser.parse(testFile);
 
-    //   expect(parsedSong.meta).toEqual<ol.IMeta>({
-    //     createdIn: '',
-    //     modifiedDate: null,
-    //     modifiedIn: '',
-    //     version: '',
-    //   });
-    //   expect(parsedSong.format).toEqual<ol.IFormat>({
-    //     application: '',
-    //     tags: [],
-    //   });
-    //   expect(parsedSong.properties).toEqual<ol.IProperties>({
-    //     authors: [],
-    //     ccliNo: '',
-    //     comments: [],
-    //     copyright: '',
-    //     key: '',
-    //     keywords: '',
-    //     publisher: '',
-    //     released: '',
-    //     songBooks: [],
-    //     tempo: '',
-    //     tempoType: '',
-    //     themes: [],
-    //     titles: [],
-    //     transposition: '',
-    //     variant: '',
-    //     verseOrder: '',
-    //     version: '',
-    //   });
-    //   expect(parsedSong.verses).toEqual<ol.IVerse[]>([]);
-    //   expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
-    // });
+      expect(parsedSong.meta).toEqual<ol.IMeta>({
+        createdIn: '',
+        modifiedDate: null,
+        modifiedIn: '',
+        version: '0.9',
+      });
+      expect(parsedSong.format).toEqual<ol.IFormat>({
+        application: '',
+        tags: [],
+      });
+      expect(parsedSong.properties).toEqual<ol.IProperties>({
+        authors: [
+          { lang: '', type: '', value: 'Csiszér László' },
+          { lang: '', type: 'words', value: 'Flach Ferenc' },
+          { lang: '', type: 'music', value: 'Flach Ferenc' },
+          { lang: '', type: 'translation', value: 'Majoros Ildikó' },
+          { lang: '', type: 'arrangement', value: 'Gellért Gyuris' },
+        ],
+        ccliNo: '',
+        comments: [],
+        copyright: '',
+        key: '',
+        keywords: '',
+        publisher: '',
+        released: '',
+        songBooks: [],
+        tempo: '',
+        tempoType: '',
+        themes: [],
+        titles: [{ lang: '', original: null, value: 'Testing 0.9' }],
+        transposition: '',
+        variant: '',
+        verseOrder: 'i v1',
+        version: '',
+      });
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
+        {
+          lang: '',
+          lines: [
+            {
+              content: [{ type: 'text', value: '\n        Testing 0.9.\n      ' }],
+              part: '',
+            },
+          ],
+          name: 'v1',
+          transliteration: '',
+        },
+      ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
+        {
+          lines: [
+            {
+              content: [
+                {
+                  chords: [
+                    { root: 'C', structure: 'power', type: 'chord' },
+                    { root: 'C', type: 'chord' },
+                    { root: 'C', structure: 'min', type: 'chord' },
+                    { root: 'C', structure: 'aug', type: 'chord' },
+                    { root: 'C', structure: 'dim', type: 'chord' },
+                    { root: 'C', structure: 'dom7', type: 'chord' },
+                    { root: 'C', structure: 'maj7', type: 'chord' },
+                    { root: 'C', structure: 'min7', type: 'chord' },
+                    { root: 'C', structure: 'dim7', type: 'chord' },
+                    { root: 'C', structure: 'halfdim7', type: 'chord' },
+                    { root: 'C', structure: 'minmaj7', type: 'chord' },
+                    { root: 'C', structure: 'augmaj7', type: 'chord' },
+                    { root: 'C', structure: 'aug7', type: 'chord' },
+                    { root: 'C', structure: 'maj6', type: 'chord' },
+                    { root: 'C', structure: 'maj6b', type: 'chord' },
+                    { root: 'C', structure: 'min6', type: 'chord' },
+                    { root: 'C', structure: 'min6b', type: 'chord' },
+                    { root: 'C', structure: 'dom9', type: 'chord' },
+                    { root: 'C', structure: 'dom9b', type: 'chord' },
+                    { root: 'C', structure: 'maj9', type: 'chord' },
+                    { root: 'C', structure: 'min9', type: 'chord' },
+                    { root: 'C', structure: 'minmaj9', type: 'chord' },
+                    { root: 'C', structure: 'aug9', type: 'chord' },
+                    { root: 'C', structure: 'halfdim9', type: 'chord' },
+                    { root: 'C', structure: 'sus4', type: 'chord' },
+                    { root: 'C', structure: 'sus2', type: 'chord' },
+                    { root: 'C', structure: 'add9', type: 'chord' },
+                  ],
+                  type: 'beat',
+                },
+                {
+                  chords: [
+                    { root: 'C', structure: '5', type: 'chord' },
+                    { root: 'C', structure: '3-5', type: 'chord' },
+                    { root: 'C', structure: 'm3-5', type: 'chord' },
+                    { root: 'C', structure: '3-a5', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7', type: 'chord' },
+                    { root: 'C', structure: '3-5-7', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m7', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-d7', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-m7', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-7', type: 'chord' },
+                    { root: 'C', structure: '3-a5-7', type: 'chord' },
+                    { root: 'C', structure: '3-d5-m7', type: 'chord' },
+                    { root: 'C', structure: '3-a5-m7', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-7', type: 'chord' },
+                    { root: 'C', structure: '3-d5-7', type: 'chord' },
+                    { root: 'C', structure: '3-5-6', type: 'chord' },
+                    { root: 'C', structure: '3-5-m6', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-6', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m6', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-9', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-m9', type: 'chord' },
+                    { root: 'C', structure: '3-5-7-9', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m7-9', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-7-9', type: 'chord' },
+                    { root: 'C', structure: '3-a5-7-9', type: 'chord' },
+                    { root: 'C', structure: '3-a5-m7-9', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-m7-9', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-m7-m9', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-d7-9', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-d7-m9', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-m10', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-9-11', type: 'chord' },
+                    { root: 'C', structure: '3-5-7-9-11', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m7-9-11', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-7-9-11', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-9-a11', type: 'chord' },
+                    { root: 'C', structure: '3-5-7-9-a11', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m7-9-a11', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-7-9-a11', type: 'chord' },
+                    { root: 'C', structure: '3-a5-7-9-11', type: 'chord' },
+                    { root: 'C', structure: '3-a5-m7-9-11', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-m7-m9-11', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-d7-m9-d11', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-9-11-13', type: 'chord' },
+                    { root: 'C', structure: '3-5-7-9-11-13', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m7-9-11-13', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-7-9-11-13', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-9-a11-13', type: 'chord' },
+                    { root: 'C', structure: '3-5-7-9-a11-13', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-m7-9-a11-13', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-7-9-a11-13', type: 'chord' },
+                    { root: 'C', structure: '3-a5-7-9-11-13', type: 'chord' },
+                    { root: 'C', structure: '3-a5-m7-9-11-13', type: 'chord' },
+                    { root: 'C', structure: 'm3-d5-m7-m9-11-13', type: 'chord' },
+                    { root: 'C', structure: '4-5', type: 'chord' },
+                    { root: 'C', structure: '2-5', type: 'chord' },
+                    { root: 'C', structure: '3-5-m7-13', type: 'chord' },
+                    { root: 'C', structure: '3-5-6-9', type: 'chord' },
+                    { root: 'C', structure: '3-5-9', type: 'chord' },
+                    { root: 'C', structure: 'm3-5-9', type: 'chord' },
+                    { root: 'C', structure: '3-a5-9', type: 'chord' },
+                    { root: 'C', structure: '4-5-6', type: 'chord' },
+                    { root: 'C', structure: '2-5-6', type: 'chord' },
+                    { root: 'C', structure: '4-5-m6', type: 'chord' },
+                    { root: 'C', structure: '2-5-m6', type: 'chord' },
+                    { root: 'C', structure: '4-5-m7', type: 'chord' },
+                    { root: 'C', structure: '2-5-m7', type: 'chord' },
+                    { root: 'C', structure: '4-5-7', type: 'chord' },
+                    { root: 'C', structure: '2-5-7', type: 'chord' },
+                    { root: 'C', structure: '4-a5-7', type: 'chord' },
+                    { root: 'C', structure: '2-a5-7', type: 'chord' },
+                    { root: 'C', structure: '4-d5-m7', type: 'chord' },
+                    { root: 'C', structure: '2-d5-m7', type: 'chord' },
+                    { root: 'C', structure: '4-d5-d7', type: 'chord' },
+                    { root: 'C', structure: '2-d5-d7', type: 'chord' },
+                    { root: 'C', structure: '4-d5-7', type: 'chord' },
+                    { root: 'C', structure: '2-d5-7', type: 'chord' },
+                    { root: 'C', structure: '4-5-m7-13', type: 'chord' },
+                    { root: 'C', structure: '2-5-m7-13', type: 'chord' },
+                    { root: 'C', structure: '4-5-m7-9', type: 'chord' },
+                    { root: 'C', structure: '4-5-m7-m9', type: 'chord' },
+                    { root: 'C', structure: '4-5-7-9', type: 'chord' },
+                    { root: 'C', structure: '4-a5-7-9', type: 'chord' },
+                    { root: 'C', structure: '4-a5-m7-9', type: 'chord' },
+                  ],
+                  type: 'beat',
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'i',
+        },
+      ]);
+    });
+
+    it('should return a song for file: version0.9.xml"', () => {
+      const testFile = readFileSync('./sample-files/examples/version0.9.xml').toString();
+      const parsedSong = olParser.parse(testFile);
+
+      expect(parsedSong.meta).toEqual<ol.IMeta>({
+        createdIn: '',
+        modifiedDate: null,
+        modifiedIn: '',
+        version: '0.9',
+      });
+      expect(parsedSong.format).toEqual<ol.IFormat>({
+        application: '',
+        tags: [],
+      });
+      expect(parsedSong.properties).toEqual<ol.IProperties>({
+        authors: [{ lang: '', type: '', value: 'ismeretlen' }],
+        ccliNo: '',
+        comments: [],
+        copyright: '',
+        key: '',
+        keywords: '',
+        publisher: '',
+        released: '',
+        songBooks: [{ entry: '166', name: 'Teszt könyv' }],
+        tempo: '',
+        tempoType: '',
+        themes: [],
+        titles: [{ lang: 'hu', original: null, value: 'A kapudat nyisd meg' }],
+        transposition: '',
+        variant: '',
+        verseOrder: 'i v1',
+        version: '',
+      });
+      expect(parsedSong.verses).toEqual<ol.IVerse[]>([
+        {
+          lang: '',
+          lines: [
+            {
+              content: [
+                {
+                  type: 'text',
+                  value:
+                    '\n        A kapudat nyisd meg, Jézusnak nyisd meg, jön, közeledik.\n        A kapudat nyisd meg, Jézusnak nyisd meg, jön, közeledik.\n      ',
+                },
+              ],
+              part: '',
+            },
+            {
+              content: [
+                {
+                  type: 'text',
+                  value: '\n        Nyisd meg, íme, jön, közeledik.\n      ',
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'v1',
+          transliteration: '',
+        },
+      ]);
+      expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([
+        {
+          lines: [
+            {
+              content: [
+                {
+                  chords: [
+                    { root: 'B', structure: 'm3-5', type: 'chord' },
+                    { bass: 'C#', root: 'A', type: 'chord' },
+                  ],
+                  type: 'beat',
+                },
+                {
+                  chords: [{ root: 'D', type: 'chord' }],
+                  type: 'beat',
+                },
+                {
+                  chords: [{ root: 'A', type: 'chord' }],
+                  type: 'beat',
+                },
+                {
+                  chords: [{ root: 'G', type: 'chord' }],
+                  type: 'beat',
+                },
+              ],
+              part: '',
+            },
+          ],
+          name: 'i',
+        },
+      ]);
+    });
   });
+
+  // it('should return a song for file: XXX.xml"', () => {
+  //   const testFile = readFileSync('./sample-files/examples/XXX.xml').toString();
+  //   const parsedSong = olParser.parse(testFile);
+
+  //   expect(parsedSong.meta).toEqual<ol.IMeta>({
+  //     createdIn: '',
+  //     modifiedDate: null,
+  //     modifiedIn: '',
+  //     version: '',
+  //   });
+  //   expect(parsedSong.format).toEqual<ol.IFormat>({
+  //     application: '',
+  //     tags: [],
+  //   });
+  //   expect(parsedSong.properties).toEqual<ol.IProperties>({
+  //     authors: [],
+  //     ccliNo: '',
+  //     comments: [],
+  //     copyright: '',
+  //     key: '',
+  //     keywords: '',
+  //     publisher: '',
+  //     released: '',
+  //     songBooks: [],
+  //     tempo: '',
+  //     tempoType: '',
+  //     themes: [],
+  //     titles: [],
+  //     transposition: '',
+  //     variant: '',
+  //     verseOrder: '',
+  //     version: '',
+  //   });
+  //   expect(parsedSong.verses).toEqual<ol.IVerse[]>([]);
+  //   expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+  // });
 });
