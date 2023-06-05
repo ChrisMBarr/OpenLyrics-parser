@@ -149,46 +149,56 @@ export class OpenLyrics {
         //only one could match for each split
         .filter((x) => x !== '' && typeof x !== 'undefined');
 
-      const contentArr: olReturn.ILyricSectionLineContent[] = [];
-      for (const part of textAndXmlArr) {
-        if (part.startsWith('<')) {
-          //an XML tag, parse it!
-          const parsedTag = this.lyricLineParser.parse(part);
-
-          if (parsedTag.comment != null) {
-            contentArr.push({
-              type: 'comment',
-              value: parsedTag.comment,
-            });
-          } else if (parsedTag.tag != null) {
-            contentArr.push({
-              type: 'tag',
-              name: parsedTag.tag.name,
-              value: parsedTag.tag['#text'] ?? '',
-            });
-          } else if (parsedTag.chord != null) {
-            const chord: olReturn.ILyricSectionLineContentChord = { type: 'chord' };
-            Object.keys(parsedTag.chord).forEach((k) => {
-              chord[k] = parsedTag.chord[k] as string;
-            });
-            contentArr.push(chord);
-          }
-        } else {
-          //plain text, just add it
-          contentArr.push({
-            type: 'text',
-            value: part,
-          });
-        }
-      }
-
       linesArr.push({
-        content: contentArr,
+        content: this.getLyricContentObjects(textAndXmlArr),
         part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
       });
     }
 
     return linesArr;
+  }
+
+  private getLyricContentObjects(textAndXmlArr: string[]): olReturn.ILyricSectionLineContent[]{
+    const contentArr: olReturn.ILyricSectionLineContent[] = [];
+
+    //Here we get an array of strings. Some might be plain text, others will be only XML nodes
+    //We add an object for each item to describe it's type and all the properties it has
+    for (const part of textAndXmlArr) {
+      if (part.startsWith('<')) {
+        //an XML tag, parse it!
+        const parsedTag = this.lyricLineParser.parse(part);
+
+        if (parsedTag.comment != null) {
+          //A <comment>text here</comment> node
+          contentArr.push({
+            type: 'comment',
+            value: parsedTag.comment,
+          });
+        } else if (parsedTag.tag != null) {
+          //A <tag name="foo">text here</tag> or <tag name="foo"/> node
+          contentArr.push({
+            type: 'tag',
+            name: parsedTag.tag.name,
+            value: parsedTag.tag['#text'] ?? '',
+          });
+        } else if (parsedTag.chord != null) {
+          //A <chord /> node. This can have a lot of properties, so we just add whatever is there
+          const chord: olReturn.ILyricSectionLineContentChord = { type: 'chord' };
+          Object.keys(parsedTag.chord).forEach((k) => {
+            chord[k] = parsedTag.chord[k] as string;
+          });
+          contentArr.push(chord);
+        }
+      } else {
+        //plain text, just add it
+        contentArr.push({
+          type: 'text',
+          value: part,
+        });
+      }
+    }
+
+    return contentArr;
   }
 
   //==============================================================================
