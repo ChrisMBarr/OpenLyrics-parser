@@ -52,7 +52,7 @@ export namespace OpenLyrics {
   }
 
   export interface ISongBook {
-    value: string;
+    name: string;
     entry: string;
   }
 

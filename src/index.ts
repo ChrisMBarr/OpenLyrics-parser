@@ -78,7 +78,14 @@ export class OpenLyrics {
     let application = '';
     let tags: olReturn.IFormatTag[] = [];
     if (format) {
-      console.log('format', format.tags);
+      // console.log('format', format.tags);
+      application = format.tags.application;
+      tags = format.tags.tag.map((t) => {
+        return {
+          name: t.name,
+          open: t.open,
+          close: t.close ?? '' };
+      });
     }
     return { application, tags };
   }
@@ -151,7 +158,7 @@ export class OpenLyrics {
       for (const t of songBooks.songbook) {
         titlesArr.push({
           entry: t.entry?.toString() ?? '',
-          value: t.name,
+          name: t.name,
         });
       }
     }

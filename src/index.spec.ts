@@ -96,9 +96,9 @@ describe('OpenLyrics', (): void => {
           publisher: 'Sparrow Records',
           released: 1779,
           songBooks: [
-            { entry: '', value: 'Songbook without Number' },
-            { entry: '48', value: 'Songbook with Number' },
-            { entry: '153c', value: 'Songbook with Letters in Entry Name' },
+            { entry: '', name: 'Songbook without Number' },
+            { entry: '48', name: 'Songbook with Number' },
+            { entry: '153c', name: 'Songbook with Letters in Entry Name' },
           ],
           tempo: 90,
           tempoType: 'bpm',
@@ -130,7 +130,21 @@ describe('OpenLyrics', (): void => {
           modifiedIn: 'OpenLP 1.9.7',
           version: 0.8,
         },
-        format: { application: '', tags: [] },
+        format: {
+          application: 'OpenLP',
+          tags: [
+            {
+              name: 'red',
+              open: '<span style="color:red">',
+              close: '</span>',
+            },
+            {
+              name: 'bold',
+              open: '<strong>',
+              close: '</strong>',
+            },
+          ],
+        },
         properties: {
           authors: [],
           ccliNo: null,
@@ -145,6 +159,89 @@ describe('OpenLyrics', (): void => {
           tempoType: '',
           themes: [],
           titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
+          transposition: null,
+          variant: '',
+          verseOrder: '',
+          version: null,
+        },
+        lyrics: [],
+      } as ol.ISong);
+    });
+
+    it('should return a song with format tags for file: format2.xml"', () => {
+      const testFile = readFileSync('./sample-files/examples/format2.xml').toString();
+
+      expect(olParser.parse(testFile)).toEqual({
+        meta: {
+          createdIn: 'OpenLP 1.9.7',
+          modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
+          modifiedIn: 'OpenLP 1.9.7',
+          version: 0.8,
+        },
+        format: {
+          application: 'OpenLP',
+          tags: [
+            {
+              name: 'r',
+              open: '<span style="-webkit-text-fill-color:red">',
+              close: '</span>',
+            },
+            {
+              name: 'bl',
+              open: '<span style="-webkit-text-fill-color:blue">',
+              close: '</span>',
+            },
+            {
+              name: 'y',
+              open: '<span style="-webkit-text-fill-color:yellow">',
+              close: '</span>',
+            },
+            {
+              name: 'o',
+              open: '<span style="-webkit-text-fill-color:#FFA500">',
+              close: '</span>',
+            },
+            {
+              name: 'st',
+              open: '<strong>',
+              close: '</strong>',
+            },
+            {
+              name: 'it',
+              open: '<em>',
+              close: '</em>',
+            },
+            {
+              name: 'g',
+              open: '<span style="-webkit-text-fill-color:green">',
+              close: '</span>',
+            },
+            {
+              name: 'aq',
+              open: '<span style="-webkit-text-fill-color:#10F7E2">',
+              close: '</span>',
+            },
+            {
+              name: 'br',
+              open: '<br>',
+              close: '',
+            },
+          ],
+        },
+        properties: {
+          authors: [{ lang: '', type: '', value: 'M. Jan Hus' }],
+          ccliNo: null,
+          comments: [],
+          copyright: '',
+          key: '',
+          keywords: '',
+          publisher: '',
+          released: null,
+          songBooks: [{ entry: '', name: 'Jistebnický kancionál' }],
+          tempo: null,
+          tempoType: '',
+          themes: [],
+          titles: [{ lang: '', original: null, value: 'Jezu Kriste, štědrý kněže' }],
           transposition: null,
           variant: '',
           verseOrder: '',

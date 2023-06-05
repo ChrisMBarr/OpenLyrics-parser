@@ -13,12 +13,12 @@
   <format>
     <tags application="OpenLP">
       <tag name="red">
-        <open>&lt;span style="color:red"&lt;</open>
-        <close>&lt;/span&lt;</close>
+        <open>&lt;span style="color:red"&gt;</open>
+        <close>&lt;/span&gt;</close>
       </tag>
       <tag name="bold">
-        <open>&lt;strong&lt;</open>
-        <close>&lt;/strong&lt;</close>
+        <open>&lt;strong&gt;</open>
+        <close>&lt;/strong&gt;</close>
       </tag>
     </tags>
   </format>
