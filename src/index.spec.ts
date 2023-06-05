@@ -685,5 +685,42 @@ describe('OpenLyrics', (): void => {
         },
       ]);
     });
+
+    // xit('should return a song for file: XXX.xml"', () => {
+    //   const testFile = readFileSync('./sample-files/examples/XXX.xml').toString();
+    //   const parsedSong = olParser.parse(testFile);
+
+    //   expect(parsedSong.meta).toEqual<ol.IMeta>({
+    //     createdIn: '',
+    //     modifiedDate: null,
+    //     modifiedIn: '',
+    //     version: '',
+    //   });
+    //   expect(parsedSong.format).toEqual<ol.IFormat>({
+    //     application: '',
+    //     tags: [],
+    //   });
+    //   expect(parsedSong.properties).toEqual<ol.IProperties>({
+    //     authors: [],
+    //     ccliNo: '',
+    //     comments: [],
+    //     copyright: '',
+    //     key: '',
+    //     keywords: '',
+    //     publisher: '',
+    //     released: '',
+    //     songBooks: [],
+    //     tempo: '',
+    //     tempoType: '',
+    //     themes: [],
+    //     titles: [],
+    //     transposition: '',
+    //     variant: '',
+    //     verseOrder: '',
+    //     version: '',
+    //   });
+    //   expect(parsedSong.verses).toEqual<ol.IVerse[]>([]);
+    //   expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
+    // });
   });
 });
