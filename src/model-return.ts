@@ -13,6 +13,7 @@ export namespace OpenLyrics {
   export interface IMeta {
     version: string;
     createdIn: string;
+    chordNotation: string;
     modifiedIn: string;
     modifiedDate: Date | null;
   }

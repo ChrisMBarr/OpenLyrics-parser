@@ -20,6 +20,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: 'OpenLP 1.9.0',
+        chordNotation: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'MyApp 0.0.1',
         version: '0.8',
@@ -71,6 +72,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: 'OpenLP 1.9.0',
+        chordNotation: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'ChangingSong 0.0.1',
         version: '0.8',
@@ -249,6 +251,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: 'OpenLP 1.9.0',
+        chordNotation: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'OpenLP 1.9.7',
         version: '0.8',
@@ -324,6 +327,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: 'OpenLP 1.9.7',
+        chordNotation: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'OpenLP 1.9.7',
         version: '0.8',
@@ -510,8 +514,7 @@ describe('OpenLyrics', (): void => {
                 {
                   name: 'st',
                   type: 'tag',
-                  value:
-                    'Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!',
+                  value: 'Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!',
                 },
               ],
               part: '',
@@ -528,6 +531,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: '',
+        chordNotation: '',
         modifiedDate: null,
         modifiedIn: '',
         version: '0.9',
@@ -696,6 +700,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: '',
+        chordNotation: 'hungarian',
         modifiedDate: null,
         modifiedIn: '',
         version: '0.9',
@@ -884,6 +889,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: '',
+        chordNotation: 'hungarian',
         modifiedDate: null,
         modifiedIn: '',
         version: '0.9',
@@ -982,6 +988,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: 'opensong2openlyrics.py 0.3',
+        chordNotation: '',
         modifiedDate: new Date('2012-04-10T21:31:48.233581'),
         modifiedIn: 'convert-schema.py',
         version: '0.9',
@@ -1365,6 +1372,7 @@ describe('OpenLyrics', (): void => {
 
       expect(parsedSong.meta).toEqual<ol.IMeta>({
         createdIn: 'Trac 0.11.2',
+        chordNotation: '',
         modifiedDate: new Date('2012-04-10T21:31:49.006882'),
         modifiedIn: 'convert-schema.py',
         version: '0.9',

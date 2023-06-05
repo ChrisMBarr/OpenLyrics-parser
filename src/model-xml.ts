@@ -20,6 +20,7 @@ export namespace OpenLyricsXml {
     xmlns: string;
     version: string;
     createdIn?: string;
+    chordNotation?: string;
     modifiedIn?: string;
     modifiedDate?: string;
   }
@@ -81,7 +82,9 @@ export namespace OpenLyricsXml {
     verse?: IVerse[];
   }
 
-  export type IVerseOrInstrumentLineUnparsed = string | { '#text': string; part?: string; repeat?: string };
+  export type IVerseOrInstrumentLineUnparsed =
+    | string
+    | { '#text': string; part?: string; repeat?: string };
 
   export interface IVerse {
     lines: IVerseOrInstrumentLineUnparsed[];

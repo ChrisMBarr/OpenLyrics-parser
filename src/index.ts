@@ -81,6 +81,7 @@ export class OpenLyrics {
     // console.log('song', olSong);
     return {
       createdIn: olSong.createdIn ?? '',
+      chordNotation: olSong.chordNotation ?? '',
       modifiedDate: olSong.modifiedDate != null ? new Date(olSong.modifiedDate) : null,
       modifiedIn: olSong.modifiedIn ?? '',
       version: olSong.version.toString(),
