@@ -226,8 +226,6 @@ export class OpenLyrics {
           });
         } else if (parsedTag.chord != null) {
           contentArr.push(this.getChordObject(parsedTag.chord));
-        } else if (parsedTag.beat != null) {
-          console.log(parsedTag.beat);
         }
       } else {
         //plain text, just add it
@@ -270,7 +268,7 @@ export class OpenLyrics {
     Object.keys(chordObj).forEach((k) => {
       //When we have an ending tag we want to add the inner text between the tags as a value property
       const keyName = k === '#text' ? 'value' : k;
-      chord[keyName] = chordObj[k] ?? '';
+      chord[keyName] = chordObj[k];
     });
     return chord;
   }
