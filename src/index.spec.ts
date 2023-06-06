@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { OpenLyricsSong } from './model-return';
+import { OpenLyricsSong } from './model';
 import { OpenLyrics } from '.';
 
 describe('OpenLyrics', (): void => {

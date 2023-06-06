@@ -1,5 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
-import { OpenLyricsSong } from './model-return';
+import {OpenLyricsSong} from './model';
 import { OpenLyricsXml } from './model-xml';
 
 export class OpenLyrics {

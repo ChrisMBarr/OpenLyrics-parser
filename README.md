@@ -18,11 +18,12 @@ Simply import and create a new instance of `OpenLyrics`, then pass the contents 
 ```typescript
 import { readFile } from 'fs';
 import { OpenLyrics } from 'openlyrics-parser';
+import { OpenLyricsSong } from 'openlyrics-parser/dist/main/model';
 
 const olParser = new OpenLyrics();
 
 readFile('example.xml', (contents): void => {
-  const song = olParser.parse(contents.toString());
+  const song: OpenLyricsSong.IRoot = olParser.parse(contents.toString());
   console.log(song);
 });
 ```
