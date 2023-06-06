@@ -1,102 +1,113 @@
 //The models for the objects returned by the OpenLyrics parser
-export namespace OpenLyrics {
-  export interface ISong {
+export namespace OpenLyricsSong {
+  export interface IRoot {
+    [key: string]: IFormat | IInstrument[] | IMeta | IProperties | IVerse[];
+    format: IFormat;
+    instruments: IInstrument[];
     meta: IMeta;
     properties: IProperties;
-    format: IFormat;
     verses: IVerse[];
-    instruments: IInstrument[];
   }
 
   //============================================
   //Meta
   export interface IMeta {
-    version: string;
-    createdIn: string;
+    [key: string]: string | Date | null;
     chordNotation: string;
-    modifiedIn: string;
+    createdIn: string;
     modifiedDate: Date | null;
+    modifiedIn: string;
+    version: string;
   }
 
   //============================================
   //Properties
   export interface IProperties {
+    [key: string]: string | string[] | IAuthor[] | ISongBook[] | ITheme[] | ITitle[];
     authors: IAuthor[];
-    titles: ITitle[];
-    songBooks: ISongBook[];
+    ccliNo: string;
     comments: string[];
     copyright: string;
-    ccliNo: string;
+    key: string;
+    keywords: string;
+    publisher: string;
     released: string;
-    transposition: string;
+    songBooks: ISongBook[];
     tempo: string;
     tempoType: string;
     themes: ITheme[];
-    key: string;
+    titles: ITitle[];
+    transposition: string;
     variant: string;
-    publisher: string;
-    version: string;
-    keywords: string;
     verseOrder: string;
+    version: string;
   }
 
   export interface IAuthor {
-    value: string;
-    type: string;
+    [key: string]: string;
     lang: string;
+    type: string;
+    value: string;
   }
 
   export interface ITitle {
-    value: string;
+    [key: string]: string | boolean | null;
     lang: string;
     original: boolean | null;
+    value: string;
   }
 
   export interface ITheme {
-    value: string;
+    [key: string]: string;
     lang: string;
+    value: string;
   }
 
   export interface ISongBook {
-    name: string;
+    [key: string]: string;
     entry: string;
+    name: string;
   }
 
   //============================================
   //Format
   export interface IFormat {
+    [key: string]: string | IFormatTag[];
     application: string;
     tags: IFormatTag[];
   }
 
   export interface IFormatTag {
+    [key: string]: string;
+    close: string;
     name: string;
     open: string;
-    close: string;
   }
 
   //============================================
   //Verses & Instruments (Shared)
   export interface IVerseAndInstrumentLineContentChord {
     [key: string]: string | undefined;
-    type: 'chord';
-    value?: string;
     name?: string;
     root?: string;
     structure?: string;
+    type: 'chord';
     upbeat?: string;
+    value?: string;
   }
 
   //============================================
   //Lyrics
   export interface IVerse {
-    name: string;
+    [key: string]: string | IVerseLine[];
     lang: string;
-    transliteration: string;
     lines: IVerseLine[];
+    name: string;
+    transliteration: string;
   }
 
   export interface IVerseLine {
+    [key: string]: string | IVerseLineContent[];
     content: IVerseLineContent[];
     part: string;
   }
@@ -107,31 +118,36 @@ export namespace OpenLyrics {
     | IVerseAndInstrumentLineContentChord;
 
   export interface IVerseLineContentStandard {
+    [key: string]: string;
     type: 'text' | 'comment';
     value: string;
   }
 
   export interface IVerseLineContentTag {
-    type: 'tag';
+    [key: string]: string;
     name: string;
+    type: 'tag';
     value: string;
   }
 
   //============================================
   //Instruments
   export interface IInstrument {
-    name: string;
+    [key: string]: string | IInstrumentLine[];
     lines: IInstrumentLine[];
+    name: string;
   }
 
   export interface IInstrumentLine {
+    [key: string]: string | IInstrumentLineContent[];
     content: IInstrumentLineContent[];
     part: string;
   }
 
   export interface IInstrumentLineContentBeat {
-    type: 'beat';
+    [key: string]: string | IVerseAndInstrumentLineContentChord[];
     chords: IVerseAndInstrumentLineContentChord[];
+    type: 'beat';
   }
 
   export type IInstrumentLineContent =

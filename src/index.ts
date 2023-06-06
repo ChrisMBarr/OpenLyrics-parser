@@ -1,6 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
-import { OpenLyrics as olReturn } from './model-return';
-import { OpenLyricsXml as olXml } from './model-xml';
+import { OpenLyricsSong } from './model-return';
+import { OpenLyricsXml } from './model-xml';
 
 export class OpenLyrics {
   private readonly lyricLineParser = new XMLParser({
@@ -12,7 +12,7 @@ export class OpenLyrics {
     },
   });
 
-  public parse(fileContent: string): olReturn.ISong {
+  public parse(fileContent: string): OpenLyricsSong.IRoot {
     //When certain XML nodes only have one item the parser will convert them into objects
     //Here we maintain a list of node paths to always keep as arrays
     //This keeps our code structure and type definitions more sane and normalized
@@ -60,7 +60,7 @@ export class OpenLyrics {
       },
     });
 
-    const parsedDoc: olXml.IDocRoot = xmlParser.parse(fileContent);
+    const parsedDoc: OpenLyricsXml.IDocRoot = xmlParser.parse(fileContent);
 
     const meta = this.getSongMeta(parsedDoc.song);
     const properties = this.getSongProperties(parsedDoc.song.properties);
@@ -77,7 +77,7 @@ export class OpenLyrics {
     };
   }
 
-  private getSongMeta(olSong: olXml.ISong): olReturn.IMeta {
+  private getSongMeta(olSong: OpenLyricsXml.ISong): OpenLyricsSong.IMeta {
     // console.log('song', olSong);
     return {
       createdIn: olSong.createdIn ?? '',
@@ -88,7 +88,7 @@ export class OpenLyrics {
     };
   }
 
-  private getSongProperties(props: olXml.IProperties): olReturn.IProperties {
+  private getSongProperties(props: OpenLyricsXml.IProperties): OpenLyricsSong.IProperties {
     // console.log('props', props);
     return {
       authors: this.getSongPropertyAuthors(props.authors),
@@ -111,9 +111,9 @@ export class OpenLyrics {
     };
   }
 
-  private getSongFormat(format?: olXml.IFormat): olReturn.IFormat {
+  private getSongFormat(format?: OpenLyricsXml.IFormat): OpenLyricsSong.IFormat {
     let application = '';
-    let tags: olReturn.IFormatTag[] = [];
+    let tags: OpenLyricsSong.IFormatTag[] = [];
     if (format) {
       // console.log('format', format.tags);
       application = format.tags.application;
@@ -128,8 +128,8 @@ export class OpenLyrics {
     return { application, tags };
   }
 
-  private getSongVerses(verses?: olXml.IVerse[]): olReturn.IVerse[] {
-    const versesArr: olReturn.IVerse[] = [];
+  private getSongVerses(verses?: OpenLyricsXml.IVerse[]): OpenLyricsSong.IVerse[] {
+    const versesArr: OpenLyricsSong.IVerse[] = [];
     if (verses) {
       for (const v of verses) {
         versesArr.push({
@@ -144,9 +144,9 @@ export class OpenLyrics {
   }
 
   private getSongInstruments(
-    instruments?: olXml.IInstrument[]
-  ): olReturn.IInstrument[] {
-    const instrumentsArr: olReturn.IInstrument[] = [];
+    instruments?: OpenLyricsXml.IInstrument[]
+  ): OpenLyricsSong.IInstrument[] {
+    const instrumentsArr: OpenLyricsSong.IInstrument[] = [];
     if (instruments) {
       for (const i of instruments) {
         instrumentsArr.push({
@@ -158,8 +158,10 @@ export class OpenLyrics {
     return instrumentsArr;
   }
 
-  private getVerseLines(lines: olXml.IVerseOrInstrumentLineUnparsed[]): olReturn.IVerseLine[] {
-    const linesArr: olReturn.IVerseLine[] = [];
+  private getVerseLines(
+    lines: OpenLyricsXml.IVerseOrInstrumentLineUnparsed[]
+  ): OpenLyricsSong.IVerseLine[] {
+    const linesArr: OpenLyricsSong.IVerseLine[] = [];
     for (const line of lines) {
       // console.log('verse', typeof line, line);
       const rawLineTextAndXml = this.getStringOrTextProp(line);
@@ -172,8 +174,10 @@ export class OpenLyrics {
     return linesArr;
   }
 
-  private getInstrumentLines(lines: olXml.IVerseOrInstrumentLineUnparsed[]): olReturn.IInstrumentLine[] {
-    const linesArr: olReturn.IInstrumentLine[] = [];
+  private getInstrumentLines(
+    lines: OpenLyricsXml.IVerseOrInstrumentLineUnparsed[]
+  ): OpenLyricsSong.IInstrumentLine[] {
+    const linesArr: OpenLyricsSong.IInstrumentLine[] = [];
     for (const line of lines) {
       // console.log('instrument', typeof line, line);
       const rawLineTextAndXml = this.getStringOrTextProp(line);
@@ -201,8 +205,8 @@ export class OpenLyrics {
     );
   }
 
-  private getVerseContentObjects(textAndXmlArr: string[]): olReturn.IVerseLineContent[] {
-    const contentArr: olReturn.IVerseLineContent[] = [];
+  private getVerseContentObjects(textAndXmlArr: string[]): OpenLyricsSong.IVerseLineContent[] {
+    const contentArr: OpenLyricsSong.IVerseLineContent[] = [];
 
     //Here we get an array of strings. Some might be plain text, others will be only XML nodes
     //We add an object for each item to describe it's type and all the properties it has
@@ -239,8 +243,10 @@ export class OpenLyrics {
     return contentArr;
   }
 
-  private getInstrumentContentObjects(textAndXmlArr: string[]): olReturn.IInstrumentLineContent[] {
-    const contentArr: olReturn.IInstrumentLineContent[] = [];
+  private getInstrumentContentObjects(
+    textAndXmlArr: string[]
+  ): OpenLyricsSong.IInstrumentLineContent[] {
+    const contentArr: OpenLyricsSong.IInstrumentLineContent[] = [];
     //Here we get an array of strings. These should all be XML nodes only since that's all that is allowed for instrument content
     //We add an object for each item to describe it's type and all the properties it has
     for (const part of textAndXmlArr) {
@@ -261,10 +267,12 @@ export class OpenLyrics {
     return contentArr;
   }
 
-  private getChordObject(chordObj: olXml.ILineChord): olReturn.IVerseAndInstrumentLineContentChord {
+  private getChordObject(
+    chordObj: OpenLyricsXml.ILineChord
+  ): OpenLyricsSong.IVerseAndInstrumentLineContentChord {
     //A <chord name="A" /> node. This can have a lot of properties, so we just add whatever is there
     //Sometimes chords can have ending tags too: <chord root="E" structure="m3-5-7-9-a11-13" bass="C#">ipsum</chord>
-    const chord: olReturn.IVerseAndInstrumentLineContentChord = { type: 'chord' };
+    const chord: OpenLyricsSong.IVerseAndInstrumentLineContentChord = { type: 'chord' };
     Object.keys(chordObj).forEach((k) => {
       //When we have an ending tag we want to add the inner text between the tags as a value property
       const keyName = k === '#text' ? 'value' : k;
@@ -275,8 +283,8 @@ export class OpenLyrics {
 
   //==============================================================================
   //Specific property methods
-  private getSongPropertyAuthors(authors?: olXml.IAuthors): olReturn.IAuthor[] {
-    const authorsArr: olReturn.IAuthor[] = [];
+  private getSongPropertyAuthors(authors?: OpenLyricsXml.IAuthors): OpenLyricsSong.IAuthor[] {
+    const authorsArr: OpenLyricsSong.IAuthor[] = [];
     if (authors) {
       // console.log('authors', authors.author);
       for (const a of authors.author) {
@@ -290,7 +298,7 @@ export class OpenLyrics {
     return authorsArr;
   }
 
-  private getSongPropertyComments(comments?: olXml.IComments): string[] {
+  private getSongPropertyComments(comments?: OpenLyricsXml.IComments): string[] {
     let commentArr: string[] = [];
     if (comments) {
       // console.log('comments', comments.comment);
@@ -299,8 +307,8 @@ export class OpenLyrics {
     return commentArr;
   }
 
-  private getSongPropertyThemes(themes?: olXml.IThemes): olReturn.ITheme[] {
-    const titlesArr: olReturn.ITheme[] = [];
+  private getSongPropertyThemes(themes?: OpenLyricsXml.IThemes): OpenLyricsSong.ITheme[] {
+    const titlesArr: OpenLyricsSong.ITheme[] = [];
     if (themes) {
       // console.log('themes', themes.theme);
       for (const t of themes.theme) {
@@ -313,8 +321,8 @@ export class OpenLyrics {
     return titlesArr;
   }
 
-  private getSongPropertyTitles(titles?: olXml.ITitles): olReturn.ITitle[] {
-    const titlesArr: olReturn.ITitle[] = [];
+  private getSongPropertyTitles(titles?: OpenLyricsXml.ITitles): OpenLyricsSong.ITitle[] {
+    const titlesArr: OpenLyricsSong.ITitle[] = [];
     if (titles) {
       // console.log('titles', titles.title);
       for (const t of titles.title) {
@@ -328,8 +336,10 @@ export class OpenLyrics {
     return titlesArr;
   }
 
-  private getSongPropertySongBooks(songBooks?: olXml.ISongBooks): olReturn.ISongBook[] {
-    const titlesArr: olReturn.ISongBook[] = [];
+  private getSongPropertySongBooks(
+    songBooks?: OpenLyricsXml.ISongBooks
+  ): OpenLyricsSong.ISongBook[] {
+    const titlesArr: OpenLyricsSong.ISongBook[] = [];
     if (songBooks) {
       // console.log('songBooks', songBooks.songbook);
       for (const t of songBooks.songbook) {
