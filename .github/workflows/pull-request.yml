@@ -1,0 +1,29 @@
+name: Lint, Test, Build Pull Request
+on:
+  pull_request:
+    types: [ opened, edited, reopened, review_requested ]
+permissions:
+  contents: write
+jobs:
+  build-and-test:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install 📦
+        run: |
+          npm ci
+      - name: Lint ✔️
+        run: |
+          npm run lint
+      - name: Test 🧪
+        run: |
+          npm run test:coverage
+      - name: Build Main 🔧
+        run: |
+          npm run build:main
+      - name: Build Module 🔧
+        run: |
+          npm run build:module
