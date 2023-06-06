@@ -26,6 +26,7 @@
     "!**/*.json",
     "!**/*.tsbuildinfo*",
     "!**/model-xml.{js,d.ts}",
+    "!**/model.js",
     "LICENSE",
     "README.md"
   ],
