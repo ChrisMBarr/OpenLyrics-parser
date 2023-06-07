@@ -1,3 +1,5 @@
+[![GitHub - release](https://img.shields.io/github/v/release/FiniteLooper/OpenLyrics-parser?style=flat)](https://github.com/FiniteLooper/OpenLyrics-parser/releases/latest)
+
 # OpenLyrics-parser
 [OpenLyrics](https://openlyrics.org/) is an open XML file format for storing song and lyric information about songs. Many open
 
