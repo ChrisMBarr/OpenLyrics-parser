@@ -110,6 +110,7 @@ export namespace IOpenLyricsSong {
 
   export interface IVerseLine {
     [key: string]: string | IVerseLineContent[];
+    break: string;
     content: IVerseLineContent[];
     part: string;
   }

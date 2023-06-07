@@ -108,6 +108,7 @@ export class Parser {
       const rawLineTextAndXml = this.getStringOrTextProp(line);
       const textAndXmlArr = this.parseLineTextForXml(rawLineTextAndXml);
       linesArr.push({
+        break: this.getOptionalPropOnPossibleObject(line, 'break', ''),
         content: this.getVerseContentObjects(textAndXmlArr),
         part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
       });

@@ -53,13 +53,14 @@ describe('OpenLyricsParser', (): void => {
           lang: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
                   value: 'Amazing grace how sweet the sound\nthat saved a wretch like me;',
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -130,6 +131,7 @@ describe('OpenLyricsParser', (): void => {
           lines: [
             {
               part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -139,6 +141,7 @@ describe('OpenLyricsParser', (): void => {
             },
             {
               part: 'women',
+              break: '',
               content: [{ type: 'text', value: 'A b c\nD e f' }],
             },
           ],
@@ -151,6 +154,7 @@ describe('OpenLyricsParser', (): void => {
           lines: [
             {
               part: '',
+              break: '',
               content: [
                 { name: 'B', type: 'chord' },
                 { type: 'text', value: 'Erstaunliche Ahmut, wie' },
@@ -166,6 +170,7 @@ describe('OpenLyricsParser', (): void => {
           lines: [
             {
               part: '',
+              break: '',
               content: [
                 { type: 'comment', value: 'any comment' },
                 { type: 'text', value: '\nLine content.' },
@@ -181,6 +186,7 @@ describe('OpenLyricsParser', (): void => {
           lines: [
             {
               part: 'men',
+              break: '',
               content: [
                 { type: 'comment', value: 'any text' },
                 {
@@ -201,6 +207,7 @@ describe('OpenLyricsParser', (): void => {
             },
             {
               part: 'women',
+              break: '',
               content: [{ type: 'text', value: 'A b c\n\nD e f' }],
             },
           ],
@@ -213,10 +220,12 @@ describe('OpenLyricsParser', (): void => {
           lines: [
             {
               part: '',
+              break: '',
               content: [{ type: 'text', value: '\n' }],
             },
             {
               part: '',
+              break: '',
               content: [{ type: 'text', value: '\n\n\n\n\n' }],
             },
           ],
@@ -229,6 +238,7 @@ describe('OpenLyricsParser', (): void => {
           lines: [
             {
               part: '',
+              break: '',
               content: [{ type: 'text', value: 'This is text of ending.' }],
             },
           ],
@@ -291,6 +301,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: 'optional',
               content: [
                 { type: 'text', value: 'Amazing ' },
                 { type: 'tag', name: 'red', value: 'grace!' },
@@ -298,16 +310,16 @@ describe('OpenLyricsParser', (): void => {
                 { type: 'tag', name: 'strong', value: 'like' },
                 { type: 'text', value: 'me.' },
               ],
-              part: '',
             },
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
                   value: 'I once was lost, but now am found,\nWas blind but now I see.',
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -404,6 +416,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'tag', name: 'r', value: 'Jezu Kriste' },
                 { type: 'text', value: ', štědrý kněže,\ns ' },
@@ -415,7 +429,6 @@ describe('OpenLyricsParser', (): void => {
                 { type: 'tag', name: 'it', value: 'milosti' },
                 { type: 'text', value: '.' },
               ],
-              part: '',
             },
           ],
         },
@@ -426,6 +439,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'tag', name: 'bl', value: 'Ty' },
                 {
@@ -436,7 +451,6 @@ describe('OpenLyricsParser', (): void => {
                 { type: 'tag', name: 'bl', value: 'Tvé' },
                 { type: 'text', value: ' milosti.' },
               ],
-              part: '',
             },
           ],
         },
@@ -447,6 +461,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: 'Ó, ' },
                 { type: 'tag', name: 'g', value: 'Tvá dobroto' },
@@ -456,7 +472,6 @@ describe('OpenLyricsParser', (): void => {
                 },
                 { type: 'tag', name: 'st', value: '' },
               ],
-              part: '',
             },
           ],
         },
@@ -467,12 +482,13 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: 'Ráčils nás sám zastoupiti,\n' },
                 { type: 'tag', name: 'it', value: 'život za nás položiti,' },
                 { type: 'text', value: '\ntak smrt věčnou zahladiti,\nz Tvé milosti.' },
               ],
-              part: '',
             },
           ],
         },
@@ -483,6 +499,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'tag', name: 'st', value: 'Ó,' },
                 {
@@ -492,7 +510,6 @@ describe('OpenLyricsParser', (): void => {
                 { type: 'tag', name: 'aq', value: 'Synu Božímu' },
                 { type: 'text', value: ' chvátejme,\nk té milosti!' },
               ],
-              part: '',
             },
           ],
         },
@@ -503,6 +520,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: 'Chvála' },
                 { type: 'tag', name: 'br', value: '' },
@@ -518,7 +537,6 @@ describe('OpenLyricsParser', (): void => {
                   value: 'Synu jeho téže moci,\nDuchu jeho rovné moci,\nz též milosti!',
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -569,6 +587,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: '\n        ' },
                 {
@@ -618,7 +638,6 @@ describe('OpenLyricsParser', (): void => {
                 { root: 'D', type: 'chord' },
                 { type: 'text', value: '\n      ' },
               ],
-              part: '',
             },
           ],
         },
@@ -629,6 +648,8 @@ describe('OpenLyricsParser', (): void => {
           break: 'optional',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: '\n        ' },
                 { type: 'comment', value: 'only empty chords in 0.9: <chord/>text' },
@@ -656,7 +677,6 @@ describe('OpenLyricsParser', (): void => {
                     'efficitur vel dolor.\n        Praesent rhoncus turpis at libero faucibus euismod.\n        Nulla congue fringilla nisi in auctor.\n        Pellentesque laoreet arcu eu justo aliquam,\n        nec suscipit eros imperdiet. Nunc vel iaculis elit.\n      ',
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -747,8 +767,9 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
-              content: [{ type: 'text', value: '\n        Testing 0.9.\n      ' }],
               part: '',
+              break: '',
+              content: [{ type: 'text', value: '\n        Testing 0.9.\n      ' }],
             },
           ],
         },
@@ -932,6 +953,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -939,16 +962,16 @@ describe('OpenLyricsParser', (): void => {
                     '\n        A kapudat nyisd meg, Jézusnak nyisd meg, jön, közeledik.\n        A kapudat nyisd meg, Jézusnak nyisd meg, jön, közeledik.\n      ',
                 },
               ],
-              part: '',
             },
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
                   value: '\n        Nyisd meg, íme, jön, közeledik.\n      ',
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1036,6 +1059,8 @@ describe('OpenLyricsParser', (): void => {
           lang: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: '\n        ' },
                 { root: 'Bb', type: 'chord' },
@@ -1112,7 +1137,6 @@ describe('OpenLyricsParser', (): void => {
                 { root: 'Bb', type: 'chord' },
                 { type: 'text', value: 'qual.\n      ' },
               ],
-              part: '',
             },
           ],
         },
@@ -1123,6 +1147,8 @@ describe('OpenLyricsParser', (): void => {
           lang: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: '\n        ' },
                 { root: 'Bb', type: 'chord' },
@@ -1198,7 +1224,6 @@ describe('OpenLyricsParser', (): void => {
                 { root: 'Bb', type: 'chord' },
                 { type: 'text', value: 'tle.\n      ' },
               ],
-              part: '',
             },
           ],
         },
@@ -1209,6 +1234,8 @@ describe('OpenLyricsParser', (): void => {
           lang: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: '\n        ' },
                 { root: 'Bb', type: 'chord' },
@@ -1286,7 +1313,6 @@ describe('OpenLyricsParser', (): void => {
                 { root: 'Bb', type: 'chord' },
                 { type: 'text', value: 'him.\n      ' },
               ],
-              part: '',
             },
           ],
         },
@@ -1297,6 +1323,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 { type: 'text', value: '\n        ' },
                 { root: 'Bb', type: 'chord' },
@@ -1371,7 +1399,6 @@ describe('OpenLyricsParser', (): void => {
                 { root: 'Bb', type: 'chord' },
                 { type: 'text', value: 'ver!\n      ' },
               ],
-              part: '',
             },
           ],
         },
@@ -1436,6 +1463,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1446,7 +1475,6 @@ describe('OpenLyricsParser', (): void => {
       `,
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1457,6 +1485,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1464,7 +1494,6 @@ describe('OpenLyricsParser', (): void => {
                     "\n        Hava nagila\n        Hava nagila\n        Hava nagila vi nis'mecha\n      ",
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1475,6 +1504,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1482,7 +1513,6 @@ describe('OpenLyricsParser', (): void => {
                     "\n        Let's rejoice\n        Let's rejoice\n        Let's rejoice and be happy\n      ",
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1493,6 +1523,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1503,7 +1535,6 @@ describe('OpenLyricsParser', (): void => {
       `,
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1514,6 +1545,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1521,7 +1554,6 @@ describe('OpenLyricsParser', (): void => {
                     "\n        Hava neranenah\n        Hava neranenah\n        Hava neranenah vi nis'mecha\n      ",
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1532,6 +1564,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1539,7 +1573,6 @@ describe('OpenLyricsParser', (): void => {
                     "\n        Let's sing\n        Let's sing\n        Let's sing and be happy\n      ",
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1550,6 +1583,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1561,7 +1596,6 @@ describe('OpenLyricsParser', (): void => {
       `,
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1572,6 +1606,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1579,7 +1615,6 @@ describe('OpenLyricsParser', (): void => {
                     "\n        Uru, uru achim!\n        Uru achim b'lev sameach\n\n        Uru achim, uru achim!\n        B'lev sameach\n      ",
                 },
               ],
-              part: '',
             },
           ],
         },
@@ -1590,6 +1625,8 @@ describe('OpenLyricsParser', (): void => {
           break: '',
           lines: [
             {
+              part: '',
+              break: '',
               content: [
                 {
                   type: 'text',
@@ -1597,7 +1634,6 @@ describe('OpenLyricsParser', (): void => {
                     '\n        Awake, awake, brothers!\n        Awake brothers with a happy heart\n        Awake, brothers, awake, brothers!\n        With a happy heart\n      ',
                 },
               ],
-              part: '',
             },
           ],
         },

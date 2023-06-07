@@ -356,6 +356,7 @@ Each item in the `verses` array has the following properties
 
 | `IVerseLine` Property                     | Type                                                   |
 |:------------------------------------------|:-------------------------------------------------------|
+|`break`                                    | `string`                                               |
 |[`content`](#verses--lines--content-array) | [`IVerseLineContent[]`](#verses--lines--content-array) |
 |`part`                                     | `string`                                               |
 

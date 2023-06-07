@@ -245,7 +245,7 @@ export namespace INewOpenLyricsSong {
   //============================================
   //Lyrics
   export interface IVerse {
-    break?: '' | 'optional';
+    break?: 'optional';
     lang?: string;
     lines: string[] | IVerseLine[];
     name: string;
@@ -253,7 +253,7 @@ export namespace INewOpenLyricsSong {
   }
 
   export interface IVerseXml {
-    '@break'?: '' | 'optional';
+    '@break'?: 'optional';
     '@lang'?: string;
     lines: IVerseLineXml[];
     '@name': string;
@@ -263,11 +263,13 @@ export namespace INewOpenLyricsSong {
   export interface IVerseLine {
     content: IVerseLineContent[];
     part?: string;
+    break?: 'optional';
   }
 
   export interface IVerseLineXml {
     '#text': string;
     '@part'?: string;
+    '@break'?: string;
   }
 
   export type IVerseLineContent =

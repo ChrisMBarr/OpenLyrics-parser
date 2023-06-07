@@ -18,7 +18,7 @@ export namespace OpenLyricsXml {
     lyrics: ILyrics;
     format?: IFormat;
     xmlns: string;
-    'xml:lang'?: string
+    'xml:lang'?: string;
     version: string;
     createdIn?: string;
     chordNotation?: string;
@@ -85,7 +85,7 @@ export namespace OpenLyricsXml {
 
   export type IVerseOrInstrumentLineUnparsed =
     | string
-    | { '#text': string; part?: string; repeat?: string };
+    | { '#text': string; part?: string; repeat?: string; break?: string };
 
   export interface IVerse {
     break?: string;
