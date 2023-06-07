@@ -20,6 +20,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: 'OpenLP 1.9.0',
         chordNotation: '',
+        lang: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'MyApp 0.0.1',
         version: '0.8',
@@ -72,6 +73,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: 'OpenLP 1.9.0',
         chordNotation: '',
+        lang: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'ChangingSong 0.0.1',
         version: '0.8',
@@ -235,6 +237,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: 'OpenLP 1.9.0',
         chordNotation: '',
+        lang: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'OpenLP 1.9.7',
         version: '0.8',
@@ -311,6 +314,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: 'OpenLP 1.9.7',
         chordNotation: '',
+        lang: '',
         modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
         modifiedIn: 'OpenLP 1.9.7',
         version: '0.8',
@@ -515,6 +519,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: '',
         chordNotation: '',
+        lang: 'en',
         modifiedDate: null,
         modifiedIn: '',
         version: '0.9',
@@ -684,6 +689,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: '',
         chordNotation: 'hungarian',
+        lang: 'hu',
         modifiedDate: null,
         modifiedIn: '',
         version: '0.9',
@@ -873,6 +879,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: '',
         chordNotation: 'hungarian',
+        lang: 'hu',
         modifiedDate: null,
         modifiedIn: '',
         version: '0.9',
@@ -972,6 +979,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: 'opensong2openlyrics.py 0.3',
         chordNotation: '',
+        lang: '',
         modifiedDate: new Date('2012-04-10T21:31:48.233581'),
         modifiedIn: 'convert-schema.py',
         version: '0.9',
@@ -1356,6 +1364,7 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
         createdIn: 'Trac 0.11.2',
         chordNotation: '',
+        lang: '',
         modifiedDate: new Date('2012-04-10T21:31:49.006882'),
         modifiedIn: 'convert-schema.py',
         version: '0.9',
@@ -1565,41 +1574,4 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
     });
   });
-
-  // it('should return a song for file: XXX.xml"', () => {
-  //   const testFile = readFileSync('./sample-files/songs/XXX.xml').toString();
-  //   const parsedSong = OpenLyricsParser(testFile);
-
-  //   expect(parsedSong.meta).toEqual<ol.IMeta>({
-  //     createdIn: '',
-  //     modifiedDate: new Date('2012-04-10T21:31:48.233581'),
-  //     modifiedIn: 'convert-schema.py',
-  //     version: '0.9',
-  //   });
-  //   expect(parsedSong.format).toEqual<ol.IFormat>({
-  //     application: '',
-  //     tags: [],
-  //   });
-  //   expect(parsedSong.properties).toEqual<ol.IProperties>({
-  //     authors: [],
-  //     ccliNo: '',
-  //     comments: [],
-  //     copyright: '',
-  //     key: '',
-  //     keywords: '',
-  //     publisher: '',
-  //     released: '',
-  //     songBooks: [],
-  //     tempo: '',
-  //     tempoType: '',
-  //     themes: [],
-  //     titles: [],
-  //     transposition: '',
-  //     variant: '',
-  //     verseOrder: '',
-  //     version: '',
-  //   });
-  //   expect(parsedSong.verses).toEqual<ol.IVerse[]>([]);
-  //   expect(parsedSong.instruments).toEqual<ol.ILyricSectionInstrument[]>([]);
-  // });
 });

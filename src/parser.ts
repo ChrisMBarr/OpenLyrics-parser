@@ -19,6 +19,7 @@ export class Parser {
     return {
       createdIn: olSong.createdIn ?? '',
       chordNotation: olSong.chordNotation ?? '',
+      lang: olSong['xml:lang'] ?? '',
       modifiedDate: olSong.modifiedDate != null ? new Date(olSong.modifiedDate) : null,
       modifiedIn: olSong.modifiedIn ?? '',
       version: olSong.version.toString(),

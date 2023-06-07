@@ -18,6 +18,7 @@ export namespace OpenLyricsXml {
     lyrics: ILyrics;
     format?: IFormat;
     xmlns: string;
+    'xml:lang'?: string
     version: string;
     createdIn?: string;
     chordNotation?: string;

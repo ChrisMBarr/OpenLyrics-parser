@@ -15,6 +15,7 @@ export namespace IOpenLyricsSong {
     [key: string]: string | Date | null;
     chordNotation: string;
     createdIn: string;
+    lang: string;
     modifiedDate: Date | null;
     modifiedIn: string;
     version: string;

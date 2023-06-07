@@ -66,6 +66,7 @@ It will produce this JSON object
 {
   meta: {
     createdIn: 'OpenLP 1.9.0',
+    lang: '',
     modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
     modifiedIn: 'MyApp 0.0.1',
     version: '0.8',
@@ -124,12 +125,13 @@ For most simple songs you will only need to bother with the `properties` object 
 
 ## `meta` Object
 This object contains information about the document itself. The property names match the names specified in [the OpenLyrics Metadata docs](https://docs.openlyrics.org/en/latest/dataformat.html#metadata).
-It only has 5 primitive properties. If no value is provided strings will default to an empty string `''` and dates will default to `null`
+It only has a few primitive properties. If no value is provided strings will default to an empty string `''` and dates will default to `null`
 
 | Property      | Type             |
 |:--------------|:-----------------|
 |`createdIn`    | `string`         |
 |`chordNotation`| `string`         |
+|`lang`         | `string`         |
 |`modifiedDate` | `Date` or `null` |
 |`modifiedIn`   | `string`         |
 |`version`      | `string`         |
