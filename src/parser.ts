@@ -71,6 +71,7 @@ export class Parser {
     if (verses) {
       for (const v of verses) {
         versesArr.push({
+          break: v.break ?? '',
           name: v.name,
           lang: v.lang ?? '',
           transliteration: v.translit ?? '',

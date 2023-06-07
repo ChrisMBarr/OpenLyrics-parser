@@ -88,6 +88,7 @@ export namespace OpenLyricsXml {
     | { '#text': string; part?: string; repeat?: string };
 
   export interface IVerse {
+    break?: string;
     lines: IVerseOrInstrumentLineUnparsed[];
     name: string;
     lang?: string;

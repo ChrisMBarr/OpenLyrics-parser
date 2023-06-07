@@ -349,6 +349,7 @@ Each item in the `verses` array has the following properties
 |`name`                          | `string`                               |
 |`lang`                          | `string`                               |
 |`transliteration`               | `string`                               |
+|`break`                         | `string`                               |
 |[`lines`](#verses--lines-array) | [`IVerseLine[]`](#verses--lines-array) |
 
 ## `verses` => `lines` array

@@ -101,6 +101,7 @@ export namespace IOpenLyricsSong {
   //Lyrics
   export interface IVerse {
     [key: string]: string | IVerseLine[];
+    break: string;
     lang: string;
     lines: IVerseLine[];
     name: string;

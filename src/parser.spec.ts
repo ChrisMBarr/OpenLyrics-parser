@@ -47,6 +47,7 @@ describe('OpenLyricsParser', (): void => {
       });
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
+          break: '',
           name: 'v1',
           transliteration: '',
           lang: '',
@@ -123,8 +124,9 @@ describe('OpenLyricsParser', (): void => {
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
           name: 'v1',
-          transliteration: '',
           lang: 'en',
+          transliteration: '',
+          break: '',
           lines: [
             {
               part: '',
@@ -143,8 +145,9 @@ describe('OpenLyricsParser', (): void => {
         },
         {
           name: 'v1',
-          transliteration: '',
           lang: 'de',
+          transliteration: '',
+          break: '',
           lines: [
             {
               part: '',
@@ -157,8 +160,9 @@ describe('OpenLyricsParser', (): void => {
         },
         {
           name: 'c',
-          transliteration: '',
           lang: '',
+          transliteration: '',
+          break: '',
           lines: [
             {
               part: '',
@@ -171,8 +175,9 @@ describe('OpenLyricsParser', (): void => {
         },
         {
           name: 'v2',
-          transliteration: '',
           lang: 'en-US',
+          transliteration: '',
+          break: '',
           lines: [
             {
               part: 'men',
@@ -202,8 +207,9 @@ describe('OpenLyricsParser', (): void => {
         },
         {
           name: 'emptyline',
-          transliteration: '',
           lang: 'de',
+          transliteration: '',
+          break: '',
           lines: [
             {
               part: '',
@@ -217,8 +223,9 @@ describe('OpenLyricsParser', (): void => {
         },
         {
           name: 'e',
-          transliteration: '',
           lang: 'de',
+          transliteration: '',
+          break: '',
           lines: [
             {
               part: '',
@@ -281,6 +288,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v1',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -393,6 +401,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v1',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -414,6 +423,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v2',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -434,6 +444,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v3',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -453,6 +464,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v4',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -468,6 +480,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v5',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -487,6 +500,7 @@ describe('OpenLyricsParser', (): void => {
           name: 'v6',
           transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -549,7 +563,10 @@ describe('OpenLyricsParser', (): void => {
       });
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
+          name: 'v1',
+          transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -604,11 +621,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: '',
         },
         {
+          name: 'v2',
+          transliteration: '',
           lang: '',
+          break: 'optional',
           lines: [
             {
               content: [
@@ -641,8 +659,6 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v2',
-          transliteration: '',
         },
       ]);
       expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([
@@ -725,15 +741,16 @@ describe('OpenLyricsParser', (): void => {
       });
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
+          name: 'v1',
+          transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [{ type: 'text', value: '\n        Testing 0.9.\n      ' }],
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: '',
         },
       ]);
       expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([
@@ -909,7 +926,10 @@ describe('OpenLyricsParser', (): void => {
       });
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
+          name: 'v1',
+          transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -931,8 +951,6 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: '',
         },
       ]);
       expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([
@@ -1012,6 +1030,9 @@ describe('OpenLyricsParser', (): void => {
       });
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
+          name: 'v1',
+          transliteration: '',
+          break: '',
           lang: '',
           lines: [
             {
@@ -1094,10 +1115,11 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: '',
         },
         {
+          name: 'v2',
+          transliteration: '',
+          break: '',
           lang: '',
           lines: [
             {
@@ -1179,10 +1201,11 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v2',
-          transliteration: '',
         },
         {
+          name: 'v3',
+          transliteration: '',
+          break: '',
           lang: '',
           lines: [
             {
@@ -1266,11 +1289,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v3',
-          transliteration: '',
         },
         {
+          name: 'v4',
+          transliteration: '',
           lang: '',
+          break: '',
           lines: [
             {
               content: [
@@ -1350,8 +1374,6 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v4',
-          transliteration: '',
         },
       ]);
       expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
@@ -1408,7 +1430,10 @@ describe('OpenLyricsParser', (): void => {
       //  Had to use string template quotes to work around this in testing
       expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
         {
+          name: 'v1',
+          transliteration: '',
           lang: 'he',
+          break: '',
           lines: [
             {
               content: [
@@ -1424,11 +1449,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: '',
         },
         {
+          name: 'v1',
+          transliteration: 'en',
           lang: 'he',
+          break: '',
           lines: [
             {
               content: [
@@ -1441,11 +1467,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: 'en',
         },
         {
+          name: 'v1',
+          transliteration: '',
           lang: 'en',
+          break: '',
           lines: [
             {
               content: [
@@ -1458,11 +1485,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'v1',
-          transliteration: '',
         },
         {
+          name: 'c',
+          transliteration: '',
           lang: 'he',
+          break: '',
           lines: [
             {
               content: [
@@ -1478,11 +1506,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'c',
-          transliteration: '',
         },
         {
+          name: 'c',
+          transliteration: 'en',
           lang: 'he',
+          break: '',
           lines: [
             {
               content: [
@@ -1495,11 +1524,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'c',
-          transliteration: 'en',
         },
         {
+          name: 'c',
+          transliteration: '',
           lang: 'en',
+          break: '',
           lines: [
             {
               content: [
@@ -1512,11 +1542,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'c',
-          transliteration: '',
         },
         {
+          name: 'b',
+          transliteration: '',
           lang: 'he',
+          break: '',
           lines: [
             {
               content: [
@@ -1533,11 +1564,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'b',
-          transliteration: '',
         },
         {
+          name: 'b',
+          transliteration: 'en',
           lang: 'he',
+          break: '',
           lines: [
             {
               content: [
@@ -1550,11 +1582,12 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'b',
-          transliteration: 'en',
         },
         {
+          name: 'b',
+          transliteration: '',
           lang: 'en',
+          break: '',
           lines: [
             {
               content: [
@@ -1567,8 +1600,6 @@ describe('OpenLyricsParser', (): void => {
               part: '',
             },
           ],
-          name: 'b',
-          transliteration: '',
         },
       ]);
       expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
