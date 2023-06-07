@@ -72,11 +72,21 @@ export class Builder {
       //This way they don't have to provide complicated objects unless they want to
       verseLines = lines.map((l: string) => {
         return {
-          '#text': l,
+          '#text': this.convertToHtmlBreaks(l),
         };
       });
     } else {
       //Full objects provided
+      verseLines = lines.map((l: INewSong.IVerseLine) => {
+        const lineContentArr: string[] = l.content.map((c) => {
+          // if(c.type==='text'){
+          return this.convertToHtmlBreaks(c.value ?? '');
+          // }
+        });
+        return {
+          '#text': lineContentArr.join(''),
+        };
+      });
     }
 
     return verseLines;
@@ -86,5 +96,9 @@ export class Builder {
   //General utility methods
   private isStringArray(x: any[]): x is string[] {
     return x.every((i) => typeof i === 'string');
+  }
+
+  private convertToHtmlBreaks(x: string): string {
+    return x.replace(/\n/g, '<br/>');
   }
 }

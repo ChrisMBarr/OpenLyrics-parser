@@ -111,8 +111,8 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
     ignoreAttributes: false,
     attributeNamePrefix: '@',
     format: true,
-    processEntities: true,
-    unpairedTags: ['br', 'chord'],
+    // stopNodes: ['song.lyrics.verse.lines'],
+    processEntities: false,
   });
   const xmlString = builder.build(documentObj).trim();
 
