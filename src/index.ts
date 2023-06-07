@@ -93,7 +93,10 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
       properties: {
         titles: { title: [] },
       },
-      lyrics: {},
+      lyrics: {
+        instrument: [],
+        verse: [],
+      },
     },
   };
 
@@ -101,17 +104,23 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
   olBuilder.overwriteMeta(documentObj, songData.meta);
   olBuilder.overwriteProperties(documentObj, songData.properties);
   // olBuilder.overwriteFormats(documentObj, songData.formats);
-  // olBuilder.overwriteLyricsVerses(documentObj, songData.verses);
-  // olBuilder.overwriteLyricsInstruments(documentObj, songData.instruments);
+  olBuilder.overwriteVerses(documentObj, songData.verses);
+  // olBuilder.overwriteInstruments(documentObj, songData.instruments);
 
   const builder = new XMLBuilder({
     ignoreAttributes: false,
     attributeNamePrefix: '@',
     format: true,
+    processEntities: true,
+    unpairedTags: ['br', 'chord'],
   });
-  const xmlString = builder.build(documentObj);
+  const xmlString = builder.build(documentObj).trim();
 
-  console.log(xmlString);
+  console.log(
+    '------------------------------------------------\n',
+    xmlString,
+    '\n------------------------------------------------'
+  );
 
   return xmlString;
 };

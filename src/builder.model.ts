@@ -21,7 +21,10 @@ export namespace INewOpenLyricsSong {
       '@modifiedIn': string;
       '@modifiedDate': string;
       properties: IPropertiesXml;
-      lyrics: {};
+      lyrics: {
+        instrument: [];
+        verse: IVerseXml[];
+      };
     };
   }
 
@@ -30,7 +33,7 @@ export namespace INewOpenLyricsSong {
     // instruments?: IInstrument[];
     meta?: IMeta;
     properties: IProperties;
-    // verses: IVerse[];
+    verses: IVerse[];
   }
 
   //============================================
@@ -137,5 +140,60 @@ export namespace INewOpenLyricsSong {
   export interface ISongBookXml {
     '@entry'?: string;
     '@name': string;
+  }
+
+  //============================================
+  //Verses & Instruments (Shared)
+  export interface IVerseAndInstrumentLineContentChord {
+    name?: string;
+    root?: string;
+    structure?: string;
+    type: 'chord';
+    upbeat?: string;
+    value?: string;
+  }
+
+  //============================================
+  //Lyrics
+  export interface IVerse {
+    break?: '' | 'optional';
+    lang?: string;
+    lines: string[] | IVerseLine[];
+    name: string;
+    transliteration?: string;
+  }
+
+  export interface IVerseXml {
+    '@break'?: '' | 'optional';
+    '@lang'?: string;
+    lines: IVerseLineXml[];
+    '@name': string;
+    '@transliteration'?: string;
+  }
+
+  export interface IVerseLine {
+    content: IVerseLineContent[];
+    part?: string;
+  }
+
+  export interface IVerseLineXml {
+    '#text': string;
+    '@part'?: string;
+  }
+
+  export type IVerseLineContent =
+    | IVerseLineContentStandard
+    | IVerseLineContentTag
+    | IVerseAndInstrumentLineContentChord;
+
+  export interface IVerseLineContentStandard {
+    type: 'text' | 'comment';
+    value: string;
+  }
+
+  export interface IVerseLineContentTag {
+    name: string;
+    type: 'tag';
+    value: string;
   }
 }

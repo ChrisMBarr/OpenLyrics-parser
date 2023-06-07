@@ -16,7 +16,8 @@ export class Builder {
     obj.song['@xml:lang'] = mergedMeta.lang!; //eslint-disable-line @typescript-eslint/no-non-null-assertion
     obj.song['@createdIn'] = mergedMeta.createdIn!; //eslint-disable-line @typescript-eslint/no-non-null-assertion
     obj.song['@modifiedIn'] = mergedMeta.modifiedIn!; //eslint-disable-line @typescript-eslint/no-non-null-assertion
-    obj.song['@modifiedDate'] = new Date().toISOString();
+    //Get the current timestamp, but remove the milliseconds from it
+    obj.song['@modifiedDate'] = new Date().toISOString().replace(/\.\d{3}Z$/, '');
 
     if (mergedMeta.chordNotation != null) {
       obj.song['@chordNotation'] = mergedMeta.chordNotation;
@@ -40,5 +41,50 @@ export class Builder {
         };
       });
     }
+  }
+
+  // public overwriteFormats(obj: INewSong.IBuilderObject, userFormats: INewSong.IFormat[]): void {}
+  public overwriteVerses(obj: INewSong.IBuilderObject, userVerses: INewSong.IVerse[]): void {
+    //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#song-lyrics
+
+    const versesXml: INewSong.IVerseXml[] = [];
+    for (const verse of userVerses) {
+      versesXml.push({
+        '@name': verse.name,
+        '@break': verse.break,
+        '@lang': verse.lang,
+        '@transliteration': verse.transliteration,
+        lines: this.getVerseLines(verse.lines),
+      });
+    }
+
+    obj.song.lyrics.verse = versesXml;
+  }
+  // public overwriteInstruments(obj: INewSong.IBuilderObject, userInstruments: INewSong.IInstrument[]): void {}
+
+  //============================================================
+  //Verse helper methods
+  private getVerseLines(lines: string[] | INewSong.IVerseLine[]): INewSong.IVerseLineXml[] {
+    let verseLines: INewSong.IVerseLineXml[] = [];
+
+    if (this.isStringArray(lines)) {
+      //Users can provide just a simple array of strings which we will interpret to mean the lyric text
+      //This way they don't have to provide complicated objects unless they want to
+      verseLines = lines.map((l: string) => {
+        return {
+          '#text': l,
+        };
+      });
+    } else {
+      //Full objects provided
+    }
+
+    return verseLines;
+  }
+
+  //============================================================
+  //General utility methods
+  private isStringArray(x: any[]): x is string[] {
+    return x.every((i) => typeof i === 'string');
   }
 }
