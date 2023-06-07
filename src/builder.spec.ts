@@ -32,6 +32,40 @@ describe('OpenLyricsBuilder', (): void => {
     expect(OpenLyricsBuilder).toBeDefined();
   });
 
+  describe('Meta', () => {
+    it('should set the meta properties on the <song> element', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        meta: {
+          chordNotation: 'hungarian',
+          lang: 'hu',
+          createdIn: 'my fake app 2.0',
+          modifiedIn: 'my computer',
+        },
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="hu" version="0.9" createdIn="my fake app 2.0" modifiedIn="my computer" modifiedDate="2023-06-07T14:27:50" chordNotation="hungarian">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics></lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+  });
+
   describe('Properties', () => {
     it('should build a title list using a single string', () => {
       const opts: INewOpenLyricsSong.IOptions = {
