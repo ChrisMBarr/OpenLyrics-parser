@@ -64,7 +64,8 @@
   "jest-html-reporter": {
     "includeConsoleLog": true,
     "includeFailureMsg": true,
-    "includeStackTrace": false
+    "includeStackTrace": false,
+    "statusIgnoreFilter":"pending"
   },
   "scripts": {
     "build": "npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
