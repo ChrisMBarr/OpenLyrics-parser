@@ -154,11 +154,14 @@ export namespace INewOpenLyricsSong {
   }
 
   export interface IPropertiesXml {
+    [key: string]: any;
     authors?: {
       author: IAuthorXml[];
     };
     ccliNo?: string;
-    comments?: string[];
+    comments?: {
+      comment: string[];
+    };
     copyright?: string | number;
     key?: string;
     keywords?: string;
@@ -224,7 +227,7 @@ export namespace INewOpenLyricsSong {
   }
 
   export interface ISongBookXml {
-    '@entry'?: string;
+    '@entry'?: string | number;
     '@name': string;
   }
 

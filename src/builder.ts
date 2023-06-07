@@ -28,19 +28,24 @@ export class Builder {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#song-properties
 
     //A title is the only required property
-    if (typeof userProps.titles === 'string') {
-      //Just a simple string was passed in. Use it as the text of the only title
-      obj.song.properties.titles.title = [{ '#text': userProps.titles }];
-    } else {
-      //An array of titles were passed in
-      obj.song.properties.titles.title = userProps.titles.map((t): INewSong.ITitleXml => {
-        return {
-          '#text': t.value,
-          '@lang': t.lang,
-          '@original': t.original,
-        };
-      });
-    }
+    this.overwriteSpecialPropTitles(obj, userProps.titles);
+    this.overwriteSpecialPropAuthors(obj, userProps.authors);
+    this.overwriteSpecialPropComments(obj, userProps.comments);
+    this.overwriteSpecialPropSongBooks(obj, userProps.songBooks);
+    this.overwriteSpecialPropThemes(obj, userProps.themes);
+    this.overwriteSpecialPropTempo(obj, userProps.tempo, userProps.tempoType);
+
+    //Add all the remaining string/number properties we can just copy over
+    const skipProps = ['authors', 'titles', 'tempo', 'tempoType'];
+    Object.keys(userProps).forEach((key) => {
+      //skip over keys that we handled above which can possibly have string values
+      if (!skipProps.includes(key)) {
+        const val = userProps[key];
+        if (typeof val === 'string' || typeof val === 'number') {
+          obj.song.properties[key] = val.toString();
+        }
+      }
+    });
   }
 
   // public overwriteFormats(obj: INewSong.IBuilderObject, userFormats: INewSong.IFormat[]): void {}
@@ -61,6 +66,105 @@ export class Builder {
     obj.song.lyrics.verse = versesXml;
   }
   // public overwriteInstruments(obj: INewSong.IBuilderObject, userInstruments: INewSong.IInstrument[]): void {}
+
+  //============================================================
+  //Property helper methods
+  private overwriteSpecialPropTitles(
+    obj: INewSong.IBuilderObject,
+    userTitles: string | INewSong.ITitle[]
+  ): void {
+    if (typeof userTitles === 'string') {
+      //Just a simple string was passed in. Use it as the text of the only title
+      obj.song.properties.titles.title = [{ '#text': userTitles }];
+    } else {
+      //An array of title objects were passed in
+      obj.song.properties.titles.title = userTitles.map((t): INewSong.ITitleXml => {
+        return {
+          '#text': t.value,
+          '@lang': t.lang,
+          '@original': t.original,
+        };
+      });
+    }
+  }
+
+  private overwriteSpecialPropAuthors(
+    obj: INewSong.IBuilderObject,
+    userAuthors?: string | INewSong.IAuthor[]
+  ): void {
+    if (typeof userAuthors === 'string') {
+      //Just a simple string was passed in. Use it as the text of the only author
+      obj.song.properties.authors = { author: [{ '#text': userAuthors }] };
+    } else if (Array.isArray(userAuthors)) {
+      //An array of author objects were passed in
+      obj.song.properties.authors = {
+        author: userAuthors.map((t): INewSong.IAuthorXml => {
+          return {
+            '#text': t.value,
+            '@lang': t.lang,
+            '@type': t.type,
+          };
+        }),
+      };
+    }
+  }
+
+  private overwriteSpecialPropComments(
+    obj: INewSong.IBuilderObject,
+    userComments?: string[]
+  ): void {
+    if (userComments) {
+      obj.song.properties.comments = {
+        comment: userComments,
+      };
+    }
+  }
+
+  private overwriteSpecialPropSongBooks(
+    obj: INewSong.IBuilderObject,
+    userSongBooks?: INewSong.ISongBook[]
+  ): void {
+    if (userSongBooks) {
+      obj.song.properties.songbooks = {
+        songbook: userSongBooks.map((t): INewSong.ISongBookXml => {
+          return {
+            '@name': t.name,
+            '@entry': t.entry,
+          };
+        }),
+      };
+    }
+  }
+
+  private overwriteSpecialPropThemes(
+    obj: INewSong.IBuilderObject,
+    userThemes?: INewSong.ITheme[]
+  ): void {
+    if (userThemes) {
+      obj.song.properties.themes = {
+        theme: userThemes.map((t): INewSong.IThemeXml => {
+          return {
+            '#text': t.value,
+            '@lang': t.lang,
+          };
+        }),
+      };
+    }
+  }
+
+  private overwriteSpecialPropTempo(
+    obj: INewSong.IBuilderObject,
+    userTempo?: string | number,
+    userTempoType?: string
+  ): void {
+    if (userTempo != null) {
+      //An array of author objects were passed in
+      obj.song.properties.tempo = {
+        '#text': userTempo,
+        '@type': userTempoType,
+      };
+    }
+  }
 
   //============================================================
   //Verse helper methods
