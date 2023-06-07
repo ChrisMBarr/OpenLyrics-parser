@@ -182,18 +182,40 @@ export class Builder {
     } else {
       //Full objects provided
       verseLines = lines.map((l: INewSong.IVerseLine) => {
-        const lineContentArr: string[] = l.content.map((c) => {
-          // if(c.type==='text'){
-          return this.convertToHtmlBreaks(c.value ?? '');
-          // }
+        //We've stopped parsing anything created inside of `<lines>` elements, so we need to manually create tags now
+        const lineContentArr: string[] = l.content.map((content) => {
+          if (content.type === 'chord') {
+            return this.getChord(content);
+          } else if (content.type === 'tag') {
+            return `<tag name="${content.name}">${content.value}</tag>`;
+          } else if (content.type === 'comment') {
+            return `<comment>${content.value}</comment>`;
+          }
+
+          //type should be 'text' if none of the above
+          return this.convertToHtmlBreaks(content.value);
         });
         return {
           '#text': lineContentArr.join(''),
+          '@part': l.part,
+          '@break': l.break,
         };
       });
     }
 
     return verseLines;
+  }
+
+  private getChord(chordObj: INewSong.IVerseAndInstrumentLineContentChord): string {
+    let attrs = '';
+    if (chordObj.name != null) attrs += ` name="${chordObj.name}"`;
+    if (chordObj.root != null) attrs += ` root="${chordObj.root}"`;
+    if (chordObj.structure != null) attrs += ` structure="${chordObj.structure}"`;
+    if (chordObj.upbeat != null) attrs += ` upbeat="${chordObj.upbeat}"`;
+    if (chordObj.value != null) {
+      return `<chord${attrs}>${chordObj.value}</chord>`;
+    }
+    return `<chord${attrs}/>`;
   }
 
   //============================================================

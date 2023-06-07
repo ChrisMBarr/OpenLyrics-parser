@@ -162,8 +162,8 @@ John Newton      </author>
       const opts: INewOpenLyricsSong.IOptions = {
         properties: {
           songBooks: [
-            {name: "Rippon's Selection of Hymns"},
-            {name: "Teszt könyv", entry: "166"}
+            { name: "Rippon's Selection of Hymns" },
+            { name: 'Teszt könyv', entry: '166' },
           ],
           titles: 'Required',
         },
@@ -196,9 +196,9 @@ John Newton      </author>
       const opts: INewOpenLyricsSong.IOptions = {
         properties: {
           themes: [
-            {value: "Adoration"},
-            {value: "Grace", lang:'en-US'},
-            {value: "Graça", lang:'pt-BR'},
+            { value: 'Adoration' },
+            { value: 'Grace', lang: 'en-US' },
+            { value: 'Graça', lang: 'pt-BR' },
           ],
           titles: 'Required',
         },
@@ -285,7 +285,7 @@ Adoration      </theme>
   });
 
   describe('Lyrics', () => {
-    it('should build lyrics using verse lines as a string', () => {
+    it('should build lyrics using verse lines as an array of strings', () => {
       const opts: INewOpenLyricsSong.IOptions = {
         properties: {
           titles: 'Amazing Grace',
@@ -320,7 +320,7 @@ Adoration      </theme>
       expect(normalizedOutput).toEqual(expectedXml);
     });
 
-    it('should build lyrics using verse lines as an object', () => {
+    it('should build lyrics using verse lines as an array of text objects', () => {
       const opts: INewOpenLyricsSong.IOptions = {
         properties: {
           titles: 'Amazing Grace',
@@ -355,7 +355,166 @@ Adoration      </theme>
   </properties>
   <lyrics>
     <verse name="v1">
-      <lines>Amazing grace how sweet the sound<br/>that saved a wretch like me;</lines>
+      <lines>
+Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
+    </verse>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+
+    it('should build lyrics using verse lines (with parts) as an array of mixed text and chord objects', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [
+          {
+            name: 'v1',
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Amazing grace how sweet the sound\n' },
+                  { type: 'chord', name: 'D' },
+                  { type: 'text', value: 'that saved a wretch like me;\n' },
+                ],
+              },
+              {
+                part: 'men',
+                content: [
+                  { type: 'chord', name: 'B7' },
+                  { type: 'text', value: 'Amazing grace' },
+                  { type: 'chord', name: 'G7' },
+                  { type: 'text', value: ' how sweet the sound that saved a wretch like me;' },
+                ],
+              },
+              {
+                part: 'women',
+                content: [
+                  { type: 'chord', name: 'B7' },
+                  { type: 'text', value: 'Amazing grace ' },
+                  { type: 'chord', name: 'G7', value: 'how sweet the sound' }, //this chord has a value, it has text inside it!
+                  { type: 'text', value: ' that saved a wretch like me;' },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-06-07T14:27:50">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <verse name="v1">
+      <lines>
+Amazing grace how sweet the sound<br/><chord name="D"/>that saved a wretch like me;<br/>      </lines>
+      <lines part="men">
+<chord name="B7"/>Amazing grace<chord name="G7"/> how sweet the sound that saved a wretch like me;      </lines>
+      <lines part="women">
+<chord name="B7"/>Amazing grace <chord name="G7">how sweet the sound</chord> that saved a wretch like me;      </lines>
+    </verse>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+
+    it('should build lyrics using verse lines as an array of mixed text and tag objects', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [
+          {
+            name: 'v1',
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Amazing grace how sweet the sound that ' },
+                  { type: 'tag', value: 'saved', name: 'red' },
+                  { type: 'text', value: ' a ' },
+                  { type: 'tag', value: 'wretch', name: 'red' },
+                  { type: 'text', value: ' like me;' },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-06-07T14:27:50">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <verse name="v1">
+      <lines>
+Amazing grace how sweet the sound that <tag name="red">saved</tag> a <tag name="red">wretch</tag> like me;      </lines>
+    </verse>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+
+    it('should build lyrics using verse lines as an array of mixed text and comment objects', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [
+          {
+            name: 'v1',
+            lines: [
+              {
+                content: [
+                  { type: 'text', value: 'Amazing grace how sweet the sound that ' },
+                  { type: 'comment', value: 'here is a comment' },
+                  { type: 'text', value: ' saved a ' },
+                  { type: 'comment', value: 'another comment' },
+                  { type: 'text', value: ' wretch like me;' },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-06-07T14:27:50">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <verse name="v1">
+      <lines>
+Amazing grace how sweet the sound that <comment>here is a comment</comment> saved a <comment>another comment</comment> wretch like me;      </lines>
     </verse>
   </lyrics>
 </song>`

@@ -110,7 +110,7 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
   const builder = new XMLBuilder({
     ignoreAttributes: false,
     attributeNamePrefix: '@',
-    unpairedTags:['songbook'],
+    unpairedTags: ['songbook'],
     suppressUnpairedNode: false,
     format: true,
     // stopNodes: ['song.lyrics.verse.lines'],
