@@ -1,4 +1,6 @@
-import { XMLParser } from 'fast-xml-parser';
+import { XMLBuilder, XMLParser } from 'fast-xml-parser';
+import { Builder } from './builder';
+import { INewOpenLyricsSong } from './builder.model';
 import { Parser } from './parser';
 import { IOpenLyricsSong } from './parser.model';
 import { OpenLyricsXml } from './xml.model';
@@ -67,3 +69,49 @@ export const OpenLyricsParser = (fileContent: string): IOpenLyricsSong.IRoot => 
   };
 };
 
+export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string => {
+  //Certain items are required: https://docs.openlyrics.org/en/latest/dataformat.html#required-data-items
+  const olBuilder = new Builder();
+
+  const documentObj: INewOpenLyricsSong.IBuilderObject = {
+    '?xml': {
+      '@version': '1.0',
+      '@encoding': 'UTF-8',
+    },
+    '?xml-stylesheet': {
+      '@href': '../stylesheets/openlyrics.css',
+      '@type': 'text/css',
+    },
+    song: {
+      //Any properties here with empty strings will be overwritten
+      '@xmlns': 'http://openlyrics.info/namespace/2009/song',
+      '@xml:lang': '',
+      '@version': '0.9',
+      '@createdIn': '',
+      '@modifiedIn': '',
+      '@modifiedDate': '',
+      properties: {
+        titles: { title: [] },
+      },
+      lyrics: {},
+    },
+  };
+
+  //Overwrite any information with either a default value or what the user passed in
+  olBuilder.overwriteMeta(documentObj, songData.meta);
+  olBuilder.overwriteProperties(documentObj, songData.properties);
+  // olBuilder.overwriteFormats(documentObj, songData.formats);
+  // olBuilder.overwriteLyricsVerses(documentObj, songData.verses);
+  // olBuilder.overwriteLyricsInstruments(documentObj, songData.instruments);
+
+  const builder = new XMLBuilder({
+    ignoreAttributes: false,
+    attributeNamePrefix: '@',
+    format: true,
+  });
+  const xmlString = builder.build(documentObj);
+
+  console.log(xmlString);
+
+  return xmlString;
+};
