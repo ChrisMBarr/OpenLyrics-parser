@@ -94,7 +94,6 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
         titles: { title: [] },
       },
       lyrics: {
-        instrument: [],
         verse: [],
       },
     },
@@ -103,7 +102,8 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
   //Overwrite any information with either a default value or what the user passed in
   olBuilder.overwriteMeta(documentObj, songData.meta);
   olBuilder.overwriteProperties(documentObj, songData.properties);
-  // olBuilder.overwriteFormats(documentObj, songData.formats);
+  //TODO: Format should be written to the XML BEFORE the lyrics!
+  olBuilder.overwriteFormats(documentObj, songData.format);
   olBuilder.overwriteVerses(documentObj, songData.verses);
   // olBuilder.overwriteInstruments(documentObj, songData.instruments);
 

@@ -21,15 +21,18 @@ export namespace INewOpenLyricsSong {
       '@modifiedIn': string;
       '@modifiedDate': string;
       properties: IPropertiesXml;
+      format?: {
+        tags: IFormatXml[];
+      };
       lyrics: {
-        instrument: [];
+        instrument?: [];
         verse: IVerseXml[];
       };
     };
   }
 
   export interface IOptions {
-    // format?: IFormat;
+    format?: IFormat[];
     // instruments?: IInstrument[];
     meta?: IMeta;
     properties: IProperties;
@@ -229,6 +232,29 @@ export namespace INewOpenLyricsSong {
   export interface ISongBookXml {
     '@entry'?: string | number;
     '@name': string;
+  }
+
+  //============================================
+  //Format
+  export interface IFormat {
+    application: string;
+    tags: IFormatTag[];
+  }
+
+  export interface IFormatXml {
+    '@application': string;
+    tag: IFormatTagXml[];
+  }
+
+  export interface IFormatTag {
+    close: string;
+    name: string;
+    open: string;
+  }
+  export interface IFormatTagXml {
+    close: string;
+    '@name': string;
+    open: string;
   }
 
   //============================================

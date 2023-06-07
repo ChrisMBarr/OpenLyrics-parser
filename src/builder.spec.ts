@@ -318,6 +318,59 @@ Adoration      </theme>
     });
   });
 
+  describe('Format', () => {
+    it('should create the Format tags', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        format: [
+          {
+            application: 'CoolLyricsPro XD',
+            tags: [{ name: 'red', open: '&lt;span style="color:red"&gt;', close: '&lt;/span&gt;' }],
+          },
+          {
+            application: 'A Different App',
+            tags: [{ name: 'red', open: '{{:red:', close: '}}' }],
+          },
+        ],
+        verses: [],
+      };
+
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics></lyrics>
+  <format>
+    <tags application="CoolLyricsPro XD">
+      <tag name="red">
+        <open>&lt;span style="color:red"&gt;</open>
+        <close>&lt;/span&gt;</close>
+      </tag>
+    </tags>
+    <tags application="A Different App">
+      <tag name="red">
+        <open>{{:red:</open>
+        <close>}}</close>
+      </tag>
+    </tags>
+  </format>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+  });
+
   describe('Lyrics', () => {
     it('should build lyrics using verse lines as an array of strings', () => {
       const opts: INewOpenLyricsSong.IOptions = {

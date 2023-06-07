@@ -48,7 +48,27 @@ export class Builder {
     });
   }
 
-  // public overwriteFormats(obj: INewSong.IBuilderObject, userFormats: INewSong.IFormat[]): void {}
+  public overwriteFormats(obj: INewSong.IBuilderObject, userFormat?: INewSong.IFormat[]): void {
+    //Docs: https://docs.openlyrics.org/en/latest/dataformat.html##formatting-extensions
+
+    if (userFormat) {
+      obj.song.format = {
+        tags: userFormat.map((f) => {
+          return {
+            '@application': f.application,
+            tag: f.tags.map((t): INewSong.IFormatTagXml => {
+              return {
+                '@name': t.name,
+                open: t.open,
+                close: t.close,
+              };
+            }),
+          };
+        }),
+      };
+    }
+  }
+
   public overwriteVerses(obj: INewSong.IBuilderObject, userVerses: INewSong.IVerse[]): void {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#song-lyrics
 
@@ -65,7 +85,7 @@ export class Builder {
 
     obj.song.lyrics.verse = versesXml;
   }
-  // public overwriteInstruments(obj: INewSong.IBuilderObject, userInstruments: INewSong.IInstrument[]): void {}
+  // public overwriteInstruments(obj: INewSong.IBuilderObject, userInstruments?: INewSong.IInstrument[]): void {}
 
   //============================================================
   //Property helper methods
