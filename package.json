@@ -1,7 +1,7 @@
 {
   "name": "openlyrics-parser",
-  "version": "1.0.0",
-  "description": "Parses and extracts data from OpenLyrics files",
+  "version": "1.1.0",
+  "description": "Parses and extracts data from OpenLyrics files, and creates them!",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
   "module": "dist/module/index.js",
@@ -24,9 +24,9 @@
     "dist/module",
     "!**/*.spec.*",
     "!**/*.json",
-    "!**/*.tsbuildinfo*",
-    "!**/model-xml.{js,d.ts}",
-    "!**/model.js",
+    "!**/*.tsbuildinfo",
+    "!**/xml.model.*",
+    "!**/*.model.js",
     "LICENSE",
     "README.md"
   ],

@@ -11,19 +11,17 @@ This project is used by my [LyricConverter](htt://github.com/FiniteLooper/LyricC
 npm install openlyrics-parser --save
 ```
 
-## Usage
-Simply import and create a new instance of `OpenLyrics`, then pass the contents of an OpenLyrics `.xml` file as a string to the `.parse()` method.
+## Usage - parsing a file
+Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics `.xml` file as a string to it.
 
 ### For TypeScript projects
 ```typescript
 import { readFile } from 'fs';
-import { OpenLyrics } from 'openlyrics-parser';
-import { OpenLyricsSong } from 'openlyrics-parser/dist/main/model';
-
-const olParser = new OpenLyrics();
+import { OpenLyricsParser } from 'openlyrics-parser';
+import { IOpenLyricsSong } from 'openlyrics-parser/dist/main/model';
 
 readFile('example.xml', (contents): void => {
-  const song: OpenLyricsSong.IRoot = olParser.parse(contents.toString());
+  const song: IOpenLyricsSong.IRoot = OpenLyricsParser(contents.toString());
   console.log(song);
 });
 ```
@@ -31,12 +29,10 @@ readFile('example.xml', (contents): void => {
 ### For JavaScript projects
 ```javascript
 const { readFile } = require('fs');
-const { OpenLyrics } = require('openlyrics-parser');
-
-const olParser = new OpenLyrics();
+const { OpenLyricsParser } = require('openlyrics-parser');
 
 readFile('example.xml', (contents) => {
-  const song = olParser.parse(contents.toString());
+  const song = OpenLyricsParser(contents.toString());
   console.log(song);
 });
 ```

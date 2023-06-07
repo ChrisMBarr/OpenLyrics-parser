@@ -1,5 +1,5 @@
-//The models for the objects returned by the OpenLyrics parser
-export namespace OpenLyricsSong {
+//The models for the objects returned by the OpenLyricsParser method
+export namespace IOpenLyricsSong {
   export interface IRoot {
     [key: string]: IFormat | IInstrument[] | IMeta | IProperties | IVerse[];
     format: IFormat;
