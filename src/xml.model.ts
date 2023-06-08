@@ -44,6 +44,7 @@ export namespace OpenLyricsXml {
     songbooks?: ISongBooks;
     tempo?: ITempo;
     themes?: IThemes;
+    timeSignature?: string;
   }
 
   export interface ITitles {

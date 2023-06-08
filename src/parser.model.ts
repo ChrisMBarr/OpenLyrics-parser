@@ -37,6 +37,7 @@ export namespace IOpenLyricsSong {
     tempo: string;
     tempoType: string;
     themes: ITheme[];
+    timeSignature: string;
     titles: ITitle[];
     transposition: string;
     variant: string;

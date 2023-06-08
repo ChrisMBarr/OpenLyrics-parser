@@ -214,6 +214,7 @@ This object contains information about the song. Read about them in [the OpenLyr
 |`transposition`                             | `string`                                     |
 |`tempo`                                     | `string`                                     |
 |`tempoType`                                 | `string`                                     |
+|`timeSignature`                             | `string`                                     |
 |[`themes`](#properties--themes-array)       | [`ITheme[]`](#properties--themes-array)      |
 |`key`                                       | `string`                                     |
 |`variant`                                   | `string`                                     |

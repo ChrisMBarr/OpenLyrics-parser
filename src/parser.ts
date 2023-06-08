@@ -41,6 +41,7 @@ export class Parser {
       tempo: props.tempo?.['#text'].toString() ?? '',
       tempoType: props.tempo?.type ?? '',
       themes: this.getSongPropertyThemes(props.themes),
+      timeSignature: props.timeSignature ?? '',
       titles: this.getSongPropertyTitles(props.titles),
       transposition: props.transposition?.toString() ?? '',
       variant: props.variant ?? '',
