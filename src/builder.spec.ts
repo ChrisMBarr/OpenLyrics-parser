@@ -663,4 +663,179 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
       expect(normalizedOutput).toEqual(expectedXml);
     });
   });
+
+  describe('Instruments', () => {
+    it('should build instruments using only an array of chord objects', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [],
+        instruments: [
+          {
+            name: 'intro',
+            lines: [
+              {
+                part: 'guitar',
+                content: [
+                  { type: 'chord', name: 'G' },
+                  { type: 'chord', name: 'G#' },
+                ],
+              },
+            ],
+          },
+          {
+            name: 'intro',
+            lines: [
+              {
+                part: 'piano',
+                content: [
+                  { type: 'chord', name: 'D' },
+                  { type: 'chord', name: 'D#' },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <instrument name="intro">
+      <lines part="guitar">
+<chord name="G"/><chord name="G#"/>      </lines>
+    </instrument>
+    <instrument name="intro">
+      <lines part="piano">
+<chord name="D"/><chord name="D#"/>      </lines>
+    </instrument>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+
+    it('should build instruments using only an array of beat objects', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [],
+        instruments: [
+          {
+            name: 'intro',
+            lines: [
+              {
+                part: 'guitar',
+                content: [
+                  {
+                    type: 'beat',
+                    chords: [
+                      { type: 'chord', name: 'G' },
+                      { type: 'chord', name: 'G#' },
+                    ],
+                  },
+                  {
+                    type: 'beat',
+                    chords: [
+                      { type: 'chord', name: 'D' },
+                      { type: 'chord', name: 'D#' },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <instrument name="intro">
+      <lines part="guitar">
+        <beat><chord name="G"/><chord name="G#"/></beat>
+        <beat><chord name="D"/><chord name="D#"/></beat>
+      </lines>
+    </instrument>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+
+    it('should build instruments using a mixed array of beat and chord objects', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [],
+        instruments: [
+          {
+            name: 'intro',
+            lines: [
+              {
+                part: 'guitar',
+                content: [
+                  {
+                    type: 'beat',
+                    chords: [
+                      { type: 'chord', name: 'G' },
+                      { type: 'chord', name: 'G#' },
+                    ],
+                  },
+                  { type: 'chord', name: 'D' },
+                  { type: 'chord', name: 'D#' },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <instrument name="intro">
+      <lines part="guitar">
+        <beat><chord name="G"/><chord name="G#"/></beat>
+<chord name="D"/><chord name="D#"/>      </lines>
+    </instrument>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+  });
 });

@@ -25,7 +25,7 @@ export namespace INewOpenLyricsSong {
         tags: IFormatXml[];
       };
       lyrics: {
-        instrument?: [];
+        instrument?: IInstrumentXml[];
         verse: IVerseXml[];
       };
     };
@@ -33,7 +33,7 @@ export namespace INewOpenLyricsSong {
 
   export interface IOptions {
     format?: IFormat[];
-    // instruments?: IInstrument[];
+    instruments?: IInstrument[];
     meta?: IMeta;
     properties: IProperties;
     verses: IVerse[];
@@ -270,7 +270,7 @@ export namespace INewOpenLyricsSong {
   }
 
   //============================================
-  //Lyrics
+  //Verses
   export interface IVerse {
     break?: 'optional';
     lang?: string;
@@ -314,4 +314,35 @@ export namespace INewOpenLyricsSong {
     type: 'tag';
     value: string;
   }
+
+  //============================================
+  //Instruments
+  export interface IInstrument {
+    lines: IInstrumentLine[];
+    name: string;
+  }
+
+  export interface IInstrumentXml {
+    lines: IInstrumentLineXml[];
+    '@name': string;
+  }
+
+  export interface IInstrumentLine {
+    content: IInstrumentLineContent[];
+    part: string;
+  }
+
+  export interface IInstrumentLineXml {
+    '#text': string;
+    '@part': string;
+  }
+
+  export interface IInstrumentLineContentBeat {
+    chords: IVerseAndInstrumentLineContentChord[];
+    type: 'beat';
+  }
+
+  export type IInstrumentLineContent =
+    | IInstrumentLineContentBeat
+    | IVerseAndInstrumentLineContentChord;
 }

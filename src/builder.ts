@@ -85,7 +85,25 @@ export class Builder {
 
     obj.song.lyrics.verse = versesXml;
   }
-  // public overwriteInstruments(obj: INewSong.IBuilderObject, userInstruments?: INewSong.IInstrument[]): void {}
+
+  public overwriteInstruments(
+    obj: INewSong.IBuilderObject,
+    userInstruments?: INewSong.IInstrument[]
+  ): void {
+    //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts
+
+    if (userInstruments) {
+      const instrumentsXml: INewSong.IInstrumentXml[] = [];
+      for (const inst of userInstruments) {
+        instrumentsXml.push({
+          '@name': inst.name,
+          lines: this.getInstrumentLines(inst.lines),
+        });
+      }
+
+      obj.song.lyrics.instrument = instrumentsXml;
+    }
+  }
 
   //============================================================
   //Property helper methods
@@ -187,7 +205,7 @@ export class Builder {
   }
 
   //============================================================
-  //Verse helper methods
+  //Verse/Instrument helper methods
   private getVerseLines(lines: string[] | INewSong.IVerseLine[]): INewSong.IVerseLineXml[] {
     let verseLines: INewSong.IVerseLineXml[] = [];
 
@@ -202,7 +220,7 @@ export class Builder {
     } else {
       //Full objects provided
       verseLines = lines.map((l: INewSong.IVerseLine) => {
-        //We've stopped parsing anything created inside of `<lines>` elements, so we need to manually create tags now
+        //we are manually creating tags now
         const lineContentArr: string[] = l.content.map((content) => {
           if (content.type === 'chord') {
             return this.getChord(content);
@@ -226,6 +244,26 @@ export class Builder {
     return verseLines;
   }
 
+  private getInstrumentLines(lines: INewSong.IInstrumentLine[]): INewSong.IInstrumentLineXml[] {
+    const linesXml: INewSong.IInstrumentLineXml[] = lines.map((l: INewSong.IInstrumentLine) => {
+      //we are manually creating tags now
+      const lineContentArr: string[] = l.content.map((content) => {
+        if (content.type === 'chord') {
+          return this.getChord(content);
+        }
+
+        //Not a chord, so it should be a `<beat>` which should contain `<chord>`s
+        return this.getBeat(content);
+      });
+      return {
+        '#text': lineContentArr.join(''),
+        '@part': l.part,
+      };
+    });
+
+    return linesXml;
+  }
+
   private getChord(chordObj: INewSong.IVerseAndInstrumentLineContentChord): string {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#chords
     let attrs = '';
@@ -238,6 +276,15 @@ export class Builder {
       return `<chord${attrs}>${chordObj.value}</chord>`;
     }
     return `<chord${attrs}/>`;
+  }
+
+  private getBeat(beatObj: INewSong.IInstrumentLineContentBeat): string {
+    //A `<beat>` can only contain `<cord>`s
+    //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts
+    const chordsArr = beatObj.chords.map((c) => this.getChord(c));
+
+    //manual indentation and line breaks since we are creating node manually here
+    return `        <beat>${chordsArr.join('')}</beat>\n`;
   }
 
   //============================================================

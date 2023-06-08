@@ -105,7 +105,7 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
   //TODO: Format should be written to the XML BEFORE the lyrics!
   olBuilder.overwriteFormats(documentObj, songData.format);
   olBuilder.overwriteVerses(documentObj, songData.verses);
-  // olBuilder.overwriteInstruments(documentObj, songData.instruments);
+  olBuilder.overwriteInstruments(documentObj, songData.instruments);
 
   const builder = new XMLBuilder({
     ignoreAttributes: false,
@@ -113,16 +113,9 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
     unpairedTags: ['songbook'],
     suppressUnpairedNode: false,
     format: true,
-    // stopNodes: ['song.lyrics.verse.lines'],
     processEntities: false,
   });
   const xmlString = builder.build(documentObj).trim();
-
-  console.log(
-    '------------------------------------------------\n',
-    xmlString,
-    '\n------------------------------------------------'
-  );
 
   return xmlString;
 };
