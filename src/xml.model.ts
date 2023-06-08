@@ -27,25 +27,24 @@ export namespace OpenLyricsXml {
   }
 
   export interface IProperties {
-    copyright?: string | number;
+    authors?: IAuthors;
     ccliNo?: string | number;
-    released?: string | number;
-    transposition?: string | number;
+    comments?: IComments;
+    copyright?: string | number;
     key?: string;
     keywords?: string;
-    variant?: string;
     publisher?: string;
-    version?: string | number;
-    verseOrder?: string;
-
-    titles?: ITitles;
-    authors?: IAuthors;
-    comments?: IComments;
+    released?: string | number;
     releaseDate?: string | number;
     songbooks?: ISongBooks;
     tempo?: ITempo;
     themes?: IThemes;
     timeSignature?: string;
+    titles?: ITitles;
+    transposition?: string | number;
+    variant?: string;
+    verseOrder?: string;
+    version?: string | number;
   }
 
   export interface ITitles {
