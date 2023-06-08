@@ -41,6 +41,7 @@ export namespace OpenLyricsXml {
     titles?: ITitles;
     authors?: IAuthors;
     comments?: IComments;
+    releaseDate?: string | number;
     songbooks?: ISongBooks;
     tempo?: ITempo;
     themes?: IThemes;

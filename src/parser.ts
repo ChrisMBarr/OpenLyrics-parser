@@ -28,6 +28,13 @@ export class Parser {
 
   public getSongProperties(props: OpenLyricsXml.IProperties): IOpenLyricsSong.IProperties {
     // console.log('props', props);
+
+    //Property was renamed in OpenLyrics 0.9. Move it over if it exists
+    //https://docs.openlyrics.org/en/latest/changes.html#release-0-9-unreleased
+    if (props.releaseDate != null) {
+      props.released = props.releaseDate;
+    }
+
     return {
       authors: this.getSongPropertyAuthors(props.authors),
       ccliNo: props.ccliNo?.toString() ?? '',

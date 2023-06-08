@@ -210,7 +210,7 @@ This object contains information about the song. Read about them in [the OpenLyr
 |`comments`                                  | `string[]`                                   |
 |`copyright`                                 | `string`                                     |
 |`ccliNo`                                    | `string`                                     |
-|`released`                                  | `string`                                     |
+|`released` (or `releaseDate`)               | `string`                                     |
 |`transposition`                             | `string`                                     |
 |`tempo`                                     | `string`                                     |
 |`tempoType`                                 | `string`                                     |
