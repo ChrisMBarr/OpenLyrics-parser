@@ -52,20 +52,25 @@ export class Builder {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html##formatting-extensions
 
     if (userFormat) {
-      obj.song.format = {
-        tags: userFormat.map((f) => {
-          return {
-            '@application': f.application,
-            tag: f.tags.map((t): INewSong.IFormatTagXml => {
-              return {
-                '@name': t.name,
-                open: t.open,
-                close: t.close,
-              };
-            }),
-          };
-        }),
-      };
+      //This is OK to disable here because we know it exists.
+      //The static obj is created right before this method is called
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      obj.song.format!.tags = userFormat.map((f) => {
+        return {
+          '@application': f.application,
+          tag: f.tags.map((t): INewSong.IFormatTagXml => {
+            return {
+              '@name': t.name,
+              open: t.open,
+              close: t.close,
+            };
+          }),
+        };
+      });
+    } else {
+      //We need to be able to remove the format XML node so that we can place above the lyrics in the output.
+      //So if a format option is provided it will be filled in, if not it will be removed,
+      obj.song.format = undefined;
     }
   }
 

@@ -21,8 +21,12 @@ export namespace INewOpenLyricsSong {
       '@modifiedIn': string;
       '@modifiedDate': string;
       properties: IPropertiesXml;
+      //We need to define the format as optional so we can remove it.
+      //We need to be able to remove it so that we can place above the lyrics in the output.
+      //So if a format option is provided it will be filled in, if not it will be removed,
+      //This prevents an empty format XML node from being output
       format?: {
-        tags: IFormatXml[];
+        tags?: IFormatXml[];
       };
       lyrics: {
         instrument?: IInstrumentXml[];

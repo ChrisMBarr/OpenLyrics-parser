@@ -349,7 +349,6 @@ Adoration      </theme>
       <title>Amazing Grace</title>
     </titles>
   </properties>
-  <lyrics></lyrics>
   <format>
     <tags application="CoolLyricsPro XD">
       <tag name="red">
@@ -364,6 +363,7 @@ Adoration      </theme>
       </tag>
     </tags>
   </format>
+  <lyrics></lyrics>
 </song>`
       );
 
