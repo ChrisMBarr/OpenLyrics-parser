@@ -89,6 +89,7 @@ export namespace IOpenLyricsSong {
   //Verses & Instruments (Shared)
   export interface IVerseAndInstrumentLineContentChord {
     [key: string]: string | undefined;
+    bass?: string;
     name?: string;
     root?: string;
     structure?: string;
@@ -98,7 +99,7 @@ export namespace IOpenLyricsSong {
   }
 
   //============================================
-  //Lyrics
+  //Verses
   export interface IVerse {
     [key: string]: string | IVerseLine[];
     break: string;

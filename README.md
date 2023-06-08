@@ -387,6 +387,7 @@ Note that any `<br>` nodes inside of these objects will be transformed into `\n`
 | `IVerseLineContent` for a **chord**   | Type        |
 |:--------------------------------------|:------------|
 |`type`                                 | `'chord'`   |
+|`bass?`                                | `string`    |
 |`value?`                               | `string`    |
 |`name?`                                | `string`    |
 |`root?`                                | `string`    |

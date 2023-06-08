@@ -464,7 +464,14 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
               {
                 content: [
                   { type: 'text', value: 'Amazing grace how sweet the sound\n' },
-                  { type: 'chord', name: 'D' },
+                  {
+                    type: 'chord',
+                    name: 'D',
+                    root: 'F',
+                    structure: 'm3-5',
+                    bass: 'G#',
+                    upbeat: 'true',
+                  },
                   { type: 'text', value: 'that saved a wretch like me;\n' },
                 ],
               },
@@ -505,7 +512,7 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
   <lyrics>
     <verse name="v1">
       <lines>
-Amazing grace how sweet the sound<br/><chord name="D"/>that saved a wretch like me;<br/>      </lines>
+Amazing grace how sweet the sound<br/><chord name="D" root="F" structure="m3-5" upbeat="true" bass="G#"/>that saved a wretch like me;<br/>      </lines>
       <lines part="men">
 <chord name="B7"/>Amazing grace<chord name="G7"/> how sweet the sound that saved a wretch like me;      </lines>
       <lines part="women">
