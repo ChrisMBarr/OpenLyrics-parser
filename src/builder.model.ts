@@ -129,6 +129,11 @@ export namespace INewOpenLyricsSong {
      */
     themes?: ITheme[];
     /**
+     * @description Defines the time signature of the song
+     * @see {@link https://docs.openlyrics.org/en/latest/dataformat.html#time-signature}
+     */
+    timeSignature?: string;
+    /**
      * @description A single title as a string or a list of ITitle objects for this song. At least one title is required.
      * @see {@link https://docs.openlyrics.org/en/latest/dataformat.html#titles}
      * @example
@@ -295,12 +300,14 @@ export namespace INewOpenLyricsSong {
     content: IVerseLineContent[];
     part?: string;
     break?: 'optional';
+    repeat?: number;
   }
 
   export interface IVerseLineXml {
     '#text': string;
     '@part'?: string;
     '@break'?: string;
+    '@repeat'?: number;
   }
 
   export type IVerseLineContent =
@@ -334,11 +341,13 @@ export namespace INewOpenLyricsSong {
   export interface IInstrumentLine {
     content: IInstrumentLineContent[];
     part: string;
+    repeat?: number;
   }
 
   export interface IInstrumentLineXml {
     '#text': string;
     '@part': string;
+    '@repeat'?: number;
   }
 
   export interface IInstrumentLineContentBeat {

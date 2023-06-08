@@ -275,6 +275,7 @@ Adoration      </theme>
           released: '2002',
           tempo: 90,
           tempoType: 'bpm',
+          timeSignature: '3/4',
           titles: 'Amazing Grace',
           transposition: 6,
           variant: 'slow',
@@ -305,6 +306,7 @@ Adoration      </theme>
     <keywords>foo bar</keywords>
     <publisher>a company</publisher>
     <released>2002</released>
+    <timeSignature>3/4</timeSignature>
     <transposition>6</transposition>
     <variant>slow</variant>
     <verseOrder>v1 v2 v3</verseOrder>
@@ -462,6 +464,7 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
             name: 'v1',
             lines: [
               {
+                repeat: 3,
                 content: [
                   { type: 'text', value: 'Amazing grace how sweet the sound\n' },
                   {
@@ -511,7 +514,7 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
   </properties>
   <lyrics>
     <verse name="v1">
-      <lines>
+      <lines repeat="3">
 Amazing grace how sweet the sound<br/><chord name="D" root="F" structure="m3-5" upbeat="true" bass="G#"/>that saved a wretch like me;<br/>      </lines>
       <lines part="men">
 <chord name="B7"/>Amazing grace<chord name="G7"/> how sweet the sound that saved a wretch like me;      </lines>
@@ -676,6 +679,7 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
             name: 'intro',
             lines: [
               {
+                repeat: 2,
                 part: 'guitar',
                 content: [
                   { type: 'chord', name: 'G' },
@@ -688,6 +692,7 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
             name: 'intro',
             lines: [
               {
+                repeat: 2,
                 part: 'piano',
                 content: [
                   { type: 'chord', name: 'D' },
@@ -712,11 +717,11 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
   </properties>
   <lyrics>
     <instrument name="intro">
-      <lines part="guitar">
+      <lines part="guitar" repeat="2">
 <chord name="G"/><chord name="G#"/>      </lines>
     </instrument>
     <instrument name="intro">
-      <lines part="piano">
+      <lines part="piano" repeat="2">
 <chord name="D"/><chord name="D#"/>      </lines>
     </instrument>
   </lyrics>

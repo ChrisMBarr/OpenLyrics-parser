@@ -242,6 +242,7 @@ export class Builder {
           '#text': lineContentArr.join(''),
           '@part': l.part,
           '@break': l.break,
+          '@repeat': l.repeat,
         };
       });
     }
@@ -263,6 +264,7 @@ export class Builder {
       return {
         '#text': lineContentArr.join(''),
         '@part': l.part,
+        '@repeat': l.repeat,
       };
     });
 
