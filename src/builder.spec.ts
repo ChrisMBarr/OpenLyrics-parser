@@ -616,5 +616,51 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
 
       expect(normalizedOutput).toEqual(expectedXml);
     });
+
+    it('should build lyrics with multiple verses (with properties)', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          titles: 'Amazing Grace',
+        },
+        verses: [
+          {
+            name: 'v1',
+            lang: 'en',
+            lines: ['Amazing grace how sweet the sound\nthat saved a wretch like me;'],
+          },
+          {
+            name: 'v1',
+            lang: 'de',
+            transliteration: 'de',
+            break: 'optional',
+            lines: ['Erstaunliche Ahmut, wie'],
+          },
+        ],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+  </properties>
+  <lyrics>
+    <verse name="v1" lang="en">
+      <lines>Amazing grace how sweet the sound<br/>that saved a wretch like me;</lines>
+    </verse>
+    <verse name="v1" break="optional" lang="de" transliteration="de">
+      <lines>Erstaunliche Ahmut, wie</lines>
+    </verse>
+  </lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
   });
 });
