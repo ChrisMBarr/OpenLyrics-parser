@@ -111,10 +111,11 @@ export namespace IOpenLyricsSong {
   }
 
   export interface IVerseLine {
-    [key: string]: string | IVerseLineContent[];
+    [key: string]: string | number | IVerseLineContent[];
     break: string;
     content: IVerseLineContent[];
     part: string;
+    repeat: string | number;
   }
 
   export type IVerseLineContent =
@@ -144,9 +145,10 @@ export namespace IOpenLyricsSong {
   }
 
   export interface IInstrumentLine {
-    [key: string]: string | IInstrumentLineContent[];
+    [key: string]: string | number | IInstrumentLineContent[];
     content: IInstrumentLineContent[];
     part: string;
+    repeat: string | number;
   }
 
   export interface IInstrumentLineContentBeat {

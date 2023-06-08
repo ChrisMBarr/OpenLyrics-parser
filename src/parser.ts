@@ -119,6 +119,7 @@ export class Parser {
         break: this.getOptionalPropOnPossibleObject(line, 'break', ''),
         content: this.getVerseContentObjects(textAndXmlArr),
         part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
+        repeat: this.getOptionalPropOnPossibleObject(line, 'repeat', ''),
       });
     }
     return linesArr;
@@ -135,6 +136,7 @@ export class Parser {
       linesArr.push({
         content: this.getInstrumentContentObjects(textAndXmlArr),
         part: this.getOptionalPropOnPossibleObject(line, 'part', ''),
+        repeat: this.getOptionalPropOnPossibleObject(line, 'repeat', ''),
       });
     }
     return linesArr;

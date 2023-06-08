@@ -360,6 +360,7 @@ Each item in the `verses` array has the following properties
 |`break`                                    | `string`                                               |
 |[`content`](#verses--lines--content-array) | [`IVerseLineContent[]`](#verses--lines--content-array) |
 |`part`                                     | `string`                                               |
+|`repeat`                                   | `string | number`                                      |
 
 See below for an example of the XML to JSON transformation after you have read the next section about the `content` array property.
 
@@ -499,6 +500,7 @@ Each item in the `instruments` array has the following properties
 |:---------------------------|:---------------------------|
 |`content`                   | `IInstrumentLineContent[]` |
 |`part`                      | `string`                   |
+|`repeat`                    | `string | number`          |
 
 ## `instruments` => `lines` => `content` array
 Each `IInstrumentLineContent` object in this `content` array can be one of 2 different types of objects: a **beat** and a **chord**.  A beat can only contain an array of chords. No text is allowed here.  Both objects have a `type` property so they can be differentiated.

@@ -86,7 +86,7 @@ export namespace OpenLyricsXml {
 
   export type IVerseOrInstrumentLineUnparsed =
     | string
-    | { '#text': string; part?: string; repeat?: string; break?: string };
+    | { '#text': string; part?: string; repeat?: string | number; break?: string };
 
   export interface IVerse {
     break?: string;
@@ -94,11 +94,6 @@ export namespace OpenLyricsXml {
     name: string;
     lang?: string;
     translit?: string;
-  }
-
-  export interface IInstrumentLine {
-    part?: string;
-    repeat?: string;
   }
 
   export interface IInstrument {
