@@ -94,7 +94,7 @@ If a song has more than one title you must provide the titles in the form of the
 |:----------------|:---------|:---------|:--------------------------|
 |`value`          | `string` | ⚠️Yes    | The title of the song     |
 |`lang`           | `string` | No       | The language of the title, eg: `'en'` or `'de'`. This should match languages specified elsewhere if different from the document language. |
-|`transliteration`| `string` | No       | If a title has been transliterated from another language, store that language code here
+|`transliteration`| `string` | No       | If a title has been transliterated from another language, store that language code here. Only set this when also setting `lang`
 |`original`       | `boolean`| No       | This marks a particular title as being the original title. You only need to set this to `true` on one title, you can omit setting a value on all other titles |
 
 **Examples**
@@ -192,7 +192,7 @@ This optional object contains information about any custom format tags on the do
 |`open`    | `string` | ⚠️Yes    | The opening portion of this tag. This will be prepended to whatever text is wrapped in a `<tag>` within the lyrics. |
 |`close`   | `string` | ⚠️Yes    | The closing portion of this tag. This will be appended to whatever text is wrapped in a `<tag>` within the lyrics. |
 
-ℹ️ Note: If the `open` or `close` contains any XML/HTML tag characters they will be automatically replaced. For example: `<` is replaced with `&lt;` and `>` is replaced with `&gt;`  so it can be stored properly within the song XML document.
+ℹ️ Note: If the `open` or `close` contains any XML/HTML carat characters they will be automatically replaced with the corresponding HTML entity so it can be stored properly within the song XML document. For example: `<` is replaced with `&lt;` and `>` is replaced with `&gt;`  .
 
 **Example**
 ```js
@@ -200,14 +200,14 @@ This optional object contains information about any custom format tags on the do
   {
     application: 'CoolLyricsPro XD',
     tags: [
-      { name: 'red', open: '<span style="color:red">', close: '</span>' },
-      { name: 'bold', open: '<strong>', close: '</strong>' }
+      { name: 'red',  open: '<span style="color:red">', close: '</span>' },
+      { name: 'bold', open: '<strong>',                 close: '</strong>' }
     ],
   },
   {
     application: 'A Different App',
     tags: [
-      { name: 'red', open: '{{red|', close: '}}' },
+      { name: 'red',  open: '{{red|',  close: '}}' },
       { name: 'bold', open: '{{bold|', close: '}}' }
     ],
   },
@@ -219,10 +219,107 @@ This optional object contains information about any custom format tags on the do
 ### `verses` Array - ⚠️REQUIRED
 This required array of objects is used to describe all of the words of the song and other data related to them.  Read about the supported properties on [the OpenLyrics Song Lyrics docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-lyrics)
 
-| Property      | Type     | Required | Default Value               |
-|:--------------|:---------|:---------|:----------------------------|
+| Property         | Type                         | Required | Default Value               |
+|:-----------------|:-----------------------------|:---------|:----------------------------|
+|`name`            | `string`                     | ⚠️Yes    | The name of this verse. Can be anything string like: `'v1'`, `'v2'`, `'c'`, etc.  |
+|`lines`           | `string[]` or `IVerseLine[]` | ⚠️Yes    | Each verse can contain multiple "lines" of text. Pass a string in the array for each line. Any `\n`or `\r` line break character will be transformed into a `<br/>` tag. Alternatively for anything more complex an `IVerseLine[]` may be passed instead of a plain `string[]` See [the `IVerseLine[]` Docs](#verses--lines-iverseline) below.  |
+|`optionalBreak`   | `boolean`                    | No       | If `true` an application can decide to break the verse in two slides if it doesn’t fit on one screen  |
+|`lang`            | `string`                     | No       | The language this verse is written in. This should match languages specified elsewhere if different from the document language. |
+|`transliteration` | `string`                     | No       | If a verse has been transliterated from another language, store that language code here. Only set this when also setting `lang`  |
 
 
+
+#### `verses` => `lines: IVerseLine[]`
+| Property         | Type                         | Required | Default Value               |
+|:-----------------|:-----------------------------|:---------|:----------------------------|
+| `content`        | `IVerseLineContent[]`        | ⚠️Yes    | An array of items that can appear on this line of this verse. See [the `IVerseLineContent[]` docs](#verses--lines--content-iverselinecontent) below. |
+| `part`           | `string`                     | No       | This line of this verse can have a part, for example `'men'` or `'women'` are common parts to use. Read more about this on [the OpenLyrics Verse Parts Docs](https://docs.openlyrics.org/en/latest/dataformat.html#verse-parts-groups-of-lines) |
+| `optionalBreak`  | `boolean`                    | No       | If `true` an application can decide to break this line in two slides if it doesn’t fit on one screen |
+| `repeat`         | `number`                     | No       | The number of times this particular line should be repeated. Read more about this on [the OpenLyrics Line Repeat Docs](https://docs.openlyrics.org/en/latest/dataformat.html#line-repeat)  |
+
+
+#### `verses` => `lines` => `content: IVerseLineContent[]`
+The content of a line on a verse can be one of four types: `'text'`, `'comment'`, `'tag'`, or `'chord'` . Each of these object types have slightly different properties.
+See the examples below to understand how to best use the objects together to get the desired XML output.
+
+**Verse Line Content Object Type: `text`**
+A text object is used to define song lyric text
+| Property | Type       | Required | Default Value               |
+|:---------|:-----------|:---------|:----------------------------|
+|`type`    | `'text'`   | ⚠️Yes    | Setting `type:'text'` defines this as song lyric content. |
+|`value`   | `string`   | ⚠️Yes    | The lyric text content. Any `\n`or `\r` line break character will be transformed into a `<br/>` tag. |
+
+**Verse Line Content Object Type: `comment`**
+A comment object is used to adding non-visible information about a particular part of a song. For example, a comment could contain the style in which to play or sing any particular set of lyrics.
+Read more about this in [the OpenLyrics Lyric Comments Docs](https://docs.openlyrics.org/en/latest/dataformat.html#comments-in-lyrics)
+| Property | Type       | Required | Default Value               |
+|:---------|:-----------|:---------|:----------------------------|
+|`type`    | `'comment'`| ⚠️Yes    | Setting `type:'comment'` defines this as a comment |
+|`value`   | `string`   | ⚠️Yes    | The text of the comment |
+
+**Verse Line Content Object Type: `tag`**
+A tag object is used to adding non-visible information about a particular part of a song. For example, a comment could contain the style in which to play or sing any particular set of lyrics.
+Read more about this in [the OpenLyrics Lyric Comments Docs](https://docs.openlyrics.org/en/latest/dataformat.html#comments-in-lyrics)
+| Property | Type       | Required | Default Value               |
+|:---------|:-----------|:---------|:----------------------------|
+|`type`    | `'tag'`    | ⚠️Yes    | Setting `type:'tag'` defines this as a tag |
+|`name`    | `string`   | ⚠️Yes    | The name of the tag defined in [the `format` => `tags` property](#format--tags-iformattag) on the song |
+|`value`   | `string`   | ⚠️Yes    | The text that appears between the opening and closing tag |
+
+**Verse Line Content Object Type: `chord`**
+A chord object is used do define a chord that should be played at a particular part of a song. A chord can exist before a certain word in the lyrics, or it can contain a particular set of lyrics within it.
+Read more about this in [the OpenLyrics Chords Docs](https://docs.openlyrics.org/en/latest/dataformat.html#chords)
+| Property   | Type       | Required | Default Value               |
+|:-----------|:-----------|:---------|:----------------------------|
+|`type`      | `'chord'`  | ⚠️Yes    | Setting `type:'chord'` defines this as a chord |
+|`bass`      | `string`   | No       | Describes the foreign bass of the chord if any. The values should marked with English notation |
+|`root`      | `string`   | No       | Describes the root note of the chord. The values should marked with English notation |
+|`structure` | `string`   | No       | Describes the kind of the chord. This element is optional, if not present, the default value is the major |
+|`upbeat`    | `boolean`  | No       | Used to mark when a chord starts with a music pause |
+|`value`     | `string`   | No       | The text inside of the chord. If omitted the chord will have no content and be a self-closing XML node. |
+
+**Mixed objects example**
+To best understand how these objects can be used together, let's first look at the XML output we want to achieve for a line. I've added some line breaks, which are not normally there, to make this more readable.
+```xml
+<lines part="men">
+  <chord root="D" bass="F#"/>Amazing grace<br/>
+  <chord root="C" structure="min" bass="Eb"/> 
+  how sweet the sound that saved <chord root="B7" upbeat="true">a wretch like me</chord>
+</lines>
+<lines part="women">
+  <comment>sing this quietly</comment>
+  <chord root="D" bass="F#"/>Amazing grace<br/>
+  <chord root="C"/> 
+  how sweet the sound that saved <chord root="B7"/>a <tag name="red">wretch</tag> like me
+</lines>
+```
+To achieve that output, here what would need to be passed to the `lines` property of a verse
+```js
+{
+  part: "men",
+  content: [
+    {type: "chord", root: "D", bass: "F#"},
+    {type: "text", value: "Amazing grace\n"},
+    {type: "chord", root: "C", structure: "min", bass: "Eb"},
+    {type: "text", value: "how sweet the sound that saved "},
+    {type: "chord", root: "B7", upbeat: true, value: "a wretch like me"}
+  ]
+}
+{
+  part: "women",
+  content: [
+    {type: "comment", value: "sing this quietly"},
+    {type: "chord", root: "D", bass: "F#"},
+    {type: "text", value: "Amazing grace\n"},
+    {type: "chord", root: "C",},
+    {type: "text", value: "how sweet the sound that saved "},
+    {type: "chord", root: "B7" },
+    {type: "text", value: "a "},
+    {type: "tag", name:"red", value: "wretch"}
+    {type: "text", value: " like me"}
+  ]
+}
+```
 
 ### `instruments` Array
 This optional array of objects is used to describe all of the instrumental music in the song. It is very similar to the above `verses` but it cannot contain any words, only `chord`s or `beat`s. All `beat`s may only contain `chord`s. No text is allowed anywhere inside of `instruments`.  Read about the supported properties on [the OpenLyrics Instrumental Parts docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts)
