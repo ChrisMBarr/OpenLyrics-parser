@@ -271,7 +271,7 @@ export namespace INewOpenLyricsSong {
     root?: string;
     structure?: string;
     type: 'chord';
-    upbeat?: string;
+    upbeat?: boolean;
     value?: string;
   }
 

@@ -507,7 +507,7 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
                     root: 'F',
                     structure: 'm3-5',
                     bass: 'G#',
-                    upbeat: 'true',
+                    upbeat: true,
                   },
                   { type: 'text', value: 'that saved a wretch like me;\r' },
                 ],

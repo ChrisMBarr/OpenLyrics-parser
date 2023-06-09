@@ -280,7 +280,7 @@ export class Builder {
     if (chordObj.name != null) attrs += ` name="${chordObj.name}"`;
     if (chordObj.root != null) attrs += ` root="${chordObj.root}"`;
     if (chordObj.structure != null) attrs += ` structure="${chordObj.structure}"`;
-    if (chordObj.upbeat != null) attrs += ` upbeat="${chordObj.upbeat}"`;
+    if (chordObj.upbeat === true) attrs += ` upbeat="true"`;
     if (chordObj.bass != null) attrs += ` bass="${chordObj.bass}"`;
     if (chordObj.value != null) {
       return `<chord${attrs}>${chordObj.value}</chord>`;
