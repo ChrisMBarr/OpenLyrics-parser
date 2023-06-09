@@ -48,7 +48,7 @@ export namespace OpenLyricsXml {
   }
 
   export interface ITitles {
-    title: (string | { '#text': string; lang?: string; original?: boolean })[];
+    title: (string | { '#text': string; lang?: string; translit?: string; original?: boolean })[];
   }
 
   export interface IAuthors {

@@ -281,6 +281,7 @@ export class Parser {
         titlesArr.push({
           lang: this.getOptionalPropOnPossibleObject(t, 'lang', ''),
           original: this.getOptionalPropOnPossibleObject(t, 'original', null),
+          transliteration: this.getOptionalPropOnPossibleObject(t, 'translit', ''),
           value: this.getStringOrTextProp(t),
         });
       }

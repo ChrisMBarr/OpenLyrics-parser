@@ -57,7 +57,7 @@ It will produce this JSON object
   meta: {
     createdIn: 'OpenLP 1.9.0',
     lang: '',
-    modifiedDate: new Date('2012-04-10T12:00:00.000Z'),
+    modifiedDate: new Date('2012-04-10T12:00:00'),
     modifiedIn: 'MyApp 0.0.1',
     version: '0.8',
   },
@@ -78,7 +78,7 @@ It will produce this JSON object
     tempo: '',
     tempoType: '',
     themes: [],
-    titles: [{ lang: '', original: null, value: 'Amazing Grace' }],
+    titles: [{ lang: '', original: null, transliteration: '', value: 'Amazing Grace' }],
     transposition: '',
     variant: '',
     verseOrder: '',
@@ -86,15 +86,18 @@ It will produce this JSON object
   },
   verses:[
     {
+      break: '',
       name: 'v1',
       transliteration: '',
       lang: '',
       lines: [
         {
+          part: '',
+          break: '',
+          repeat: '',
           content: [
             { type: 'text', value: 'Amazing grace how sweet the sound\nthat saved a wretch like me;', },
           ],
-          part: '',
         },
       ],
     },
@@ -189,6 +192,7 @@ the following array is produced
 |:-------------------|:--------------------|
 |`value`             | `string`            |
 |`lang`              | `string`            |
+|`transliteration`   | `string`            |
 |`original`          | `boolean` or `null` |
 
 given this titles XML
@@ -204,10 +208,10 @@ given this titles XML
 the following array is produced
 ```javascript
 [
-  { lang: 'en-US', original: true, value: 'Amazing Grace' },
-  { lang: 'en',    original: null, value: 'Amazing Grace' },
-  { lang: '',      original: null, value: 'Amazing' },
-  { lang: 'de-DE', original: null, value: 'Erstaunliche Anmut' },
+  { lang: 'en-US', original: true, transliteration:'', value: 'Amazing Grace' },
+  { lang: 'en',    original: null, transliteration:'', value: 'Amazing Grace' },
+  { lang: '',      original: null, transliteration:'', value: 'Amazing' },
+  { lang: 'de-DE', original: null, transliteration:'', value: 'Erstaunliche Anmut' },
 ]
 ```
 

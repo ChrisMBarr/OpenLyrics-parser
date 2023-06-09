@@ -56,6 +56,7 @@ export namespace IOpenLyricsSong {
     [key: string]: string | boolean | null;
     lang: string;
     original: boolean | null;
+    transliteration: string;
     value: string;
   }
 
