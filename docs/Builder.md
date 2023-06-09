@@ -44,7 +44,7 @@ console.log(xmlDoc);
 A single object is passed to `OpenLyricsBuilder` which has 5 possible properties on it, but only two of which are required.
 - [`meta` Object](#meta-object)
 - [`properties` Object - ⚠️REQUIRED](#properties-object---⚠️required)
-- [`format` Object](#format-object)
+- [`format` Array](#format-array)
 - [`verses` Array - ⚠️REQUIRED](#verses-array---⚠️required)
 - [`instruments` Array](#instruments-array)
 
@@ -175,11 +175,44 @@ Themes are used to categorize songs. Having songs categorized can be useful when
 ```
 
 
-### `format` Object
+### `format` Array
 This optional object contains information about any custom format tags on the document. Read about them in [the OpenLyrics Formatting Extensions docs](https://docs.openlyrics.org/en/latest/dataformat.html#formatting-extensions). You should only need to use this if your song will use custom `<tag>` nodes which your song presentation software can interpret.
 
-| Property      | Type     | Required | Default Value               |
-|:--------------|:---------|:---------|:----------------------------|
+| Property      | Type           | Required | Default Value               |
+|:--------------|:---------------|:---------|:----------------------------|
+|`application`  | `string`       | ⚠️Yes    | The name of the target application or processor identifier that will use the specified format tags |
+|`tags`         | `IFormatTag[]` | ⚠️Yes    | An array of tag objects, described below |
+
+
+
+#### `format` => `tags: IFormatTag[]`
+| Property | Type     | Required | Default Value               |
+|:---------|:---------|:---------|:----------------------------|
+|`name`    | `string` | ⚠️Yes    | The name of this tag  |
+|`open`    | `string` | ⚠️Yes    | The opening portion of this tag. This will be prepended to whatever text is wrapped in a `<tag>` within the lyrics. |
+|`close`   | `string` | ⚠️Yes    | The closing portion of this tag. This will be appended to whatever text is wrapped in a `<tag>` within the lyrics. |
+
+ℹ️ Note: If the `open` or `close` contains any XML/HTML tag characters they will be automatically replaced. For example: `<` is replaced with `&lt;` and `>` is replaced with `&gt;`  so it can be stored properly within the song XML document.
+
+**Example**
+```js
+[
+  {
+    application: 'CoolLyricsPro XD',
+    tags: [
+      { name: 'red', open: '<span style="color:red">', close: '</span>' },
+      { name: 'bold', open: '<strong>', close: '</strong>' }
+    ],
+  },
+  {
+    application: 'A Different App',
+    tags: [
+      { name: 'red', open: '{{red|', close: '}}' },
+      { name: 'bold', open: '{{bold|', close: '}}' }
+    ],
+  },
+]
+```
 
 
 

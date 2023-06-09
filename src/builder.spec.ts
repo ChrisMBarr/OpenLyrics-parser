@@ -363,11 +363,11 @@ Adoration      </theme>
         format: [
           {
             application: 'CoolLyricsPro XD',
-            tags: [{ name: 'red', open: '&lt;span style="color:red"&gt;', close: '&lt;/span&gt;' }],
+            tags: [{ name: 'red', open: '<span style="color:red">', close: '</span>' }],
           },
           {
             application: 'A Different App',
-            tags: [{ name: 'red', open: '{{:red:', close: '}}' }],
+            tags: [{ name: 'red', open: '{{red|', close: '}}' }],
           },
         ],
         verses: [],
@@ -394,7 +394,7 @@ Adoration      </theme>
     </tags>
     <tags application="A Different App">
       <tag name="red">
-        <open>{{:red:</open>
+        <open>{{red|</open>
         <close>}}</close>
       </tag>
     </tags>

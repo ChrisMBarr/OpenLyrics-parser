@@ -61,8 +61,8 @@ export class Builder {
           tag: f.tags.map((t): INewSong.IFormatTagXml => {
             return {
               '@name': t.name,
-              open: t.open,
-              close: t.close,
+              open: this.encodeHtmlCarats(t.open),
+              close: this.encodeHtmlCarats(t.close),
             };
           }),
         };
@@ -305,5 +305,9 @@ export class Builder {
 
   private convertToHtmlBreaks(x: string): string {
     return x.replace(/\n/g, '<br/>');
+  }
+
+  private encodeHtmlCarats(x: string): string {
+    return x.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 }
