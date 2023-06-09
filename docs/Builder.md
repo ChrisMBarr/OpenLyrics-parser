@@ -71,9 +71,25 @@ This object is optional and it is the information about the document itself. The
 ### `properties` Object - ⚠️REQUIRED
 This required object contains information about the song. Read about the properties in [the OpenLyrics Song Properties docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-properties)
 
-| Property      | Type     | Required | Default Value               |
-|:--------------|:---------|:---------|:----------------------------|
-
+| Property                    | Type                 | Required | Description                 |
+|:----------------------------|:---------------------|:---------|:----------------------------|
+| `titles`                    | `string | ITitle[]`  | ⚠️Yes    | For a simple single title just provide a string. For multiples, an array of objects. See [`ITitle[]` docs]() below.  |
+| `authors`                   | `string | IAuthor[]` | No       | For a simple single author just provide a string. For multiples, an array of objects. See [`IAuthor[]` docs]() below. |
+| `ccliNo`                    | `string | number`    | No       | The CCLI license number for this song |
+| `comments`                  | `string[]`           | No       | Any additional, unspecified user data about this song |
+| `copyright`                 | `string | number`    | No       | The copyright information of the song. In some countries it is a legal requirement to display copyright information during the presentation of songs. The <copyright> tag has no specific format, though it is recommended that the value contains at least the year and copyright holder of the song  |
+| `key`                       | `string`             | No       | The key the song is in, eg: `'C#'` |
+| `keywords`                  | `string`             | No       | A space separated list of words used for more precise results when searching for a song in a song database |
+| `publisher`                 | `string`             | No       | The publisher of the song |
+| `released` or `releaseDate` | `string | number`    | No       | The year or date when a song was released or published |
+| `songBooks`                 | `ISongBook[]`        | No       | Most songs come from some sort of collection of songs (a book or a folder of some sort). It may be useful to track where the song comes from. See [`ISongBook[]` docs]() below.|
+| `tempo`                     | `string | number`    | No       | The tempo of the song, which can be expressed as a number, eg: `90` (as BPM), or as text, eg: `'slow'` or `'moderate'` |
+| `themes`                    | `ITheme[]`           | No       | Used to categorize the song. See [`ITheme[]` docs]() below.|
+| `timeSignature`             | `string`             | No       | Used to define the time signature of the song, eg: `'3/4'` |
+| `transposition`             | `string | number`    | No       | Used when it is necessary to move the key or the pitch of chords up or down. The value must be an integer between -11 and 11 |
+| `variant`                   | `string`             | No       | A description which is used to differentiate songs which are identical, but may be performed or sung differently |
+| `verseOrder`                | `string`             | No       | A space-separated string of verse and instrument `name`s defines the order in which the verses and instrumental parts are typically sung or performed. eg: `'v1 v2 c c v1'` |
+| `version`                   | `string | number`    | No       | Any text or "version number" of the song since song can be updated over time, sometimes to add additional verses, sometimes to fix spelling or grammatical errors |
 
 
 ### `format` Object

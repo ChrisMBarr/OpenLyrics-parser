@@ -184,6 +184,8 @@ export class Builder {
     userThemes?: INewSong.ITheme[]
   ): void {
     if (userThemes) {
+      //TODO: Allow for string array values!
+
       obj.song.properties.themes = {
         theme: userThemes.map((t): INewSong.IThemeXml => {
           return {
