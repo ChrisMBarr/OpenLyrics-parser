@@ -209,12 +209,14 @@ export namespace INewOpenLyricsSong {
   export interface ITitle {
     lang?: string;
     original?: boolean;
+    transliteration?: string;
     value: string;
   }
 
   export interface ITitleXml {
     '@lang'?: string;
-    '@original'?: boolean;
+    '@original'?: string;
+    '@translit'?: string;
     '#text': string;
   }
 

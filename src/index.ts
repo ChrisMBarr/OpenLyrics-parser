@@ -108,12 +108,13 @@ export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string
   olBuilder.overwriteInstruments(documentObj, songData.instruments);
 
   const builder = new XMLBuilder({
-    ignoreAttributes: false,
     attributeNamePrefix: '@',
-    unpairedTags: ['songbook'],
-    suppressUnpairedNode: false,
     format: true,
+    ignoreAttributes: false,
     processEntities: false,
+    suppressBooleanAttributes: false,
+    suppressUnpairedNode: false,
+    unpairedTags: ['songbook'],
   });
   const xmlString = builder.build(documentObj).trim();
 

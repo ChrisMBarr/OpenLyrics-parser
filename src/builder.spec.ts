@@ -97,8 +97,10 @@ describe('OpenLyricsBuilder', (): void => {
       const opts: INewOpenLyricsSong.IOptions = {
         properties: {
           titles: [
-            { value: 'Amazing Grace', lang: 'en' },
-            { value: 'Erstaunliche Anmut', lang: 'de' },
+            { lang: 'en-US', original: true, value: 'Amazing Grace' },
+            { lang: 'en', value: 'Amazing Grace' },
+            { value: 'Amazing' },
+            { lang: 'de-DE', transliteration: 'en', value: 'Erstaunliche Anmut' },
           ],
         },
         verses: [],
@@ -112,8 +114,11 @@ describe('OpenLyricsBuilder', (): void => {
 <song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
   <properties>
     <titles>
+      <title lang="en-US" original="true">Amazing Grace</title>
       <title lang="en">Amazing Grace</title>
-      <title lang="de">Erstaunliche Anmut</title>
+      <title>
+Amazing      </title>
+      <title lang="de-DE" translit="en">Erstaunliche Anmut</title>
     </titles>
   </properties>
   <lyrics></lyrics>

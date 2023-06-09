@@ -125,7 +125,8 @@ export class Builder {
         return {
           '#text': t.value,
           '@lang': t.lang,
-          '@original': t.original,
+          '@translit': t.transliteration,
+          '@original': t.original === true ? 'true' : undefined,
         };
       });
     }
