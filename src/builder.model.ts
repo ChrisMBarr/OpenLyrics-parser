@@ -114,15 +114,10 @@ export namespace INewOpenLyricsSong {
      */
     songBooks?: ISongBook[];
     /**
-     * @description The tempo of a song defines the speed at which a song is to be played. It could be expressed in beats per minute (BPM) or as any text value.
+     * @description The tempo of a song defines the speed at which a song is to be played. It could be expressed as a number in beats per minute (BPM) or as any text value like "slow" or "moderate".
      * @see {@link https://docs.openlyrics.org/en/latest/dataformat.html#tempo}
      */
     tempo?: string | number;
-    /**
-     * @description The way in which the tempo is represented. Usually as "BPM" or "Text". This property is only used if the tempo property has a value.
-     * @see {@link https://docs.openlyrics.org/en/latest/dataformat.html#tempo}
-     */
-    tempoType?: string;
     /**
      * @description Themes are used to categorize songs. Having songs categorized can be useful when choosing songs for a ceremony or for a particular sermon topic.
      * @see {@link https://docs.openlyrics.org/en/latest/dataformat.html#themes}

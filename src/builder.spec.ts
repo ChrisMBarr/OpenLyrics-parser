@@ -263,7 +263,7 @@ Adoration      </theme>
       expect(normalizedOutput).toEqual(expectedXml);
     });
 
-    it('should build all the primitive properties', () => {
+    it('should build all the primitive properties (with tempo as a number value)', () => {
       const opts: INewOpenLyricsSong.IOptions = {
         properties: {
           ccliNo: '1234',
@@ -274,7 +274,6 @@ Adoration      </theme>
           publisher: 'a company',
           released: '2002',
           tempo: 90,
-          tempoType: 'bpm',
           timeSignature: '3/4',
           titles: 'Amazing Grace',
           transposition: 6,
@@ -311,6 +310,34 @@ Adoration      </theme>
     <variant>slow</variant>
     <verseOrder>v1 v2 v3</verseOrder>
     <version>2</version>
+  </properties>
+  <lyrics></lyrics>
+</song>`
+      );
+
+      expect(normalizedOutput).toEqual(expectedXml);
+    });
+
+    it('should build the tempo using a string value', () => {
+      const opts: INewOpenLyricsSong.IOptions = {
+        properties: {
+          tempo: 'slow',
+          titles: 'Amazing Grace',
+        },
+        verses: [],
+      };
+      const normalizedOutput = normalizeModifiedDate(OpenLyricsBuilder(opts));
+
+      const expectedXml = normalizeExpected(
+        opts,
+        `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../stylesheets/openlyrics.css" type="text/css"?>
+<song xmlns="http://openlyrics.info/namespace/2009/song" xml:lang="en" version="0.9" createdIn="openlyrics-parser 1.1.0" modifiedIn="openlyrics-parser 1.1.0" modifiedDate="2023-01-01T01:01:01">
+  <properties>
+    <titles>
+      <title>Amazing Grace</title>
+    </titles>
+    <tempo type="text">slow</tempo>
   </properties>
   <lyrics></lyrics>
 </song>`

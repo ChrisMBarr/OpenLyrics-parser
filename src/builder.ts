@@ -33,10 +33,10 @@ export class Builder {
     this.overwriteSpecialPropComments(obj, userProps.comments);
     this.overwriteSpecialPropSongBooks(obj, userProps.songBooks);
     this.overwriteSpecialPropThemes(obj, userProps.themes);
-    this.overwriteSpecialPropTempo(obj, userProps.tempo, userProps.tempoType);
+    this.overwriteSpecialPropTempo(obj, userProps.tempo);
 
     //Add all the remaining string/number properties we can just copy over
-    const skipProps = ['authors', 'titles', 'tempo', 'tempoType'];
+    const skipProps = ['authors', 'titles', 'tempo'];
     Object.keys(userProps).forEach((key) => {
       //skip over keys that we handled above which can possibly have string values
       if (!skipProps.includes(key)) {
@@ -197,14 +197,14 @@ export class Builder {
 
   private overwriteSpecialPropTempo(
     obj: INewSong.IBuilderObject,
-    userTempo?: string | number,
-    userTempoType?: string
+    userTempo?: string | number
   ): void {
     if (userTempo != null) {
-      //An array of author objects were passed in
+      const tempoType = typeof userTempo === 'number' ? 'bpm' : 'text';
+
       obj.song.properties.tempo = {
         '#text': userTempo,
-        '@type': userTempoType,
+        '@type': tempoType,
       };
     }
   }

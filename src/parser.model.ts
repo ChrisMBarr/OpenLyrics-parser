@@ -24,7 +24,7 @@ export namespace IOpenLyricsSong {
   //============================================
   //Properties
   export interface IProperties {
-    [key: string]: string | string[] | IAuthor[] | ISongBook[] | ITheme[] | ITitle[];
+    [key: string]: number | string | string[] | IAuthor[] | ISongBook[] | ITheme[] | ITitle[];
     authors: IAuthor[];
     ccliNo: string;
     comments: string[];
@@ -34,7 +34,7 @@ export namespace IOpenLyricsSong {
     publisher: string;
     released: string;
     songBooks: ISongBook[];
-    tempo: string;
+    tempo: string | number;
     tempoType: string;
     themes: ITheme[];
     timeSignature: string;
