@@ -277,7 +277,6 @@ export class Builder {
   private getChord(chordObj: INewSong.IVerseAndInstrumentLineContentChord): string {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#chords
     let attrs = '';
-    if (chordObj.name != null) attrs += ` name="${chordObj.name}"`;
     if (chordObj.root != null) attrs += ` root="${chordObj.root}"`;
     if (chordObj.structure != null) attrs += ` structure="${chordObj.structure}"`;
     if (chordObj.upbeat === true) attrs += ` upbeat="true"`;

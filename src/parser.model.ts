@@ -92,7 +92,6 @@ export namespace IOpenLyricsSong {
   export interface IVerseAndInstrumentLineContentChord {
     [key: string]: string | undefined;
     bass?: string;
-    name?: string;
     root?: string;
     structure?: string;
     type: 'chord';

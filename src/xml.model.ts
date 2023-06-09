@@ -107,5 +107,6 @@ export namespace OpenLyricsXml {
     root?: string;
     structure?: string;
     upbeat?: string;
+    bass?: string;
   }
 }

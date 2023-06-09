@@ -227,7 +227,13 @@ export class Parser {
     const chord: IOpenLyricsSong.IVerseAndInstrumentLineContentChord = { type: 'chord' };
     Object.keys(chordObj).forEach((k) => {
       //When we have an ending tag we want to add the inner text between the tags as a value property
-      const keyName = k === '#text' ? 'value' : k;
+      let keyName = k === '#text' ? 'value' : k;
+
+      if (keyName === 'name') {
+        //Rename property from version 0.8 to version 0.9
+        keyName = 'root';
+      }
+
       chord[keyName] = chordObj[k];
     });
     return chord;

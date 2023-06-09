@@ -503,7 +503,6 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
                   { type: 'text', value: 'Amazing grace how sweet the sound\n' },
                   {
                     type: 'chord',
-                    name: 'D',
                     root: 'F',
                     structure: 'm3-5',
                     bass: 'G#',
@@ -515,18 +514,18 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
               {
                 part: 'men',
                 content: [
-                  { type: 'chord', name: 'B7' },
+                  { type: 'chord', root: 'B7' },
                   { type: 'text', value: 'Amazing grace' },
-                  { type: 'chord', name: 'G7' },
+                  { type: 'chord', root: 'G7' },
                   { type: 'text', value: ' how sweet the sound that saved a wretch like me;' },
                 ],
               },
               {
                 part: 'women',
                 content: [
-                  { type: 'chord', name: 'B7' },
+                  { type: 'chord', root: 'B7' },
                   { type: 'text', value: 'Amazing grace ' },
-                  { type: 'chord', name: 'G7', value: 'how sweet the sound' }, //this chord has a value, it has text inside it!
+                  { type: 'chord', root: 'G7', value: 'how sweet the sound' }, //this chord has a value, it has text inside it!
                   { type: 'text', value: ' that saved a wretch like me;' },
                 ],
               },
@@ -549,11 +548,11 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
   <lyrics>
     <verse name="v1">
       <lines repeat="3">
-Amazing grace how sweet the sound<br/><chord name="D" root="F" structure="m3-5" upbeat="true" bass="G#"/>that saved a wretch like me;<br/>      </lines>
+Amazing grace how sweet the sound<br/><chord root="F" structure="m3-5" upbeat="true" bass="G#"/>that saved a wretch like me;<br/>      </lines>
       <lines part="men">
-<chord name="B7"/>Amazing grace<chord name="G7"/> how sweet the sound that saved a wretch like me;      </lines>
+<chord root="B7"/>Amazing grace<chord root="G7"/> how sweet the sound that saved a wretch like me;      </lines>
       <lines part="women">
-<chord name="B7"/>Amazing grace <chord name="G7">how sweet the sound</chord> that saved a wretch like me;      </lines>
+<chord root="B7"/>Amazing grace <chord root="G7">how sweet the sound</chord> that saved a wretch like me;      </lines>
     </verse>
   </lyrics>
 </song>`
@@ -717,8 +716,8 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
                 repeat: 2,
                 part: 'guitar',
                 content: [
-                  { type: 'chord', name: 'G' },
-                  { type: 'chord', name: 'G#' },
+                  { type: 'chord', root: 'G' },
+                  { type: 'chord', root: 'G#' },
                 ],
               },
             ],
@@ -730,8 +729,8 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
                 repeat: 2,
                 part: 'piano',
                 content: [
-                  { type: 'chord', name: 'D' },
-                  { type: 'chord', name: 'D#' },
+                  { type: 'chord', root: 'D' },
+                  { type: 'chord', root: 'D#' },
                 ],
               },
             ],
@@ -753,11 +752,11 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
   <lyrics>
     <instrument name="intro">
       <lines part="guitar" repeat="2">
-<chord name="G"/><chord name="G#"/>      </lines>
+<chord root="G"/><chord root="G#"/>      </lines>
     </instrument>
     <instrument name="intro">
       <lines part="piano" repeat="2">
-<chord name="D"/><chord name="D#"/>      </lines>
+<chord root="D"/><chord root="D#"/>      </lines>
     </instrument>
   </lyrics>
 </song>`
@@ -782,15 +781,15 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
                   {
                     type: 'beat',
                     chords: [
-                      { type: 'chord', name: 'G' },
-                      { type: 'chord', name: 'G#' },
+                      { type: 'chord', root: 'G' },
+                      { type: 'chord', root: 'G#' },
                     ],
                   },
                   {
                     type: 'beat',
                     chords: [
-                      { type: 'chord', name: 'D' },
-                      { type: 'chord', name: 'D#' },
+                      { type: 'chord', root: 'D' },
+                      { type: 'chord', root: 'D#' },
                     ],
                   },
                 ],
@@ -814,8 +813,8 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
   <lyrics>
     <instrument name="intro">
       <lines part="guitar">
-        <beat><chord name="G"/><chord name="G#"/></beat>
-        <beat><chord name="D"/><chord name="D#"/></beat>
+        <beat><chord root="G"/><chord root="G#"/></beat>
+        <beat><chord root="D"/><chord root="D#"/></beat>
       </lines>
     </instrument>
   </lyrics>
@@ -841,12 +840,12 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
                   {
                     type: 'beat',
                     chords: [
-                      { type: 'chord', name: 'G' },
-                      { type: 'chord', name: 'G#' },
+                      { type: 'chord', root: 'G' },
+                      { type: 'chord', root: 'G#' },
                     ],
                   },
-                  { type: 'chord', name: 'D' },
-                  { type: 'chord', name: 'D#' },
+                  { type: 'chord', root: 'D' },
+                  { type: 'chord', root: 'D#' },
                 ],
               },
             ],
@@ -868,8 +867,8 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
   <lyrics>
     <instrument name="intro">
       <lines part="guitar">
-        <beat><chord name="G"/><chord name="G#"/></beat>
-<chord name="D"/><chord name="D#"/>      </lines>
+        <beat><chord root="G"/><chord root="G#"/></beat>
+<chord root="D"/><chord root="D#"/>      </lines>
     </instrument>
   </lyrics>
 </song>`

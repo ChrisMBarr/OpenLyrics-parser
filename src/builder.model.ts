@@ -267,7 +267,6 @@ export namespace INewOpenLyricsSong {
   //Verses & Instruments (Shared)
   export interface IVerseAndInstrumentLineContentChord {
     bass?: string;
-    name?: string;
     root?: string;
     structure?: string;
     type: 'chord';
