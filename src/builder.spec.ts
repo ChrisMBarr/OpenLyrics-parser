@@ -203,6 +203,7 @@ John Newton      </author>
           songBooks: [
             { name: "Rippon's Selection of Hymns" },
             { name: 'Teszt könyv', entry: '166' },
+            { name: 'Test with number', entry: 42 },
           ],
           titles: 'Required',
         },
@@ -222,6 +223,7 @@ John Newton      </author>
     <songbooks>
       <songbook name="Rippon's Selection of Hymns"/>
       <songbook name="Teszt könyv" entry="166"/>
+      <songbook name="Test with number" entry="42"/>
     </songbooks>
   </properties>
   <lyrics></lyrics>

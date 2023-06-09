@@ -1,7 +1,7 @@
 # OpenLyrics-parser
-[OpenLyrics](https://openlyrics.org/) is an open XML file format for storing song and lyric information about songs. Many open
+[OpenLyrics](https://openlyrics.org/) is an open XML file format for storing song and lyric information about songs.
 
-This project will parses and extract data from OpenLyrics XML files.
+This project will parse and extract data from OpenLyrics XML files written in OpenLyrics version 0.8 and 0.9, and it can create OpenLyrics 0.9 formatted documents.
 
 This project is used by my [LyricConverter](htt://github.com/FiniteLooper/LyricConverter) project which can convert your song lyric files between many common formats. If you need to convert some songs to another existing format I encourage you to check this project out first.
 
@@ -12,9 +12,9 @@ npm install openlyrics-parser --save
 ```
 
 ## Parsing OpenLyrics XML Files
-Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics `.xml` file as a string to it.
+Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics XML file as a string to it.
 
-### [docs/Parser.md](Documentation & Examples: Reading/Parsing Files)
+### [Documentation & Examples: Reading/Parsing Files](docs/Parser.md)
 
 ### For TypeScript projects
 ```typescript
@@ -43,7 +43,7 @@ readFile('example.xml', (contents) => {
 ## Building OpenLyrics XML Files
 Simply import `OpenLyricsBuilder`, then pass the song data to it, and it will return a `string` of XML data which you can then do what you need to with it.
 
-### [docs/Builder.md](Documentation & Examples: Building/Creating Files)
+### [Documentation & Examples: Building/Creating Files](docs/Builder.md)
 
 ### For TypeScript projects
 ```typescript

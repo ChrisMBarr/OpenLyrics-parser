@@ -1,7 +1,7 @@
 # Documentation - Reading/Parsing OnlyLyrics XML files
 
 ## Usage
-Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics `.xml` file as a string to it.
+Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics XML file as a string to it.
 
 ### For TypeScript projects
 Full type definitions are provided. You may need to import them separately, as shown below, if you need to explicitly provide type definitions to something.
