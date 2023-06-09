@@ -81,7 +81,7 @@ export class Builder {
     for (const verse of userVerses) {
       versesXml.push({
         '@name': verse.name,
-        '@break': verse.break,
+        '@break': verse.optionalBreak === true ? 'optional' : undefined,
         '@lang': verse.lang,
         '@transliteration': verse.transliteration,
         lines: this.getVerseLines(verse.lines),
@@ -244,7 +244,7 @@ export class Builder {
         return {
           '#text': lineContentArr.join(''),
           '@part': l.part,
-          '@break': l.break,
+          '@break': l.optionalBreak === true ? 'optional' : undefined,
           '@repeat': l.repeat,
         };
       });
@@ -304,7 +304,7 @@ export class Builder {
   }
 
   private convertToHtmlBreaks(x: string): string {
-    return x.replace(/\n/g, '<br/>');
+    return x.replace(/[\n\r]/g, '<br/>');
   }
 
   private encodeHtmlCarats(x: string): string {

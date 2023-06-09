@@ -278,7 +278,7 @@ export namespace INewOpenLyricsSong {
   //============================================
   //Verses
   export interface IVerse {
-    break?: 'optional';
+    optionalBreak?: boolean;
     lang?: string;
     lines: string[] | IVerseLine[];
     name: string;
@@ -296,7 +296,7 @@ export namespace INewOpenLyricsSong {
   export interface IVerseLine {
     content: IVerseLineContent[];
     part?: string;
-    break?: 'optional';
+    optionalBreak?: boolean;
     repeat?: number;
   }
 

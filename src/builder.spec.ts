@@ -509,7 +509,7 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
                     bass: 'G#',
                     upbeat: 'true',
                   },
-                  { type: 'text', value: 'that saved a wretch like me;\n' },
+                  { type: 'text', value: 'that saved a wretch like me;\r' },
                 ],
               },
               {
@@ -618,6 +618,7 @@ Amazing grace how sweet the sound that <tag name="red">saved</tag> a <tag name="
             name: 'v1',
             lines: [
               {
+                optionalBreak: true,
                 content: [
                   { type: 'text', value: 'Amazing grace how sweet the sound that ' },
                   { type: 'comment', value: 'here is a comment' },
@@ -644,7 +645,7 @@ Amazing grace how sweet the sound that <tag name="red">saved</tag> a <tag name="
   </properties>
   <lyrics>
     <verse name="v1">
-      <lines>
+      <lines break="optional">
 Amazing grace how sweet the sound that <comment>here is a comment</comment> saved a <comment>another comment</comment> wretch like me;      </lines>
     </verse>
   </lyrics>
@@ -663,13 +664,13 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
           {
             name: 'v1',
             lang: 'en',
-            lines: ['Amazing grace how sweet the sound\nthat saved a wretch like me;'],
+            lines: ['Amazing grace how sweet the sound\rthat saved a wretch like me;'],
           },
           {
             name: 'v1',
             lang: 'de',
             transliteration: 'de',
-            break: 'optional',
+            optionalBreak: true,
             lines: ['Erstaunliche Ahmut, wie'],
           },
         ],
