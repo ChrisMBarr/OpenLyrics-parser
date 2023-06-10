@@ -6,7 +6,7 @@ Simply import `OpenLyricsBuilder`, then pass the song data to it, and it will re
 ### For TypeScript projects
 ```typescript
 import { OpenLyricsBuilder } from 'openlyrics-parser';
-import { INewOpenLyricsSong } from 'openlyrics-parser/dist/main/model';
+import { INewOpenLyricsSong } from 'openlyrics-parser/dist/main/builder.model';
 
 const opts: INewOpenLyricsSong.IOptions = {
   properties: { titles: 'Amazing Grace' },

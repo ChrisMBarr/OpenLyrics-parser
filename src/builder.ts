@@ -1,4 +1,5 @@
 import { INewOpenLyricsSong as INewSong } from './builder.model';
+import { version } from './version';
 
 export class Builder {
   public overwriteMeta(obj: INewSong.IBuilderObject, userMeta?: INewSong.IMeta): void {
@@ -6,8 +7,8 @@ export class Builder {
 
     //Use these properties if nothing was passed in for them
     const defaultMeta: INewSong.IMeta = {
-      createdIn: `${process.env.npm_package_name} ${process.env.npm_package_version}`,
-      modifiedIn: `${process.env.npm_package_name} ${process.env.npm_package_version}`,
+      createdIn: `openlyrics-parser ${version}`,
+      modifiedIn: `openlyrics-parser ${version}`,
       lang: 'en',
     };
     const mergedMeta = { ...defaultMeta, ...userMeta };

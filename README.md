@@ -20,7 +20,7 @@ Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics XML fi
 ```typescript
 import { readFile } from 'fs';
 import { OpenLyricsParser } from 'openlyrics-parser';
-import { IOpenLyricsSong } from 'openlyrics-parser/dist/main/model';
+import { IOpenLyricsSong } from 'openlyrics-parser/dist/main/parser.model';
 
 readFile('example.xml', (contents): void => {
   const song: IOpenLyricsSong.IRoot = OpenLyricsParser(contents.toString());
@@ -48,7 +48,7 @@ Simply import `OpenLyricsBuilder`, then pass the song data to it, and it will re
 ### For TypeScript projects
 ```typescript
 import { OpenLyricsBuilder } from 'openlyrics-parser';
-import { INewOpenLyricsSong } from 'openlyrics-parser/dist/main/model';
+import { INewOpenLyricsSong } from 'openlyrics-parser/dist/main/builder.model';
 
 const opts: INewOpenLyricsSong.IOptions = {
   properties: { titles: 'Amazing Grace' },

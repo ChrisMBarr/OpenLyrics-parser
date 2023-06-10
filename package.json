@@ -22,6 +22,7 @@
   "files": [
     "dist/main",
     "dist/module",
+    "docs/**/**",
     "!**/*.spec.*",
     "!**/*.json",
     "!**/*.tsbuildinfo",
@@ -46,7 +47,7 @@
       "ts"
     ],
     "preset": "ts-jest",
-    "reporters":[
+    "reporters": [
       "default",
       "jest-html-reporter"
     ],
@@ -67,10 +68,11 @@
     "includeStackTrace": false
   },
   "scripts": {
-    "build": "npm run clean && npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
+    "build": "npm run clean && npm run genversion && npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "clean": "rimraf dist coverage test-report.html",
+    "genversion":"npx genversion src/version.ts --es6 --semi",
     "lint": "eslint --fix src/**/*.ts",
     "test": "jest --reporters=default",
     "test:html": "jest --reporters=jest-html-reporter --verbose=false",
@@ -91,6 +93,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^5.0.8",
     "eslint-plugin-import": "^2.27.5",
+    "genversion": "^3.1.1",
     "jest": "^29.5.0",
     "jest-html-reporter": "^3.10.0",
     "ts-jest": "^29.1.0",

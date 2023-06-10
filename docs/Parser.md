@@ -8,7 +8,7 @@ Full type definitions are provided. You may need to import them separately, as s
 ```typescript
 import { readFile } from 'fs';
 import { OpenLyricsParser } from 'openlyrics-parser';
-import { IOpenLyricsSong } from 'openlyrics-parser/dist/main/model';
+import { IOpenLyricsSong } from 'openlyrics-parser/dist/main/parser.model';
 
 readFile('example.xml', (contents): void => {
   const song: IOpenLyricsSong.IRoot = OpenLyricsParser(contents.toString());
