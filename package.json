@@ -64,17 +64,17 @@
   "jest-html-reporter": {
     "includeConsoleLog": true,
     "includeFailureMsg": true,
-    "includeStackTrace": false,
-    "statusIgnoreFilter":"pending"
+    "includeStackTrace": false
   },
   "scripts": {
-    "build": "npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
+    "build": "npm run clean && npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
+    "clean": "rimraf dist coverage test-report.html",
     "lint": "eslint --fix src/**/*.ts",
     "test": "jest --reporters=default",
     "test:html": "jest --reporters=jest-html-reporter --verbose=false",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --coverageDirectory=../coverage",
     "watch:build": "tsc -p tsconfig.json -w",
     "watch:test": "jest --watch --reporters=default",
     "watch:test:html": "jest --watch --reporters=jest-html-reporter --verbose=false"
@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.2.6",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "eslint": "^8.42.0",

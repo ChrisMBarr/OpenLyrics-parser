@@ -23,7 +23,7 @@
     "node_modules/**",
     "dist/**",
     "test-report.html",
-    "src/coverage/**",
+    "coverage/**",
     "src/*.spec.ts",
     "sample-files/examples/*.xml"
   ]
