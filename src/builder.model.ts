@@ -264,14 +264,13 @@ export namespace INewOpenLyricsSong {
   }
 
   //============================================
-  //Verses & Instruments (Shared)
-  export interface IVerseAndInstrumentLineContentChord {
+  //Chord base interface, Verses & Instruments extend this interface which we do not export
+  interface IChordBase {
     bass?: string;
     root?: string;
     structure?: string;
     type: 'chord';
     upbeat?: boolean;
-    value?: string;
   }
 
   //============================================
@@ -306,10 +305,11 @@ export namespace INewOpenLyricsSong {
     '@repeat'?: number;
   }
 
-  export type IVerseLineContent =
-    | IVerseLineContentStandard
-    | IVerseLineContentTag
-    | IVerseAndInstrumentLineContentChord;
+  export interface IVerseChord extends IChordBase {
+    value?: string;
+  }
+
+  export type IVerseLineContent = IVerseLineContentStandard | IVerseLineContentTag | IVerseChord;
 
   export interface IVerseLineContentStandard {
     type: 'text' | 'comment';
@@ -336,22 +336,24 @@ export namespace INewOpenLyricsSong {
 
   export interface IInstrumentLine {
     content: IInstrumentLineContent[];
-    part: string;
+    part?: string;
     repeat?: number;
   }
 
   export interface IInstrumentLineXml {
     '#text': string;
-    '@part': string;
+    '@part'?: string;
     '@repeat'?: number;
   }
 
+  export interface IInstrumentChord extends IChordBase {
+    //Same as the base chord object but renamed here
+  }
+
   export interface IInstrumentLineContentBeat {
-    chords: IVerseAndInstrumentLineContentChord[];
+    chords: IInstrumentChord[];
     type: 'beat';
   }
 
-  export type IInstrumentLineContent =
-    | IInstrumentLineContentBeat
-    | IVerseAndInstrumentLineContentChord;
+  export type IInstrumentLineContent = IInstrumentLineContentBeat | IInstrumentChord;
 }

@@ -274,14 +274,14 @@ export class Builder {
     return linesXml;
   }
 
-  private getChord(chordObj: INewSong.IVerseAndInstrumentLineContentChord): string {
+  private getChord(chordObj: INewSong.IVerseChord | INewSong.IInstrumentChord): string {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#chords
     let attrs = '';
     if (chordObj.root != null) attrs += ` root="${chordObj.root}"`;
     if (chordObj.structure != null) attrs += ` structure="${chordObj.structure}"`;
     if (chordObj.upbeat === true) attrs += ` upbeat="true"`;
     if (chordObj.bass != null) attrs += ` bass="${chordObj.bass}"`;
-    if (chordObj.value != null) {
+    if (this.isVerseChord(chordObj)) {
       return `<chord${attrs}>${chordObj.value}</chord>`;
     }
     return `<chord${attrs}/>`;
@@ -308,5 +308,11 @@ export class Builder {
 
   private encodeHtmlCarats(x: string): string {
     return x.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  private isVerseChord(
+    x: INewSong.IVerseChord | INewSong.IInstrumentChord
+  ): x is INewSong.IVerseChord {
+    return 'value' in x;
   }
 }

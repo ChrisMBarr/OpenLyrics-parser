@@ -104,6 +104,7 @@ If a song has more than one title you must provide the titles in the form of the
   { value: 'Erstaunliche Anmut', lang: 'de-DE' }
 ]
 ```
+<!-- cSpell:disable -->
 ```js
 [
   { value: "הבה נגילה",       lang: 'he', },
@@ -113,6 +114,7 @@ If a song has more than one title you must provide the titles in the form of the
   { value: 'Réjouissons-nous', lang: 'fr'  },
 ]
 ```
+<!-- cSpell:enable -->
 
 
 
@@ -163,6 +165,7 @@ Themes are used to categorize songs. Having songs categorized can be useful when
 |`lang`     | `string`  | No      | The language of this theme. This should match languages specified elsewhere if different from the document language.   |
 
 **Example**
+<!-- cSpell:disable -->
 ```js
 [
   { value: 'Adoration' },
@@ -173,6 +176,7 @@ Themes are used to categorize songs. Having songs categorized can be useful when
   { value: 'Salvação',  lang: 'pt-BR' },
 ]
 ```
+<!-- cSpell:enable -->
 
 
 ### `format` Array
@@ -279,50 +283,146 @@ Read more about this in [the OpenLyrics Chords Docs](https://docs.openlyrics.org
 |`value`     | `string`   | No       | The text inside of the chord. If omitted the chord will have no content and be a self-closing XML node. |
 
 **Mixed objects example**
-To best understand how these objects can be used together, let's first look at the XML output we want to achieve for a line. I've added some line breaks, which are not normally there, to make this more readable.
+To best understand how these objects can be used together, let's first look at the XML output we want to achieve for a line. I've added some line breaks, which are not normally there, to make this more readable (normally everything with a `<lines>` tag is on the same line). Note where `\n` are turned into `<br/>` tags as well.
 ```xml
-<lines part="men">
-  <chord root="D" bass="F#"/>Amazing grace<br/>
-  <chord root="C" structure="min" bass="Eb"/> 
-  how sweet the sound that saved <chord root="B7" upbeat="true">a wretch like me</chord>
-</lines>
-<lines part="women">
-  <comment>sing this quietly</comment>
-  <chord root="D" bass="F#"/>Amazing grace<br/>
-  <chord root="C"/> 
-  how sweet the sound that saved <chord root="B7"/>a <tag name="red">wretch</tag> like me
-</lines>
+<verse name="v1">
+  <lines part="men">
+    <chord root="D" bass="F#"/>Amazing grace<br/>
+    <chord root="C" structure="min" bass="Eb"/> 
+    how sweet the sound that saved <chord root="B7" upbeat="true">a wretch like me</chord>
+  </lines>
+  <lines part="women">
+    <comment>sing this quietly</comment>
+    <chord root="D" bass="F#"/>Amazing grace<br/>
+    <chord root="C"/> 
+    how sweet the sound that saved <chord root="B7"/>a <tag name="red">wretch</tag> like me
+  </lines>
+</verse>
 ```
 To achieve that output, here what would need to be passed to the `lines` property of a verse
 ```js
-{
-  part: "men",
-  content: [
-    {type: "chord", root: "D", bass: "F#"},
-    {type: "text", value: "Amazing grace\n"},
-    {type: "chord", root: "C", structure: "min", bass: "Eb"},
-    {type: "text", value: "how sweet the sound that saved "},
-    {type: "chord", root: "B7", upbeat: true, value: "a wretch like me"}
-  ]
-}
-{
-  part: "women",
-  content: [
-    {type: "comment", value: "sing this quietly"},
-    {type: "chord", root: "D", bass: "F#"},
-    {type: "text", value: "Amazing grace\n"},
-    {type: "chord", root: "C",},
-    {type: "text", value: "how sweet the sound that saved "},
-    {type: "chord", root: "B7" },
-    {type: "text", value: "a "},
-    {type: "tag", name:"red", value: "wretch"}
-    {type: "text", value: " like me"}
+verses: {
+  name: 'v1',
+  lines: [
+    {
+      part: "men",
+      content: [
+        {type: "chord", root: "D", bass: "F#"},
+        {type: "text", value: "Amazing grace\n"},
+        {type: "chord", root: "C", structure: "min", bass: "Eb"},
+        {type: "text", value: "how sweet the sound that saved "},
+        {type: "chord", root: "B7", upbeat: true, value: "a wretch like me"}
+      ]
+    }
+    {
+      part: "women",
+      content: [
+        {type: "comment", value: "sing this quietly"},
+        {type: "chord", root: "D", bass: "F#"},
+        {type: "text", value: "Amazing grace\n"},
+        {type: "chord", root: "C",},
+        {type: "text", value: "how sweet the sound that saved "},
+        {type: "chord", root: "B7" },
+        {type: "text", value: "a "},
+        {type: "tag", name:"red", value: "wretch"}
+        {type: "text", value: " like me"}
+      ]
+    }
   ]
 }
 ```
+
+
 
 ### `instruments` Array
 This optional array of objects is used to describe all of the instrumental music in the song. It is very similar to the above `verses` but it cannot contain any words, only `chord`s or `beat`s. All `beat`s may only contain `chord`s. No text is allowed anywhere inside of `instruments`.  Read about the supported properties on [the OpenLyrics Instrumental Parts docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts)
 
-| Property      | Type     | Required | Default Value               |
-|:--------------|:---------|:---------|:----------------------------|
+| Property  | Type                | Required | Default Value               |
+|:----------|:--------------------|:---------|:----------------------------|
+|`name`     | `string`            | ⚠️Yes    | The name of this instrumental section. Should be similar to a verse name like `'i'` (intro), `'s'` (solo), etc. See [the docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts) for examples.  |
+|`lines`    | `IInstrumentLine[]` | ⚠️Yes    | An array of instrument lines. See below for details. |
+
+
+
+#### `instruments` => `lines: IInstrumentLine[]`
+| Property  | Type                       | Required | Default Value               |
+|:----------|:---------------------------|:---------|:----------------------------|
+|`content`  | `IInstrumentLineContent[]` | ⚠️Yes    | An array of objects to create `<chord>`s and `<beat>`s in this line |
+|`part`     | `string`                   | No       | The name of this instrumental part, eg: `'piano'`, `'guitar'`, etc. |
+|`repeat`   | `number`                   | No       | The number of times this line should be repeated |
+
+
+
+#### `instruments` => `lines` => `content: IInstrumentLineContent[]`
+The `content` array for each line of an instrumental part can only contain one of two types of objects. `type: 'chord'`, or `type: 'beat'`. Nothing else is possible to add here.  An object with `type: 'chord'` works exactly like it does above for verses.  An object with `type: 'beat'` simply contains an array of `type: 'chord'` objects, it is only there as a container for chords.
+
+
+
+**Instrument Line Content Object Type: `chord`**
+A chord object is used do define a chord that should be played at a particular part of a song. A chord can exist before a certain word in the lyrics, or it can contain a particular set of lyrics within it. It is identical to the chords used for a verse except that it has no `value` property.
+Read more about this in [the OpenLyrics Chords Docs](https://docs.openlyrics.org/en/latest/dataformat.html#chords)
+
+| Property   | Type       | Required | Default Value               |
+|:-----------|:-----------|:---------|:----------------------------|
+|`type`      | `'chord'`  | ⚠️Yes    | Setting `type:'chord'` defines this as a chord |
+|`bass`      | `string`   | No       | Describes the foreign bass of the chord if any. The values should marked with English notation |
+|`root`      | `string`   | No       | Describes the root note of the chord. The values should marked with English notation |
+|`structure` | `string`   | No       | Describes the kind of the chord. This element is optional, if not present, the default value is the major |
+|`upbeat`    | `boolean`  | No       | Used to mark when a chord starts with a music pause |
+
+
+
+**Instrument Line Content Object Type: `beat`**
+A beat represents a beat in the music. A beat tag can contains only chords. But it is not mandatory to separate beats.
+Read more about this in [the OpenLyrics Instrumental Parts Docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts)
+
+| Property   | Type               | Required | Default Value               |
+|:-----------|:-------------------|:---------|:----------------------------|
+|`type`      | `'beat'`           | ⚠️Yes    | Setting `type:'beat'` defines this as a beat |
+|`chords`    | `{type:'chord'}[]` | ⚠️Yes    | An array of `type:'chord'` objects, which are defined above |
+
+**Instrument Example**
+The following XML example shows an instrumentation section, with a single line. That line contains some chords, and some beats which contain more chords each.
+```xml
+<instrument name="i">
+  <lines part="piano" repeat="2">
+    <chord root="D"/>
+    <chord root="D" structure="sus4" />
+    <beat><chord root="C"/><chord root="A" bass="C#" /></beat>
+    <beat><chord root="G"/><chord root="B"/></beat>
+  </lines>
+</instrument>
+```
+
+To generate that output here are the needed objects:
+```js
+instruments: [
+  {
+    name: 'i',
+    lines: [
+      {
+        part: 'piano',
+        repeat: 2,
+        content: [
+          { type: 'chord', root: 'D'},
+          { type: 'chord', root: 'D', structure: 'sus4' },
+          {
+            type: 'beat',
+            chords: [
+              { type: 'chord', root: 'C'},
+              { type: 'chord', root:'A', bass: 'C#' }
+            ]
+          },
+          {
+            type: 'beat',
+            chords: [
+              { type: 'chord', root: 'G' },
+              { type: 'chord', root: 'B' }
+            ]
+          },
+        ]
+      }
+    ]
+  }
+]
+```
