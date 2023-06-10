@@ -41,13 +41,14 @@ console.log(xmlDoc);
 
 
 ## Documentation
-A single object is passed to `OpenLyricsBuilder` which has 5 possible properties on it, but only two of which are required.
+A single object is passed to `OpenLyricsBuilder` which has 5 possible properties on it, two of which are required.
 - [`meta` Object](#meta-object)
 - [`properties` Object - ⚠️REQUIRED](#properties-object---⚠️required)
 - [`format` Array](#format-array)
 - [`verses` Array - ⚠️REQUIRED](#verses-array---⚠️required)
 - [`instruments` Array](#instruments-array)
 
+For most simple songs you will only need to bother with the `properties` object and `verses` array.
 
 
 
