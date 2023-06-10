@@ -34,7 +34,7 @@ describe('OpenLyricsParser', (): void => {
         key: '',
         keywords: '',
         publisher: '',
-        released: '',
+        released: '2012',
         songBooks: [],
         tempo: '',
         tempoType: '',
