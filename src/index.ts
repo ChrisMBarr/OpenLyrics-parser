@@ -39,9 +39,9 @@ export const OpenLyricsParser = (fileContent: string): IOpenLyricsSong.IRoot => 
         //Inside of a verse line...
         return (
           tagValue
-            //replace all correctly and incorrectly formatted <br> </br> and </br> tags with new lines
+            //replace all correctly and incorrectly formatted <br> <br/> <br /> and </br> tags with new lines
             //Sometimes these will already have a newline after them, remove that so that newlines aren't doubled
-            .replace(/<\/?br\/?>(\n)?/gi, '\n')
+            .replace(/<\/?br ?\/?>([\r\n])?/gi, '\n')
             //Remove all XML/HTML comments
             .replace(/<!--.+?-->/g, '')
         );
