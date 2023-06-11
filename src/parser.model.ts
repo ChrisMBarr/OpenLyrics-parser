@@ -1,5 +1,5 @@
-//The models for the objects returned by the OpenLyrics parser
-export namespace OpenLyricsSong {
+//The models for the objects returned by the OpenLyricsParser method
+export namespace IOpenLyricsSong {
   export interface IRoot {
     [key: string]: IFormat | IInstrument[] | IMeta | IProperties | IVerse[];
     format: IFormat;
@@ -15,6 +15,7 @@ export namespace OpenLyricsSong {
     [key: string]: string | Date | null;
     chordNotation: string;
     createdIn: string;
+    lang: string;
     modifiedDate: Date | null;
     modifiedIn: string;
     version: string;
@@ -23,7 +24,7 @@ export namespace OpenLyricsSong {
   //============================================
   //Properties
   export interface IProperties {
-    [key: string]: string | string[] | IAuthor[] | ISongBook[] | ITheme[] | ITitle[];
+    [key: string]: number | string | string[] | IAuthor[] | ISongBook[] | ITheme[] | ITitle[];
     authors: IAuthor[];
     ccliNo: string;
     comments: string[];
@@ -33,9 +34,10 @@ export namespace OpenLyricsSong {
     publisher: string;
     released: string;
     songBooks: ISongBook[];
-    tempo: string;
+    tempo: string | number;
     tempoType: string;
     themes: ITheme[];
+    timeSignature: string;
     titles: ITitle[];
     transposition: string;
     variant: string;
@@ -54,6 +56,7 @@ export namespace OpenLyricsSong {
     [key: string]: string | boolean | null;
     lang: string;
     original: boolean | null;
+    transliteration: string;
     value: string;
   }
 
@@ -88,7 +91,7 @@ export namespace OpenLyricsSong {
   //Verses & Instruments (Shared)
   export interface IVerseAndInstrumentLineContentChord {
     [key: string]: string | undefined;
-    name?: string;
+    bass?: string;
     root?: string;
     structure?: string;
     type: 'chord';
@@ -97,9 +100,10 @@ export namespace OpenLyricsSong {
   }
 
   //============================================
-  //Lyrics
+  //Verses
   export interface IVerse {
     [key: string]: string | IVerseLine[];
+    break: string;
     lang: string;
     lines: IVerseLine[];
     name: string;
@@ -107,9 +111,11 @@ export namespace OpenLyricsSong {
   }
 
   export interface IVerseLine {
-    [key: string]: string | IVerseLineContent[];
+    [key: string]: string | number | IVerseLineContent[];
+    break: string;
     content: IVerseLineContent[];
     part: string;
+    repeat: string | number;
   }
 
   export type IVerseLineContent =
@@ -139,9 +145,10 @@ export namespace OpenLyricsSong {
   }
 
   export interface IInstrumentLine {
-    [key: string]: string | IInstrumentLineContent[];
+    [key: string]: string | number | IInstrumentLineContent[];
     content: IInstrumentLineContent[];
     part: string;
+    repeat: string | number;
   }
 
   export interface IInstrumentLineContentBeat {

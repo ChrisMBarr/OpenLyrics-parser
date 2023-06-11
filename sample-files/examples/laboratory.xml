@@ -33,7 +33,7 @@
         <chord root="D" bass="F#" upbeat="true">tempor</chord> <chord root="D" structure="sus2" bass="C#">eget lacinia</chord> <chord root="G" structure="sus2">quis</chord>. <chord root="C" /><chord root="G" /><chord root="D" />
       </lines>
     </verse>
-    <verse name="v2">
+    <verse name="v2" break="optional">
       <lines>
         <comment>only empty chords in 0.9: &lt;chord/&gt;text</comment>
         <chord root="G" bass="B"/>Accumsan <chord root="A" structure="sus2"/>eget neque.<br/>

@@ -1,7 +1,7 @@
 {
   "name": "openlyrics-parser",
-  "version": "1.0.0",
-  "description": "Parses and extracts data from OpenLyrics files",
+  "version": "1.1.0",
+  "description": "Parses and extracts data from OpenLyrics files, and creates them!",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
   "module": "dist/module/index.js",
@@ -22,11 +22,12 @@
   "files": [
     "dist/main",
     "dist/module",
+    "docs/**/**",
     "!**/*.spec.*",
     "!**/*.json",
-    "!**/*.tsbuildinfo*",
-    "!**/model-xml.{js,d.ts}",
-    "!**/model.js",
+    "!**/*.tsbuildinfo",
+    "!**/xml.model.*",
+    "!**/*.model.js",
     "LICENSE",
     "README.md"
   ],
@@ -46,7 +47,7 @@
       "ts"
     ],
     "preset": "ts-jest",
-    "reporters":[
+    "reporters": [
       "default",
       "jest-html-reporter"
     ],
@@ -67,13 +68,15 @@
     "includeStackTrace": false
   },
   "scripts": {
-    "build": "npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
+    "build": "npm run clean && npm run genversion && npm run lint && npm run test:coverage && npm run build:main && npm run build:module",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
+    "clean": "rimraf dist coverage test-report.html",
+    "genversion":"npx genversion src/version.ts --es6 --semi",
     "lint": "eslint --fix src/**/*.ts",
     "test": "jest --reporters=default",
     "test:html": "jest --reporters=jest-html-reporter --verbose=false",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage --coverageDirectory=../coverage",
     "watch:build": "tsc -p tsconfig.json -w",
     "watch:test": "jest --watch --reporters=default",
     "watch:test:html": "jest --watch --reporters=jest-html-reporter --verbose=false"
@@ -83,13 +86,14 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.2.6",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "eslint": "^8.42.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-functional": "^5.0.8",
     "eslint-plugin-import": "^2.27.5",
+    "genversion": "^3.1.1",
     "jest": "^29.5.0",
     "jest-html-reporter": "^3.10.0",
     "ts-jest": "^29.1.0",

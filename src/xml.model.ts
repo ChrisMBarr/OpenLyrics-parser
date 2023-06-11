@@ -18,6 +18,7 @@ export namespace OpenLyricsXml {
     lyrics: ILyrics;
     format?: IFormat;
     xmlns: string;
+    'xml:lang'?: string;
     version: string;
     createdIn?: string;
     chordNotation?: string;
@@ -26,27 +27,28 @@ export namespace OpenLyricsXml {
   }
 
   export interface IProperties {
-    copyright?: string | number;
+    authors?: IAuthors;
     ccliNo?: string | number;
-    released?: string | number;
-    transposition?: string | number;
+    comments?: IComments;
+    copyright?: string | number;
     key?: string;
     keywords?: string;
-    variant?: string;
     publisher?: string;
-    version?: string | number;
-    verseOrder?: string;
-
-    titles?: ITitles;
-    authors?: IAuthors;
-    comments?: IComments;
+    released?: string | number;
+    releaseDate?: string | number;
     songbooks?: ISongBooks;
     tempo?: ITempo;
     themes?: IThemes;
+    timeSignature?: string;
+    titles?: ITitles;
+    transposition?: string | number;
+    variant?: string;
+    verseOrder?: string;
+    version?: string | number;
   }
 
   export interface ITitles {
-    title: (string | { '#text': string; lang?: string; original?: boolean })[];
+    title: (string | { '#text': string; lang?: string; translit?: string; original?: boolean })[];
   }
 
   export interface IAuthors {
@@ -84,18 +86,14 @@ export namespace OpenLyricsXml {
 
   export type IVerseOrInstrumentLineUnparsed =
     | string
-    | { '#text': string; part?: string; repeat?: string };
+    | { '#text': string; part?: string; repeat?: string | number; break?: string };
 
   export interface IVerse {
+    break?: string;
     lines: IVerseOrInstrumentLineUnparsed[];
     name: string;
     lang?: string;
     translit?: string;
-  }
-
-  export interface IInstrumentLine {
-    part?: string;
-    repeat?: string;
   }
 
   export interface IInstrument {
@@ -109,5 +107,6 @@ export namespace OpenLyricsXml {
     root?: string;
     structure?: string;
     upbeat?: string;
+    bass?: string;
   }
 }

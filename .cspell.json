@@ -2,16 +2,29 @@
   "version": "0.2",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
   "language": "en",
+  //List some foreign language words we use in comments for sample data
   "words": [
+    "Anmut",
     "ccli",
+    "Erstaunliche",
+    "František",
+    "könyv",
     "openlyrics",
+    "Rippon",
+    "Teszt",
     "translit"
   ],
   "flagWords": [],
+  //Exclude paths for generated files, and ones containing sample data possibly in foreign languages
   "ignorePaths": [
     "package.json",
     "package-lock.json",
     "tsconfig.json",
-    "node_modules/**"
+    "node_modules/**",
+    "dist/**",
+    "test-report.html",
+    "coverage/**",
+    "src/*.spec.ts",
+    "sample-files/examples/*.xml"
   ]
 }
