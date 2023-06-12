@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { IOpenLyricsSong } from './parser.model';
+import * as parserModel from './parser.model';
 import { OpenLyricsParser } from '.';
 
 //NOTE:
@@ -17,7 +17,7 @@ describe('OpenLyricsParser', (): void => {
       const testFile = readFileSync('./sample-files/examples/simple.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: 'OpenLP 1.9.0',
         chordNotation: '',
         lang: '',
@@ -25,8 +25,8 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: 'MyApp 0.0.1',
         version: '0.8',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({ application: '', tags: [] });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({ application: '', tags: [] });
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [],
         ccliNo: '',
         comments: [],
@@ -46,7 +46,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           break: '',
           name: 'v1',
@@ -67,14 +67,14 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([]);
     });
 
     it('should return a song for file: complex.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/complex.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: 'OpenLP 1.9.0',
         chordNotation: '',
         lang: '',
@@ -82,8 +82,8 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: 'ChangingSong 0.0.1',
         version: '0.8',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({ application: '', tags: [] });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({ application: '', tags: [] });
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         titles: [
           { lang: 'en-US', original: true, transliteration: '', value: 'Amazing Grace' },
           { lang: 'en', original: null, transliteration: '', value: 'Amazing Grace' },
@@ -125,7 +125,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: 'v1 v2  v3 c v4 c1 c2 b b1 b2',
         version: '0.99',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           lang: 'en',
@@ -256,14 +256,14 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([]);
     });
 
     it('should return a song with format tags for file: format.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/format.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: 'OpenLP 1.9.0',
         chordNotation: '',
         lang: '',
@@ -271,7 +271,7 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: 'OpenLP 1.9.7',
         version: '0.8',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: 'OpenLP',
         tags: [
           {
@@ -286,7 +286,7 @@ describe('OpenLyricsParser', (): void => {
           },
         ],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [],
         ccliNo: '',
         comments: [],
@@ -306,7 +306,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -339,14 +339,14 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([]);
     });
 
     it('should return a song with format tags for file: format2.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/format2.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: 'OpenLP 1.9.7',
         chordNotation: '',
         lang: '',
@@ -354,7 +354,7 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: 'OpenLP 1.9.7',
         version: '0.8',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: 'OpenLP',
         tags: [
           {
@@ -404,7 +404,7 @@ describe('OpenLyricsParser', (): void => {
           },
         ],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [{ lang: '', type: '', value: 'M. Jan Hus' }],
         ccliNo: '',
         comments: [],
@@ -426,7 +426,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: '',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -565,14 +565,14 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([]);
     });
 
     it('should return a song with instrument tags in the lyrics for file: laboratory.xml"', () => {
       const testFile = readFileSync('./sample-files/examples/laboratory.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: '',
         chordNotation: '',
         lang: 'en',
@@ -580,11 +580,11 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: '',
         version: '0.9',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: '',
         tags: [],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [{ lang: '', type: '', value: 'Gellért Gyuris' }],
         ccliNo: '',
         comments: [],
@@ -604,7 +604,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: 'i v1 v2',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -708,7 +708,7 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([
         {
           lines: [
             {
@@ -750,7 +750,7 @@ describe('OpenLyricsParser', (): void => {
       const testFile = readFileSync('./sample-files/examples/test0.9.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: '',
         chordNotation: 'hungarian',
         lang: 'hu',
@@ -758,11 +758,11 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: '',
         version: '0.9',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: '',
         tags: [],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [
           { lang: '', type: '', value: 'Csiszér László' },
           { lang: '', type: 'words', value: 'Flach Ferenc' },
@@ -788,7 +788,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: 'i v1',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -804,7 +804,7 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([
         {
           lines: [
             {
@@ -945,7 +945,7 @@ describe('OpenLyricsParser', (): void => {
       const testFile = readFileSync('./sample-files/examples/version0.9.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: '',
         chordNotation: 'hungarian',
         lang: 'hu',
@@ -953,11 +953,11 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: '',
         version: '0.9',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: '',
         tags: [],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [{ lang: '', type: '', value: 'ismeretlen' }],
         ccliNo: '',
         comments: [],
@@ -977,7 +977,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: 'i v1',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -1010,7 +1010,7 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([
         {
           lines: [
             {
@@ -1052,7 +1052,7 @@ describe('OpenLyricsParser', (): void => {
       ).toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: 'opensong2openlyrics.py 0.3',
         chordNotation: '',
         lang: '',
@@ -1060,11 +1060,11 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: 'convert-schema.py',
         version: '0.9',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: '',
         tags: [],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [{ lang: '', type: '', value: 'Martin Luther' }],
         ccliNo: '',
         comments: [],
@@ -1089,7 +1089,7 @@ describe('OpenLyricsParser', (): void => {
         verseOrder: 'v1 v2 v3 v4',
         version: '',
       });
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -1445,14 +1445,14 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([]);
     });
 
     it('should return a song for the HEBREW file: Hava Nagila.xml"', () => {
       const testFile = readFileSync('./sample-files/songs/Hava Nagila.xml').toString();
       const parsedSong = OpenLyricsParser(testFile);
 
-      expect(parsedSong.meta).toEqual<IOpenLyricsSong.IMeta>({
+      expect(parsedSong.meta).toEqual<parserModel.IParserMeta>({
         createdIn: 'Trac 0.11.2',
         chordNotation: '',
         lang: '',
@@ -1460,11 +1460,11 @@ describe('OpenLyricsParser', (): void => {
         modifiedIn: 'convert-schema.py',
         version: '0.9',
       });
-      expect(parsedSong.format).toEqual<IOpenLyricsSong.IFormat>({
+      expect(parsedSong.format).toEqual<parserModel.IParserFormat>({
         application: '',
         tags: [],
       });
-      expect(parsedSong.properties).toEqual<IOpenLyricsSong.IProperties>({
+      expect(parsedSong.properties).toEqual<parserModel.IParserProperties>({
         authors: [],
         ccliNo: '',
         comments: [],
@@ -1498,7 +1498,7 @@ describe('OpenLyricsParser', (): void => {
       //NOTE: The below Hebrew characters have an invisible control
       //  character to switch the text direction to RTL!!!
       //  Had to use string template quotes to work around this in testing
-      expect(parsedSong.verses).toEqual<IOpenLyricsSong.IVerse[]>([
+      expect(parsedSong.verses).toEqual<parserModel.IParserVerse[]>([
         {
           name: 'v1',
           transliteration: '',
@@ -1690,7 +1690,7 @@ describe('OpenLyricsParser', (): void => {
           ],
         },
       ]);
-      expect(parsedSong.instruments).toEqual<IOpenLyricsSong.IInstrument[]>([]);
+      expect(parsedSong.instruments).toEqual<parserModel.IParserInstrument[]>([]);
     });
   });
 });

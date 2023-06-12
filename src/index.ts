@@ -1,11 +1,15 @@
 import { XMLBuilder, XMLParser } from 'fast-xml-parser';
-import { Builder } from './builder';
-import { INewOpenLyricsSong } from './builder.model';
-import { Parser } from './parser';
-import { IOpenLyricsSong } from './parser.model';
-import { OpenLyricsXml } from './xml.model';
 
-export const OpenLyricsParser = (fileContent: string): IOpenLyricsSong.IRoot => {
+import { Builder } from './builder';
+import { IBuilderOptions } from './builder.model';
+import { IBuilderXml } from './builder.xml.model';
+
+import { Parser } from './parser';
+import { IParserRoot } from './parser.model';
+import { IXmlDocRoot } from './parser.xml.model';
+
+export * from './parser.model';
+export const OpenLyricsParser = (fileContent: string): IParserRoot => {
   //When certain XML nodes only have one item the parser will convert them into objects
   //Here we maintain a list of node paths to always keep as arrays
   //This keeps our code structure and type definitions more sane and normalized
@@ -51,7 +55,7 @@ export const OpenLyricsParser = (fileContent: string): IOpenLyricsSong.IRoot => 
     },
   });
 
-  const parsedDoc: OpenLyricsXml.IDocRoot = xmlParser.parse(fileContent);
+  const parsedDoc: IXmlDocRoot = xmlParser.parse(fileContent);
   const olParser = new Parser();
 
   const meta = olParser.getSongMeta(parsedDoc.song);
@@ -69,11 +73,12 @@ export const OpenLyricsParser = (fileContent: string): IOpenLyricsSong.IRoot => 
   };
 };
 
-export const OpenLyricsBuilder = (songData: INewOpenLyricsSong.IOptions): string => {
+export * from './builder.model';
+export const OpenLyricsBuilder = (songData: IBuilderOptions): string => {
   //Certain items are required: https://docs.openlyrics.org/en/latest/dataformat.html#required-data-items
   const olBuilder = new Builder();
 
-  const documentObj: INewOpenLyricsSong.IBuilderObject = {
+  const documentObj: IBuilderXml = {
     '?xml': {
       '@version': '1.0',
       '@encoding': 'UTF-8',

@@ -7,11 +7,10 @@ Simply import `OpenLyricsParser`, then pass the contents of an OpenLyrics XML fi
 Full type definitions are provided. You may need to import them separately, as shown below, if you need to explicitly provide type definitions to something.
 ```typescript
 import { readFile } from 'fs';
-import { OpenLyricsParser } from 'openlyrics-parser';
-import { IOpenLyricsSong } from 'openlyrics-parser/dist/main/parser.model';
+import { OpenLyricsParser, IParserRoot } from 'openlyrics-parser';
 
 readFile('example.xml', (contents): void => {
-  const song: IOpenLyricsSong.IRoot = OpenLyricsParser(contents.toString());
+  const song: IParserRoot = OpenLyricsParser(contents.toString());
   console.log(song);
 });
 ```
@@ -138,31 +137,31 @@ It only has a few primitive properties. If no value is provided strings will def
 ## `properties` Object
 This object contains information about the song. Read about the properties in [the OpenLyrics Song Properties docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-properties)
 
-| Property                                   | Return Type                                  |
-|:-------------------------------------------|:---------------------------------------------|
-|[`authors`](#properties--authors-array)     | [`IAuthor[]`](#properties--authors-array)    |
-|[`titles`](#properties--titles-array)       | [`ITitle[]`](#properties--titles-array)      |
-|[`songBooks`](#properties--songbooks-array) | [`ISongBook[]`](#properties--songbooks-array)|
-|`comments`                                  | `string[]`                                   |
-|`copyright`                                 | `string`                                     |
-|`ccliNo`                                    | `string`                                     |
-|`released` (or `releaseDate`)               | `string`                                     |
-|`transposition`                             | `string`                                     |
-|`tempo`                                     | `string`                                     |
-|`tempoType`                                 | `string`                                     |
-|`timeSignature`                             | `string`                                     |
-|[`themes`](#properties--themes-array)       | [`ITheme[]`](#properties--themes-array)      |
-|`key`                                       | `string`                                     |
-|`variant`                                   | `string`                                     |
-|`publisher`                                 | `string`                                     |
-|`version`                                   | `string`                                     |
-|`keywords`                                  | `string`                                     |
-|`verseOrder`                                | `string`                                     |
+| Property                                   | Return Type                                        |
+|:-------------------------------------------|:---------------------------------------------------|
+|[`authors`](#properties--authors-array)     | [`IParserAuthor[]`](#properties--authors-array)    |
+|[`titles`](#properties--titles-array)       | [`IParserTitle[]`](#properties--titles-array)      |
+|[`songBooks`](#properties--songbooks-array) | [`IParserSongBook[]`](#properties--songbooks-array)|
+|`comments`                                  | `string[]`                                         |
+|`copyright`                                 | `string`                                           |
+|`ccliNo`                                    | `string`                                           |
+|`released` (or `releaseDate`)               | `string`                                           |
+|`transposition`                             | `string`                                           |
+|`tempo`                                     | `string`                                           |
+|`tempoType`                                 | `string`                                           |
+|`timeSignature`                             | `string`                                           |
+|[`themes`](#properties--themes-array)       | [`IParserTheme[]`](#properties--themes-array)      |
+|`key`                                       | `string`                                           |
+|`variant`                                   | `string`                                           |
+|`publisher`                                 | `string`                                           |
+|`version`                                   | `string`                                           |
+|`keywords`                                  | `string`                                           |
+|`verseOrder`                                | `string`                                           |
 
 
 
 ## `properties` => `authors` array
-| `IAuthor` Property | Return Type |
+| `IParserAuthor` Property | Return Type |
 |:-------------------|:------------|
 |`value`             | `string`    |
 |`type`              | `string`    |
@@ -190,12 +189,12 @@ the following array is produced
 
 
 ## `properties` => `titles` array
-| `ITitle` Property  | Return Type         |
-|:-------------------|:--------------------|
-|`value`             | `string`            |
-|`lang`              | `string`            |
-|`transliteration`   | `string`            |
-|`original`          | `boolean` or `null` |
+| `IParserTitle` Property  | Return Type         |
+|:-------------------------|:--------------------|
+|`value`                   | `string`            |
+|`lang`                    | `string`            |
+|`transliteration`         | `string`            |
+|`original`                | `boolean` or `null` |
 
 given this titles XML
 ```xml
@@ -220,7 +219,7 @@ the following array is produced
 
 ## `properties` => `songBooks` array
 
-| `ISongBook` Property | Return Type |
+| `IParserSongBook` Property | Return Type |
 |:---------------------|:------------|
 |`name`                | `string`    |
 |`entry`               | `string`    |
@@ -246,10 +245,10 @@ the following array is produced
 
 
 ## `properties` => `themes` array
-| `ITheme` Property | Return Type     |
-|:------------------|:---------|
-|`value`            | `string` |
-|`lang`             | `string` |
+| `IParserTheme` Property | Return Type |
+|:------------------------|:------------|
+|`value`                  | `string`    |
+|`lang`                   | `string`    |
 
 given this titles XML
 <!-- cSpell:disable -->
@@ -284,19 +283,19 @@ the following array is produced
 ## `format` Object
 This object contains information about any custom format tags on the document. Read about them in [the OpenLyrics Formatting Extensions docs](https://docs.openlyrics.org/en/latest/dataformat.html#formatting-extensions)
 
-| Property                     | Return Type                            |
-|:-----------------------------|:---------------------------------------|
-|`application`                 | `string`                               |
-|[`tags`](#format--tags-array) | [`IFormatTag[]`](#format--tags-array)  |
+| Property                     | Return Type                                 |
+|:-----------------------------|:--------------------------------------------|
+|`application`                 | `string`                                    |
+|[`tags`](#format--tags-array) | [`IParserFormatTag[]`](#format--tags-array) |
 
 
 
 ## `format` => `tags` array
-| `IFormatTag` Property | Return Type |
-|:----------------------|:------------|
-|`name`                 | `string`    |
-|`open`                 | `string`    |
-|`close`                | `string`    |
+| `IParserFormatTag` Property | Return Type |
+|:----------------------------|:------------|
+|`name`                       | `string`    |
+|`open`                       | `string`    |
+|`close`                      | `string`    |
 
 For example, if the following `<format>` XML is provided:
 ```xml
@@ -347,22 +346,22 @@ The following JSON object will be produced on the `format` property
 This is an array of objects to describe all of the `<verse>` nodes inside of the `<lyrics>` node.  Read about the supported properties on [the OpenLyrics Song Lyrics docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-lyrics)
 
 Each item in the `verses` array has the following properties
-| `IVerse` Property              | Return Type                            |
+| `IParserVerse` Property        | Return Type                            |
 |:-------------------------------|:---------------------------------------|
 |`name`                          | `string`                               |
 |`lang`                          | `string`                               |
 |`transliteration`               | `string`                               |
 |`break`                         | `string`                               |
-|[`lines`](#verses--lines-array) | [`IVerseLine[]`](#verses--lines-array) |
+|[`lines`](#verses--lines-array) | [`IParserVerseLine[]`](#verses--lines-array) |
 
 
 
 ## `verses` => `lines` array
 
-| `IVerseLine` Property                     | Type                                                   |
+| `IParserVerseLine` Property               | Type                                                   |
 |:------------------------------------------|:-------------------------------------------------------|
 |`break`                                    | `string`                                               |
-|[`content`](#verses--lines--content-array) | [`IVerseLineContent[]`](#verses--lines--content-array) |
+|[`content`](#verses--lines--content-array) | [`IParserVerseLineContent[]`](#verses--lines--content-array) |
 |`part`                                     | `string`                                               |
 |`repeat`                                   | `string | number`                                      |
 
@@ -371,34 +370,34 @@ See below for an example of the XML to JSON transformation after you have read t
 
 
 ## `verses` => `lines` => `content` array
-Each `IVerseLineContent` object in this `content` array can be one of 4 different types of objects, which are all very similar.
+Each `IParserVerseLineContent` object in this `content` array can be one of 4 different types of objects, which are all very similar.
 They all have the `type` property which is set to specific string values for each object type.
 Note that any `<br>` nodes inside of these objects will be transformed into `\n` characters
 
-| `IVerseLineContent` for **text**      | Return Type |
-|:--------------------------------------|:------------|
-|`type`                                 | `'text'`    |
-|`value`                                | `string`    |
+| `IParserVerseLineContent` for **text** | Return Type |
+|:---------------------------------------|:------------|
+|`type`                                  | `'text'`    |
+|`value`                                 | `string`    |
 
-| `IVerseLineContent` for a **comment** | Return Type |
-|:--------------------------------------|:------------|
-|`type`                                 | `'comment'` |
-|`value`                                | `string`    |
+| `IParserVerseLineContent` for a **comment** | Return Type |
+|:--------------------------------------------|:------------|
+|`type`                                       | `'comment'` |
+|`value`                                      | `string`    |
 
-| `IVerseLineContent` for a **tag**     | Return Type |
-|:--------------------------------------|:------------|
-|`type`                                 | `'tag'`     |
-|`value`                                | `string`    |
+| `IParserVerseLineContent` for a **tag** | Return Type |
+|:----------------------------------------|:------------|
+|`type`                                   | `'tag'`     |
+|`value`                                  | `string`    |
 
-| `IVerseLineContent` for a **chord** | Return Type | Extra Info |
-|:------------------------------------|:------------|:-----------|
-|`type`                               | `'chord'`   |            |
-|`bass`                               | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
-|`value`                              | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
-|`name`                               | `string`    | Property only present if it is on the parsed `<chord/>` tag. Note: this property is only used in OpenLyrics 0.8 or older. Version 0.9 will use the `root` property instead.  |
-|`root`                               | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
-|`structure`                          | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
-|`upbeat`                             | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
+| `IParserVerseLineContent` for a **chord** | Return Type | Extra Info |
+|:------------------------------------------|:------------|:-----------|
+|`type`                                     | `'chord'`   |            |
+|`bass`                                     | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
+|`value`                                    | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
+|`name`                                     | `string`    | Property only present if it is on the parsed `<chord/>` tag. Note: this property is only used in OpenLyrics 0.8 or older. Version 0.9 will use the `root` property instead.  |
+|`root`                                     | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
+|`structure`                                | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
+|`upbeat`                                   | `string`    | Property only present if it is on the parsed `<chord/>` tag  |
 
 Note: Chords may also return any other properties that are placed on them since they seem to be used in a diverse way.
 
@@ -492,34 +491,34 @@ Which will produce this object:
 This is an array of objects to describe all of the `<instrument>` nodes inside of the `<lyrics>` node. It is very similar to the above `verses` but each `<lines>` node is only allowed to contain either `<chord>` or `<beat>` nodes. All `<beat>` nodes may only contain `<chord>` nodes. No text is allowed anywhere inside of `<instruments>`.  Read about the supported properties on [the OpenLyrics Instrumental Parts docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts)
 
 Each item in the `instruments` array has the following properties
-| `IInstrument` Property              | Return Type                                      |
+| `IParserInstrument` Property              | Return Type                                      |
 |:------------------------------------|:-------------------------------------------------|
 |`name`                               | `string`                                         |
-|[`lines`](#instruments--lines-array) | [`IInstrumentLine[]`](#instruments--lines-array) |
+|[`lines`](#instruments--lines-array) | [`IParserInstrumentLine[]`](#instruments--lines-array) |
 
 ## `instruments` => `lines` array
 
-| `IInstrumentLine` Property | Return Type                |
-|:---------------------------|:---------------------------|
-|`content`                   | `IInstrumentLineContent[]` |
-|`part`                      | `string`                   |
-|`repeat`                    | `string | number`          |
+| `IParserInstrumentLine` Property | Return Type                |
+|:---------------------------------|:---------------------------|
+|`content`                         | `IParserInstrumentLineContent[]` |
+|`part`                            | `string`                   |
+|`repeat`                          | `string | number`          |
 
 ## `instruments` => `lines` => `content` array
-Each `IInstrumentLineContent` object in this `content` array can be one of 2 different types of objects: a **beat** and a **chord**.  A beat can only contain an array of chords. No text is allowed here.  Both objects have a `type` property so they can be differentiated.
+Each `IParserInstrumentLineContent` object in this `content` array can be one of 2 different types of objects: a **beat** and a **chord**.  A beat can only contain an array of chords. No text is allowed here.  Both objects have a `type` property so they can be differentiated.
 
-| `IInstrumentLineContent` for **beat**      | Return Type |
-|:-------------------------------------------|:------------|
-|`type`                                      | `'beat'`    |
-|`chords`                                    | `[]` of chord objects (below) |
+| `IParserInstrumentLineContent` for **beat** | Return Type |
+|:--------------------------------------------|:------------|
+|`type`                                       | `'beat'`    |
+|`chords`                                     | `[]` of chord objects (below) |
 
-| `IInstrumentLineContent` for a **chord**   | Return Type | Extra Info |
-|:-------------------------------------------|:------------|:-----------|
-|`type`                                      | `'chord'`   | Property only present if it is on the parsed `<chord/>` tag. |
-|`name?`                                     | `string`    | Property only present if it is on the parsed `<chord/>` tag. Note: this property is only used in OpenLyrics 0.8 or older. Version 0.9 will use the `root` property instead.  |
-|`root?`                                     | `string`    | Property only present if it is on the parsed `<chord/>` tag. |
-|`structure?`                                | `string`    | Property only present if it is on the parsed `<chord/>` tag. |
-|`upbeat?`                                   | `string`    | Property only present if it is on the parsed `<chord/>` tag. |
+| `IParserInstrumentLineContent` for a **chord** | Return Type | Extra Info |
+|:-----------------------------------------------|:------------|:-----------|
+|`type`                                          | `'chord'`   | Property only present if it is on the parsed `<chord/>` tag. |
+|`name?`                                         | `string`    | Property only present if it is on the parsed `<chord/>` tag. Note: this property is only used in OpenLyrics 0.8 or older. Version 0.9 will use the `root` property instead.  |
+|`root?`                                         | `string`    | Property only present if it is on the parsed `<chord/>` tag. |
+|`structure?`                                    | `string`    | Property only present if it is on the parsed `<chord/>` tag. |
+|`upbeat?`                                       | `string`    | Property only present if it is on the parsed `<chord/>` tag. |
 
 Note: Chords may also return any other properties that are placed on them since they seem to be used in a diverse way.
 

@@ -1,4 +1,4 @@
-import { INewOpenLyricsSong } from './builder.model';
+import * as builderModel from './builder.model';
 import { OpenLyricsBuilder } from '.';
 
 //NOTE:
@@ -10,7 +10,7 @@ function normalizeModifiedDate(xmlStr: string): string {
   return xmlStr.replace(/modifiedDate=".+?"/, 'modifiedDate="2023-01-01T01:01:01"');
 }
 
-function normalizeExpected(opts: INewOpenLyricsSong.IOptions, xmlStr: string): string {
+function normalizeExpected(opts: builderModel.IBuilderOptions, xmlStr: string): string {
   const pkgNameAndVersion = `${process.env.npm_package_name} ${process.env.npm_package_version}`;
   if (opts.meta?.createdIn == null) {
     //No `createdIn` option provided, so let's replace this value with the current version number
@@ -34,7 +34,7 @@ describe('OpenLyricsBuilder', (): void => {
 
   describe('Meta', () => {
     it('should set the meta properties on the <song> element', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         meta: {
           chordNotation: 'hungarian',
           lang: 'hu',
@@ -68,7 +68,7 @@ describe('OpenLyricsBuilder', (): void => {
 
   describe('Properties', () => {
     it('should build a title list using a single string', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -94,7 +94,7 @@ describe('OpenLyricsBuilder', (): void => {
     });
 
     it('should build a title list using an array of objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: [
             { lang: 'en-US', original: true, value: 'Amazing Grace' },
@@ -129,7 +129,7 @@ Amazing      </title>
     });
 
     it('should build an author list using a single string', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           authors: 'John Newton',
           titles: 'Required',
@@ -159,7 +159,7 @@ Amazing      </title>
     });
 
     it('should build an author list using an array of objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           authors: [
             { value: 'John Newton' },
@@ -198,7 +198,7 @@ John Newton      </author>
     });
 
     it('should build a song book list', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           songBooks: [
             { name: "Rippon's Selection of Hymns" },
@@ -234,7 +234,7 @@ John Newton      </author>
     });
 
     it('should build a themes list', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           themes: [
             { value: 'Adoration' },
@@ -271,7 +271,7 @@ Adoration      </theme>
     });
 
     it('should build all the primitive properties (with tempo as a number value)', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           ccliNo: '1234',
           comments: ['one', 'two'],
@@ -326,7 +326,7 @@ Adoration      </theme>
     });
 
     it('should build the tempo using a string value', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           tempo: 'slow',
           titles: 'Amazing Grace',
@@ -356,7 +356,7 @@ Adoration      </theme>
 
   describe('Format', () => {
     it('should create the Format tags', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -409,7 +409,7 @@ Adoration      </theme>
 
   describe('Lyrics', () => {
     it('should build lyrics using verse lines as an array of strings', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -444,7 +444,7 @@ Adoration      </theme>
     });
 
     it('should build lyrics using verse lines as an array of text objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -489,7 +489,7 @@ Amazing grace how sweet the sound<br/>that saved a wretch like me;      </lines>
     });
 
     it('should build lyrics using verse lines (with parts) as an array of mixed text and chord objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -562,7 +562,7 @@ Amazing grace how sweet the sound<br/><chord root="F" structure="m3-5" upbeat="t
     });
 
     it('should build lyrics using verse lines as an array of mixed text and tag objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -608,7 +608,7 @@ Amazing grace how sweet the sound that <tag name="red">saved</tag> a <tag name="
     });
 
     it('should build lyrics using verse lines as an array of mixed text and comment objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -655,7 +655,7 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
     });
 
     it('should build lyrics with multiple verses (with properties)', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -703,7 +703,7 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
 
   describe('Instruments', () => {
     it('should build instruments using only an array of chord objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -766,7 +766,7 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
     });
 
     it('should build instruments using only an array of beat objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },
@@ -825,7 +825,7 @@ Amazing grace how sweet the sound that <comment>here is a comment</comment> save
     });
 
     it('should build instruments using a mixed array of beat and chord objects', () => {
-      const opts: INewOpenLyricsSong.IOptions = {
+      const opts: builderModel.IBuilderOptions = {
         properties: {
           titles: 'Amazing Grace',
         },

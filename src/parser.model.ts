@@ -1,163 +1,173 @@
 //The models for the objects returned by the OpenLyricsParser method
-export namespace IOpenLyricsSong {
-  export interface IRoot {
-    [key: string]: IFormat | IInstrument[] | IMeta | IProperties | IVerse[];
-    format: IFormat;
-    instruments: IInstrument[];
-    meta: IMeta;
-    properties: IProperties;
-    verses: IVerse[];
-  }
-
-  //============================================
-  //Meta
-  export interface IMeta {
-    [key: string]: string | Date | null;
-    chordNotation: string;
-    createdIn: string;
-    lang: string;
-    modifiedDate: Date | null;
-    modifiedIn: string;
-    version: string;
-  }
-
-  //============================================
-  //Properties
-  export interface IProperties {
-    [key: string]: number | string | string[] | IAuthor[] | ISongBook[] | ITheme[] | ITitle[];
-    authors: IAuthor[];
-    ccliNo: string;
-    comments: string[];
-    copyright: string;
-    key: string;
-    keywords: string;
-    publisher: string;
-    released: string;
-    songBooks: ISongBook[];
-    tempo: string | number;
-    tempoType: string;
-    themes: ITheme[];
-    timeSignature: string;
-    titles: ITitle[];
-    transposition: string;
-    variant: string;
-    verseOrder: string;
-    version: string;
-  }
-
-  export interface IAuthor {
-    [key: string]: string;
-    lang: string;
-    type: string;
-    value: string;
-  }
-
-  export interface ITitle {
-    [key: string]: string | boolean | null;
-    lang: string;
-    original: boolean | null;
-    transliteration: string;
-    value: string;
-  }
-
-  export interface ITheme {
-    [key: string]: string;
-    lang: string;
-    value: string;
-  }
-
-  export interface ISongBook {
-    [key: string]: string;
-    entry: string;
-    name: string;
-  }
-
-  //============================================
-  //Format
-  export interface IFormat {
-    [key: string]: string | IFormatTag[];
-    application: string;
-    tags: IFormatTag[];
-  }
-
-  export interface IFormatTag {
-    [key: string]: string;
-    close: string;
-    name: string;
-    open: string;
-  }
-
-  //============================================
-  //Verses & Instruments (Shared)
-  export interface IVerseAndInstrumentLineContentChord {
-    [key: string]: string | undefined;
-    bass?: string;
-    root?: string;
-    structure?: string;
-    type: 'chord';
-    upbeat?: string;
-    value?: string;
-  }
-
-  //============================================
-  //Verses
-  export interface IVerse {
-    [key: string]: string | IVerseLine[];
-    break: string;
-    lang: string;
-    lines: IVerseLine[];
-    name: string;
-    transliteration: string;
-  }
-
-  export interface IVerseLine {
-    [key: string]: string | number | IVerseLineContent[];
-    break: string;
-    content: IVerseLineContent[];
-    part: string;
-    repeat: string | number;
-  }
-
-  export type IVerseLineContent =
-    | IVerseLineContentStandard
-    | IVerseLineContentTag
-    | IVerseAndInstrumentLineContentChord;
-
-  export interface IVerseLineContentStandard {
-    [key: string]: string;
-    type: 'text' | 'comment';
-    value: string;
-  }
-
-  export interface IVerseLineContentTag {
-    [key: string]: string;
-    name: string;
-    type: 'tag';
-    value: string;
-  }
-
-  //============================================
-  //Instruments
-  export interface IInstrument {
-    [key: string]: string | IInstrumentLine[];
-    lines: IInstrumentLine[];
-    name: string;
-  }
-
-  export interface IInstrumentLine {
-    [key: string]: string | number | IInstrumentLineContent[];
-    content: IInstrumentLineContent[];
-    part: string;
-    repeat: string | number;
-  }
-
-  export interface IInstrumentLineContentBeat {
-    [key: string]: string | IVerseAndInstrumentLineContentChord[];
-    chords: IVerseAndInstrumentLineContentChord[];
-    type: 'beat';
-  }
-
-  export type IInstrumentLineContent =
-    | IInstrumentLineContentBeat
-    | IVerseAndInstrumentLineContentChord;
+export interface IParserRoot {
+  [key: string]:
+    | IParserFormat
+    | IParserInstrument[]
+    | IParserMeta
+    | IParserProperties
+    | IParserVerse[];
+  format: IParserFormat;
+  instruments: IParserInstrument[];
+  meta: IParserMeta;
+  properties: IParserProperties;
+  verses: IParserVerse[];
 }
+
+//============================================
+//Meta
+export interface IParserMeta {
+  [key: string]: string | Date | null;
+  chordNotation: string;
+  createdIn: string;
+  lang: string;
+  modifiedDate: Date | null;
+  modifiedIn: string;
+  version: string;
+}
+
+//============================================
+//Properties
+export interface IParserProperties {
+  [key: string]:
+    | number
+    | string
+    | string[]
+    | IParserAuthor[]
+    | IParserSongBook[]
+    | IParserTheme[]
+    | IParserTitle[];
+  authors: IParserAuthor[];
+  ccliNo: string;
+  comments: string[];
+  copyright: string;
+  key: string;
+  keywords: string;
+  publisher: string;
+  released: string;
+  songBooks: IParserSongBook[];
+  tempo: string | number;
+  tempoType: string;
+  themes: IParserTheme[];
+  timeSignature: string;
+  titles: IParserTitle[];
+  transposition: string;
+  variant: string;
+  verseOrder: string;
+  version: string;
+}
+
+export interface IParserAuthor {
+  [key: string]: string;
+  lang: string;
+  type: string;
+  value: string;
+}
+
+export interface IParserTitle {
+  [key: string]: string | boolean | null;
+  lang: string;
+  original: boolean | null;
+  transliteration: string;
+  value: string;
+}
+
+export interface IParserTheme {
+  [key: string]: string;
+  lang: string;
+  value: string;
+}
+
+export interface IParserSongBook {
+  [key: string]: string;
+  entry: string;
+  name: string;
+}
+
+//============================================
+//Format
+export interface IParserFormat {
+  [key: string]: string | IParserFormatTag[];
+  application: string;
+  tags: IParserFormatTag[];
+}
+
+export interface IParserFormatTag {
+  [key: string]: string;
+  close: string;
+  name: string;
+  open: string;
+}
+
+//============================================
+//Verses & Instruments (Shared)
+export interface IParserVerseAndInstrumentLineContentChord {
+  [key: string]: string | undefined;
+  bass?: string;
+  root?: string;
+  structure?: string;
+  type: 'chord';
+  upbeat?: string;
+  value?: string;
+}
+
+//============================================
+//Verses
+export interface IParserVerse {
+  [key: string]: string | IParserVerseLine[];
+  break: string;
+  lang: string;
+  lines: IParserVerseLine[];
+  name: string;
+  transliteration: string;
+}
+
+export interface IParserVerseLine {
+  [key: string]: string | number | IParserVerseLineContent[];
+  break: string;
+  content: IParserVerseLineContent[];
+  part: string;
+  repeat: string | number;
+}
+
+export type IParserVerseLineContent =
+  | IParserVerseLineContentStandard
+  | IParserVerseLineContentTag
+  | IParserVerseAndInstrumentLineContentChord;
+
+export interface IParserVerseLineContentStandard {
+  [key: string]: string;
+  type: 'text' | 'comment';
+  value: string;
+}
+
+export interface IParserVerseLineContentTag {
+  [key: string]: string;
+  name: string;
+  type: 'tag';
+  value: string;
+}
+
+//============================================
+//Instruments
+export interface IParserInstrument {
+  [key: string]: string | IParserInstrumentLine[];
+  lines: IParserInstrumentLine[];
+  name: string;
+}
+
+export interface IParserInstrumentLine {
+  [key: string]: string | number | IParserInstrumentLineContent[];
+  content: IParserInstrumentLineContent[];
+  part: string;
+  repeat: string | number;
+}
+
+export interface IParserInstrumentLineContentBeat {
+  [key: string]: string | IParserVerseAndInstrumentLineContentChord[];
+  chords: IParserVerseAndInstrumentLineContentChord[];
+  type: 'beat';
+}
+
+export type IParserInstrumentLineContent =
+  | IParserInstrumentLineContentBeat
+  | IParserVerseAndInstrumentLineContentChord;

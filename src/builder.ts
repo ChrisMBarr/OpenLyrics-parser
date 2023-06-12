@@ -1,12 +1,13 @@
-import { INewOpenLyricsSong as INewSong } from './builder.model';
+import * as builderModel from './builder.model';
+import * as xmlModel from './builder.xml.model';
 import { version } from './version';
 
 export class Builder {
-  public overwriteMeta(obj: INewSong.IBuilderObject, userMeta?: INewSong.IMeta): void {
+  public overwriteMeta(obj: xmlModel.IBuilderXml, userMeta?: builderModel.IBuilderMeta): void {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#metadata
 
     //Use these properties if nothing was passed in for them
-    const defaultMeta: INewSong.IMeta = {
+    const defaultMeta: builderModel.IBuilderMeta = {
       createdIn: `openlyrics-parser ${version}`,
       modifiedIn: `openlyrics-parser ${version}`,
       lang: 'en',
@@ -25,7 +26,10 @@ export class Builder {
     }
   }
 
-  public overwriteProperties(obj: INewSong.IBuilderObject, userProps: INewSong.IProperties): void {
+  public overwriteProperties(
+    obj: xmlModel.IBuilderXml,
+    userProps: builderModel.IBuilderProperties
+  ): void {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#song-properties
 
     //A title is the only required property
@@ -49,7 +53,10 @@ export class Builder {
     });
   }
 
-  public overwriteFormats(obj: INewSong.IBuilderObject, userFormat?: INewSong.IFormat[]): void {
+  public overwriteFormats(
+    obj: xmlModel.IBuilderXml,
+    userFormat?: builderModel.IBuilderFormat[]
+  ): void {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html##formatting-extensions
 
     if (userFormat) {
@@ -59,7 +66,7 @@ export class Builder {
       obj.song.format!.tags = userFormat.map((f) => {
         return {
           '@application': f.application,
-          tag: f.tags.map((t): INewSong.IFormatTagXml => {
+          tag: f.tags.map((t): xmlModel.IFormatTagXml => {
             return {
               '@name': t.name,
               open: this.encodeHtmlCarats(t.open),
@@ -75,10 +82,13 @@ export class Builder {
     }
   }
 
-  public overwriteVerses(obj: INewSong.IBuilderObject, userVerses: INewSong.IVerse[]): void {
+  public overwriteVerses(
+    obj: xmlModel.IBuilderXml,
+    userVerses: builderModel.IBuilderVerse[]
+  ): void {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#song-lyrics
 
-    const versesXml: INewSong.IVerseXml[] = [];
+    const versesXml: xmlModel.IVerseXml[] = [];
     for (const verse of userVerses) {
       versesXml.push({
         '@name': verse.name,
@@ -93,13 +103,13 @@ export class Builder {
   }
 
   public overwriteInstruments(
-    obj: INewSong.IBuilderObject,
-    userInstruments?: INewSong.IInstrument[]
+    obj: xmlModel.IBuilderXml,
+    userInstruments?: builderModel.IBuilderInstrument[]
   ): void {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts
 
     if (userInstruments) {
-      const instrumentsXml: INewSong.IInstrumentXml[] = [];
+      const instrumentsXml: xmlModel.IInstrumentXml[] = [];
       for (const inst of userInstruments) {
         instrumentsXml.push({
           '@name': inst.name,
@@ -114,15 +124,15 @@ export class Builder {
   //============================================================
   //Property helper methods
   private overwriteSpecialPropTitles(
-    obj: INewSong.IBuilderObject,
-    userTitles: string | INewSong.ITitle[]
+    obj: xmlModel.IBuilderXml,
+    userTitles: string | builderModel.IBuilderTitle[]
   ): void {
     if (typeof userTitles === 'string') {
       //Just a simple string was passed in. Use it as the text of the only title
       obj.song.properties.titles.title = [{ '#text': userTitles }];
     } else {
       //An array of title objects were passed in
-      obj.song.properties.titles.title = userTitles.map((t): INewSong.ITitleXml => {
+      obj.song.properties.titles.title = userTitles.map((t): xmlModel.ITitleXml => {
         return {
           '#text': t.value,
           '@lang': t.lang,
@@ -134,8 +144,8 @@ export class Builder {
   }
 
   private overwriteSpecialPropAuthors(
-    obj: INewSong.IBuilderObject,
-    userAuthors?: string | INewSong.IAuthor[]
+    obj: xmlModel.IBuilderXml,
+    userAuthors?: string | builderModel.IBuilderAuthor[]
   ): void {
     if (typeof userAuthors === 'string') {
       //Just a simple string was passed in. Use it as the text of the only author
@@ -143,7 +153,7 @@ export class Builder {
     } else if (Array.isArray(userAuthors)) {
       //An array of author objects were passed in
       obj.song.properties.authors = {
-        author: userAuthors.map((t): INewSong.IAuthorXml => {
+        author: userAuthors.map((t): xmlModel.IAuthorXml => {
           return {
             '#text': t.value,
             '@lang': t.lang,
@@ -154,10 +164,7 @@ export class Builder {
     }
   }
 
-  private overwriteSpecialPropComments(
-    obj: INewSong.IBuilderObject,
-    userComments?: string[]
-  ): void {
+  private overwriteSpecialPropComments(obj: xmlModel.IBuilderXml, userComments?: string[]): void {
     if (userComments) {
       obj.song.properties.comments = {
         comment: userComments,
@@ -166,12 +173,12 @@ export class Builder {
   }
 
   private overwriteSpecialPropSongBooks(
-    obj: INewSong.IBuilderObject,
-    userSongBooks?: INewSong.ISongBook[]
+    obj: xmlModel.IBuilderXml,
+    userSongBooks?: builderModel.IBuilderSongBook[]
   ): void {
     if (userSongBooks) {
       obj.song.properties.songbooks = {
-        songbook: userSongBooks.map((t): INewSong.ISongBookXml => {
+        songbook: userSongBooks.map((t): xmlModel.ISongBookXml => {
           return {
             '@name': t.name,
             '@entry': t.entry,
@@ -182,14 +189,14 @@ export class Builder {
   }
 
   private overwriteSpecialPropThemes(
-    obj: INewSong.IBuilderObject,
-    userThemes?: INewSong.ITheme[]
+    obj: xmlModel.IBuilderXml,
+    userThemes?: builderModel.IBuilderTheme[]
   ): void {
     if (userThemes) {
       //TODO: Allow for string array values!
 
       obj.song.properties.themes = {
-        theme: userThemes.map((t): INewSong.IThemeXml => {
+        theme: userThemes.map((t): xmlModel.IThemeXml => {
           return {
             '#text': t.value,
             '@lang': t.lang,
@@ -199,10 +206,7 @@ export class Builder {
     }
   }
 
-  private overwriteSpecialPropTempo(
-    obj: INewSong.IBuilderObject,
-    userTempo?: string | number
-  ): void {
+  private overwriteSpecialPropTempo(obj: xmlModel.IBuilderXml, userTempo?: string | number): void {
     if (userTempo != null) {
       const tempoType = typeof userTempo === 'number' ? 'bpm' : 'text';
 
@@ -215,8 +219,10 @@ export class Builder {
 
   //============================================================
   //Verse/Instrument helper methods
-  private getVerseLines(lines: string[] | INewSong.IVerseLine[]): INewSong.IVerseLineXml[] {
-    let verseLines: INewSong.IVerseLineXml[] = [];
+  private getVerseLines(
+    lines: string[] | builderModel.IBuilderVerseLine[]
+  ): xmlModel.IVerseLineXml[] {
+    let verseLines: xmlModel.IVerseLineXml[] = [];
 
     if (this.isStringArray(lines)) {
       //Users can provide just a simple array of strings which we will interpret to mean the lyric text
@@ -228,7 +234,7 @@ export class Builder {
       });
     } else {
       //Full objects provided
-      verseLines = lines.map((l: INewSong.IVerseLine) => {
+      verseLines = lines.map((l: builderModel.IBuilderVerseLine) => {
         //we are manually creating tags now
         const lineContentArr: string[] = l.content.map((content) => {
           if (content.type === 'chord') {
@@ -254,28 +260,34 @@ export class Builder {
     return verseLines;
   }
 
-  private getInstrumentLines(lines: INewSong.IInstrumentLine[]): INewSong.IInstrumentLineXml[] {
-    const linesXml: INewSong.IInstrumentLineXml[] = lines.map((l: INewSong.IInstrumentLine) => {
-      //we are manually creating tags now
-      const lineContentArr: string[] = l.content.map((content) => {
-        if (content.type === 'chord') {
-          return this.getChord(content);
-        }
+  private getInstrumentLines(
+    lines: builderModel.IBuilderInstrumentLine[]
+  ): xmlModel.IInstrumentLineXml[] {
+    const linesXml: xmlModel.IInstrumentLineXml[] = lines.map(
+      (l: builderModel.IBuilderInstrumentLine) => {
+        //we are manually creating tags now
+        const lineContentArr: string[] = l.content.map((content) => {
+          if (content.type === 'chord') {
+            return this.getChord(content);
+          }
 
-        //Not a chord, so it should be a `<beat>` which should contain `<chord>`s
-        return this.getBeat(content);
-      });
-      return {
-        '#text': lineContentArr.join(''),
-        '@part': l.part,
-        '@repeat': l.repeat,
-      };
-    });
+          //Not a chord, so it should be a `<beat>` which should contain `<chord>`s
+          return this.getBeat(content);
+        });
+        return {
+          '#text': lineContentArr.join(''),
+          '@part': l.part,
+          '@repeat': l.repeat,
+        };
+      }
+    );
 
     return linesXml;
   }
 
-  private getChord(chordObj: INewSong.IVerseChord | INewSong.IInstrumentChord): string {
+  private getChord(
+    chordObj: builderModel.IBuilderVerseChord | builderModel.IBuilderInstrumentChord
+  ): string {
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#chords
     let attrs = '';
     if (chordObj.root != null) attrs += ` root="${chordObj.root}"`;
@@ -288,7 +300,7 @@ export class Builder {
     return `<chord${attrs}/>`;
   }
 
-  private getBeat(beatObj: INewSong.IInstrumentLineContentBeat): string {
+  private getBeat(beatObj: builderModel.IBuilderInstrumentLineContentBeat): string {
     //A `<beat>` can only contain `<cord>`s
     //Docs: https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts
     const chordsArr = beatObj.chords.map((c) => this.getChord(c));
@@ -312,8 +324,8 @@ export class Builder {
   }
 
   private isVerseChord(
-    x: INewSong.IVerseChord | INewSong.IInstrumentChord
-  ): x is INewSong.IVerseChord {
+    x: builderModel.IBuilderVerseChord | builderModel.IBuilderInstrumentChord
+  ): x is builderModel.IBuilderVerseChord {
     return 'value' in x;
   }
 }

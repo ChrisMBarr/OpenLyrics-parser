@@ -1,6 +1,6 @@
 import { XMLParser } from 'fast-xml-parser';
-import { IOpenLyricsSong } from './parser.model';
-import { OpenLyricsXml } from './xml.model';
+import * as parserModel from './parser.model';
+import * as xmlModel from './parser.xml.model';
 
 export class Parser {
   private readonly lyricLineParser = new XMLParser({
@@ -14,7 +14,7 @@ export class Parser {
 
   //==============================================================================
   //Semi-public methods to be used in the index file where the "real" public API is called from
-  public getSongMeta(olSong: OpenLyricsXml.ISong): IOpenLyricsSong.IMeta {
+  public getSongMeta(olSong: xmlModel.IXmlSong): parserModel.IParserMeta {
     // console.log('song', olSong);
     return {
       createdIn: olSong.createdIn ?? '',
@@ -26,7 +26,7 @@ export class Parser {
     };
   }
 
-  public getSongProperties(props: OpenLyricsXml.IProperties): IOpenLyricsSong.IProperties {
+  public getSongProperties(props: xmlModel.IXmlProperties): parserModel.IParserProperties {
     // console.log('props', props);
 
     //Property was renamed in OpenLyrics 0.9. Move it over if it exists
@@ -57,9 +57,9 @@ export class Parser {
     };
   }
 
-  public getSongFormat(format?: OpenLyricsXml.IFormat): IOpenLyricsSong.IFormat {
+  public getSongFormat(format?: xmlModel.IXmlFormat): parserModel.IParserFormat {
     let application = '';
-    let tags: IOpenLyricsSong.IFormatTag[] = [];
+    let tags: parserModel.IParserFormatTag[] = [];
     if (format) {
       // console.log('format', format.tags);
       application = format.tags.application;
@@ -74,8 +74,8 @@ export class Parser {
     return { application, tags };
   }
 
-  public getSongVerses(verses?: OpenLyricsXml.IVerse[]): IOpenLyricsSong.IVerse[] {
-    const versesArr: IOpenLyricsSong.IVerse[] = [];
+  public getSongVerses(verses?: xmlModel.IXmlVerse[]): parserModel.IParserVerse[] {
+    const versesArr: parserModel.IParserVerse[] = [];
     if (verses) {
       for (const v of verses) {
         versesArr.push({
@@ -91,9 +91,9 @@ export class Parser {
   }
 
   public getSongInstruments(
-    instruments?: OpenLyricsXml.IInstrument[]
-  ): IOpenLyricsSong.IInstrument[] {
-    const instrumentsArr: IOpenLyricsSong.IInstrument[] = [];
+    instruments?: xmlModel.IXmlInstrument[]
+  ): parserModel.IParserInstrument[] {
+    const instrumentsArr: parserModel.IParserInstrument[] = [];
     if (instruments) {
       for (const i of instruments) {
         instrumentsArr.push({
@@ -108,9 +108,9 @@ export class Parser {
   //==============================================================================
   //Verse/Instrument/Line/Chord parsing methods
   private getVerseLines(
-    lines: OpenLyricsXml.IVerseOrInstrumentLineUnparsed[]
-  ): IOpenLyricsSong.IVerseLine[] {
-    const linesArr: IOpenLyricsSong.IVerseLine[] = [];
+    lines: xmlModel.IXmlVerseOrInstrumentLineUnparsed[]
+  ): parserModel.IParserVerseLine[] {
+    const linesArr: parserModel.IParserVerseLine[] = [];
     for (const line of lines) {
       // console.log('verse', typeof line, line);
       const rawLineTextAndXml = this.getStringOrTextProp(line);
@@ -126,9 +126,9 @@ export class Parser {
   }
 
   private getInstrumentLines(
-    lines: OpenLyricsXml.IVerseOrInstrumentLineUnparsed[]
-  ): IOpenLyricsSong.IInstrumentLine[] {
-    const linesArr: IOpenLyricsSong.IInstrumentLine[] = [];
+    lines: xmlModel.IXmlVerseOrInstrumentLineUnparsed[]
+  ): parserModel.IParserInstrumentLine[] {
+    const linesArr: parserModel.IParserInstrumentLine[] = [];
     for (const line of lines) {
       // console.log('instrument', typeof line, line);
       const rawLineTextAndXml = this.getStringOrTextProp(line);
@@ -157,8 +157,8 @@ export class Parser {
     );
   }
 
-  private getVerseContentObjects(textAndXmlArr: string[]): IOpenLyricsSong.IVerseLineContent[] {
-    const contentArr: IOpenLyricsSong.IVerseLineContent[] = [];
+  private getVerseContentObjects(textAndXmlArr: string[]): parserModel.IParserVerseLineContent[] {
+    const contentArr: parserModel.IParserVerseLineContent[] = [];
 
     //Here we get an array of strings. Some might be plain text, others will be only XML nodes
     //We add an object for each item to describe it's type and all the properties it has
@@ -197,8 +197,8 @@ export class Parser {
 
   private getInstrumentContentObjects(
     textAndXmlArr: string[]
-  ): IOpenLyricsSong.IInstrumentLineContent[] {
-    const contentArr: IOpenLyricsSong.IInstrumentLineContent[] = [];
+  ): parserModel.IParserInstrumentLineContent[] {
+    const contentArr: parserModel.IParserInstrumentLineContent[] = [];
     //Here we get an array of strings. These should all be XML nodes only since that's all that is allowed for instrument content
     //We add an object for each item to describe it's type and all the properties it has
     for (const part of textAndXmlArr) {
@@ -220,11 +220,11 @@ export class Parser {
   }
 
   private getChordObject(
-    chordObj: OpenLyricsXml.ILineChord
-  ): IOpenLyricsSong.IVerseAndInstrumentLineContentChord {
+    chordObj: xmlModel.IXmlLineChord
+  ): parserModel.IParserVerseAndInstrumentLineContentChord {
     //A <chord name="A" /> node. This can have a lot of properties, so we just add whatever is there
     //Sometimes chords can have ending tags too: <chord root="E" structure="m3-5-7-9-a11-13" bass="C#">ipsum</chord>
-    const chord: IOpenLyricsSong.IVerseAndInstrumentLineContentChord = { type: 'chord' };
+    const chord: parserModel.IParserVerseAndInstrumentLineContentChord = { type: 'chord' };
     Object.keys(chordObj).forEach((k) => {
       //When we have an ending tag we want to add the inner text between the tags as a value property
       let keyName = k === '#text' ? 'value' : k;
@@ -241,8 +241,8 @@ export class Parser {
 
   //==============================================================================
   //Specific property parsing methods
-  private getSongPropertyAuthors(authors?: OpenLyricsXml.IAuthors): IOpenLyricsSong.IAuthor[] {
-    const authorsArr: IOpenLyricsSong.IAuthor[] = [];
+  private getSongPropertyAuthors(authors?: xmlModel.IXmlAuthors): parserModel.IParserAuthor[] {
+    const authorsArr: parserModel.IParserAuthor[] = [];
     if (authors) {
       // console.log('authors', authors.author);
       for (const a of authors.author) {
@@ -256,7 +256,7 @@ export class Parser {
     return authorsArr;
   }
 
-  private getSongPropertyComments(comments?: OpenLyricsXml.IComments): string[] {
+  private getSongPropertyComments(comments?: xmlModel.IXmlComments): string[] {
     let commentArr: string[] = [];
     if (comments) {
       // console.log('comments', comments.comment);
@@ -265,8 +265,8 @@ export class Parser {
     return commentArr;
   }
 
-  private getSongPropertyThemes(themes?: OpenLyricsXml.IThemes): IOpenLyricsSong.ITheme[] {
-    const titlesArr: IOpenLyricsSong.ITheme[] = [];
+  private getSongPropertyThemes(themes?: xmlModel.IXmlThemes): parserModel.IParserTheme[] {
+    const titlesArr: parserModel.IParserTheme[] = [];
     if (themes) {
       // console.log('themes', themes.theme);
       for (const t of themes.theme) {
@@ -279,8 +279,8 @@ export class Parser {
     return titlesArr;
   }
 
-  private getSongPropertyTitles(titles?: OpenLyricsXml.ITitles): IOpenLyricsSong.ITitle[] {
-    const titlesArr: IOpenLyricsSong.ITitle[] = [];
+  private getSongPropertyTitles(titles?: xmlModel.IXmlTitles): parserModel.IParserTitle[] {
+    const titlesArr: parserModel.IParserTitle[] = [];
     if (titles) {
       // console.log('titles', titles.title);
       for (const t of titles.title) {
@@ -296,9 +296,9 @@ export class Parser {
   }
 
   private getSongPropertySongBooks(
-    songBooks?: OpenLyricsXml.ISongBooks
-  ): IOpenLyricsSong.ISongBook[] {
-    const titlesArr: IOpenLyricsSong.ISongBook[] = [];
+    songBooks?: xmlModel.IXmlSongBooks
+  ): parserModel.IParserSongBook[] {
+    const titlesArr: parserModel.IParserSongBook[] = [];
     if (songBooks) {
       // console.log('songBooks', songBooks.songbook);
       for (const t of songBooks.songbook) {

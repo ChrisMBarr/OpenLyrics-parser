@@ -5,10 +5,9 @@ Simply import `OpenLyricsBuilder`, then pass the song data to it, and it will re
 
 ### For TypeScript projects
 ```typescript
-import { OpenLyricsBuilder } from 'openlyrics-parser';
-import { INewOpenLyricsSong } from 'openlyrics-parser/dist/main/builder.model';
+import { OpenLyricsBuilder, IBuilderOptions } from 'openlyrics-parser';
 
-const opts: INewOpenLyricsSong.IOptions = {
+const opts: IBuilderOptions = {
   properties: { titles: 'Amazing Grace' },
   verses: [
     {
@@ -57,39 +56,39 @@ This object is optional and it contains information about the document itself. T
 
 | Property      | Type     | Required | Default Value               |
 |:--------------|:---------|:---------|:----------------------------|
-|`createdIn`    | `string` | No       | `'openlyrics-parser 1.1.0'` |
+|`createdIn`    | `string` | No       | `'openlyrics-parser 1.1.1'` |
 |`chordNotation`| `string` | No       | `undefined`                 |
 |`lang`         | `string` | No       | `'en'`                      |
-|`modifiedIn`   | `string` | No       | `'openlyrics-parser 1.1.0'` |
+|`modifiedIn`   | `string` | No       | `'openlyrics-parser 1.1.1'` |
 
 
 
 ### `properties` Object - ⚠️REQUIRED
 This required object contains information about the song. Read about the properties in [the OpenLyrics Song Properties docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-properties)
 
-| Property                    | Type                    | Required | Description                 |
-|:----------------------------|:------------------------|:---------|:----------------------------|
-| `titles`                    | `string` or `ITitle[]`  | ⚠️Yes    | For a simple single title just provide a string. For multiples, an array of objects: See [the `ITitle[]` docs](#properties--titles-ititle) below.  |
-| `authors`                   | `string` or `IAuthor[]` | No       | For a simple single author just provide a string. For multiples, an array of objects: See [the `IAuthor[]` docs](#properties--authors-iauthor) below. |
-| `ccliNo`                    | `string` or `number`    | No       | The CCLI license number for this song |
-| `comments`                  | `string[]`              | No       | Any additional, unspecified user data about this song |
-| `copyright`                 | `string` or `number`    | No       | The copyright information of the song. In some countries it is a legal requirement to display copyright information during the presentation of songs. The <copyright> tag has no specific format, though it is recommended that the value contains at least the year and copyright holder of the song  |
-| `key`                       | `string`                | No       | The key the song is in, eg: `'C#'` |
-| `keywords`                  | `string`                | No       | A space separated list of words used for more precise results when searching for a song in a song database |
-| `publisher`                 | `string`                | No       | The publisher of the song |
-| `released` or `releaseDate` | `string` or `number`    | No       | The year or date when a song was released or published. OpenLyrics 0.8 uses the `releaseDate` property, while 0.9 uses `released`. Using either one will result in the `released` property being set for version 0.9 compatibility |
-| `songBooks`                 | `ISongBook[]`           | No       | Most songs come from some sort of collection of songs (a book or a folder of some sort). It may be useful to track where the song comes from. See [the `ISongBook[]` docs](#properties--songbooks-isongbook) below.|
-| `tempo`                     | `string` or `number`    | No       | The tempo of the song, which can be expressed as a number, eg: `90` (as BPM), or as text, eg: `'slow'` or `'moderate'` |
-| `themes`                    | `ITheme[]`              | No       | Used to categorize the song. See [the `ITheme[]` docs](#properties--themes-itheme) below.|
-| `timeSignature`             | `string`                | No       | Used to define the time signature of the song, eg: `'3/4'` |
-| `transposition`             | `string` or `number`    | No       | Used when it is necessary to move the key or the pitch of chords up or down. The value must be an integer between `-11` and `11` |
-| `variant`                   | `string`                | No       | A description which is used to differentiate songs which are identical, but may be performed or sung differently |
-| `verseOrder`                | `string`                | No       | A space-separated string of verse and instrument `name`s defines the order in which the verses and instrumental parts are typically sung or performed. eg: `'v1 v2 c c v1'` |
-| `version`                   | `string` or `number`    | No       | Any text or "version number" of the song since song can be updated over time, sometimes to add additional verses, sometimes to fix spelling or grammatical errors |
+| Property                    | Type                           | Required | Description                 |
+|:----------------------------|:-------------------------------|:---------|:----------------------------|
+| `titles`                    | `string` or `IBuilderTitle[]`  | ⚠️Yes    | For a simple single title just provide a string. For multiples, an array of objects: See [the `IBuilderTitle[]` docs](#properties--titles-ibuildertitle) below.  |
+| `authors`                   | `string` or `IBuilderAuthor[]` | No       | For a simple single author just provide a string. For multiples, an array of objects: See [the `IBuilderAuthor[]` docs](#properties--authors-ibuilderauthor) below. |
+| `ccliNo`                    | `string` or `number`           | No       | The CCLI license number for this song |
+| `comments`                  | `string[]`                     | No       | Any additional, unspecified user data about this song |
+| `copyright`                 | `string` or `number`           | No       | The copyright information of the song. In some countries it is a legal requirement to display copyright information during the presentation of songs. The <copyright> tag has no specific format, though it is recommended that the value contains at least the year and copyright holder of the song  |
+| `key`                       | `string`                       | No       | The key the song is in, eg: `'C#'` |
+| `keywords`                  | `string`                       | No       | A space separated list of words used for more precise results when searching for a song in a song database |
+| `publisher`                 | `string`                       | No       | The publisher of the song |
+| `released` or `releaseDate` | `string` or `number`           | No       | The year or date when a song was released or published. OpenLyrics 0.8 uses the `releaseDate` property, while 0.9 uses `released`. Using either one will result in the `released` property being set for version 0.9 compatibility |
+| `songBooks`                 | `IBuilderSongBook[]`           | No       | Most songs come from some sort of collection of songs (a book or a folder of some sort). It may be useful to track where the song comes from. See [the `IBuilderSongBook[]` docs](#properties--songbooks-ibuildersongbook) below.|
+| `tempo`                     | `string` or `number`           | No       | The tempo of the song, which can be expressed as a number, eg: `90` (as BPM), or as text, eg: `'slow'` or `'moderate'` |
+| `themes`                    | `IBuilderTheme[]`              | No       | Used to categorize the song. See [the `IBuilderTheme[]` docs](#properties--themes-ibuildertheme) below.|
+| `timeSignature`             | `string`                       | No       | Used to define the time signature of the song, eg: `'3/4'` |
+| `transposition`             | `string` or `number`           | No       | Used when it is necessary to move the key or the pitch of chords up or down. The value must be an integer between `-11` and `11` |
+| `variant`                   | `string`                       | No       | A description which is used to differentiate songs which are identical, but may be performed or sung differently |
+| `verseOrder`                | `string`                       | No       | A space-separated string of verse and instrument `name`s defines the order in which the verses and instrumental parts are typically sung or performed. eg: `'v1 v2 c c v1'` |
+| `version`                   | `string` or `number`           | No       | Any text or "version number" of the song since song can be updated over time, sometimes to add additional verses, sometimes to fix spelling or grammatical errors |
 
 
 
-#### `properties` => `titles: ITitle[]`
+#### `properties` => `titles: IBuilderTitle[]`
 If a song has more than one title you must provide the titles in the form of these object. Each title object can have these properties. See [the OpenLyrics Titles documentation](https://docs.openlyrics.org/en/latest/dataformat.html#titles) for more information
 | Property        | Type     | Required | Description               |
 |:----------------|:---------|:---------|:--------------------------|
@@ -119,7 +118,7 @@ If a song has more than one title you must provide the titles in the form of the
 
 
 
-#### `properties` => `authors: IAuthor[]`
+#### `properties` => `authors: IBuilderAuthor[]`
 If a song has more than one author you must provide the authors in the form of these object. Each author object can have these properties. See [the OpenLyrics Authors documentation](https://docs.openlyrics.org/en/latest/dataformat.html#authors) for more information
 | Property  | Type     | Required | Description               |
 |:----------|:---------|:---------|:--------------------------|
@@ -139,7 +138,7 @@ If a song has more than one author you must provide the authors in the form of t
 
 
 
-#### `properties` => `songBooks: ISongBook[]`
+#### `properties` => `songBooks: IBuilderSongBook[]`
 Most songs come from some sort of collection of songs (a book or a folder of some sort). It may be useful to track where the song comes from. Each song book object can have these properties. Read more about them in [the OpenLyrics SongBooks docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-books)
 | Property  | Type                 | Required | Description               |
 |:----------|:---------------------|:---------|:--------------------------|
@@ -157,7 +156,7 @@ Most songs come from some sort of collection of songs (a book or a folder of som
 
 
 
-#### `properties` => `themes: ITheme[]`
+#### `properties` => `themes: IBuilderTheme[]`
 Themes are used to categorize songs. Having songs categorized can be useful when choosing songs for a ceremony or for a particular sermon topic. Each theme just has a simple string value and an optional language specified. Read about them in [the OpenLyrics Themes docs](https://docs.openlyrics.org/en/latest/dataformat.html#themes)
 
 | Property  | Type     | Required | Description                  |
@@ -183,14 +182,14 @@ Themes are used to categorize songs. Having songs categorized can be useful when
 ### `format` Array
 This optional object contains information about any custom format tags on the document. Read about them in [the OpenLyrics Formatting Extensions docs](https://docs.openlyrics.org/en/latest/dataformat.html#formatting-extensions). You should only need to use this if your song will use custom `<tag>` nodes which your song presentation software can interpret.
 
-| Property      | Type           | Required | Default Value               |
-|:--------------|:---------------|:---------|:----------------------------|
-|`application`  | `string`       | ⚠️Yes    | The name of the target application or processor identifier that will use the specified format tags |
-|`tags`         | `IFormatTag[]` | ⚠️Yes    | An array of tag objects, described below |
+| Property      | Type                  | Required | Default Value               |
+|:--------------|:----------------------|:---------|:----------------------------|
+|`application`  | `string`              | ⚠️Yes    | The name of the target application or processor identifier that will use the specified format tags |
+|`tags`         | `IBuilderFormatTag[]` | ⚠️Yes    | An array of tag objects, described below |
 
 
 
-#### `format` => `tags: IFormatTag[]`
+#### `format` => `tags: IBuilderFormatTag[]`
 | Property | Type     | Required | Default Value               |
 |:---------|:---------|:---------|:----------------------------|
 |`name`    | `string` | ⚠️Yes    | The name of this tag  |
@@ -224,26 +223,26 @@ This optional object contains information about any custom format tags on the do
 ### `verses` Array - ⚠️REQUIRED
 This required array of objects is used to describe all of the words of the song and other data related to them.  Read about the supported properties on [the OpenLyrics Song Lyrics docs](https://docs.openlyrics.org/en/latest/dataformat.html#song-lyrics)
 
+| Property         | Type                                | Required | Default Value               |
+|:-----------------|:------------------------------------|:---------|:----------------------------|
+|`name`            | `string`                            | ⚠️Yes    | The name of this verse. Can be anything string like: `'v1'`, `'v2'`, `'c'`, etc.  |
+|`lines`           | `string[]` or `IBuilderVerseLine[]` | ⚠️Yes    | Each verse can contain multiple "lines" of text. Pass a string in the array for each line. Any `\n`or `\r` line break character will be transformed into a `<br/>` tag. Alternatively for anything more complex an `IBuilderVerseLine[]` may be passed instead of a plain `string[]` See [the `IBuilderVerseLine[]` Docs](#verses--lines-ibuilderverseline) below.  |
+|`optionalBreak`   | `boolean`                           | No       | If `true` an application can decide to break the verse in two slides if it doesn’t fit on one screen  |
+|`lang`            | `string`                            | No       | The language this verse is written in. This should match languages specified elsewhere if different from the document language. |
+|`transliteration` | `string`                            | No       | If a verse has been transliterated from another language, store that language code here. Only set this when also setting `lang`  |
+
+
+
+#### `verses` => `lines: IBuilderVerseLine[]`
 | Property         | Type                         | Required | Default Value               |
 |:-----------------|:-----------------------------|:---------|:----------------------------|
-|`name`            | `string`                     | ⚠️Yes    | The name of this verse. Can be anything string like: `'v1'`, `'v2'`, `'c'`, etc.  |
-|`lines`           | `string[]` or `IVerseLine[]` | ⚠️Yes    | Each verse can contain multiple "lines" of text. Pass a string in the array for each line. Any `\n`or `\r` line break character will be transformed into a `<br/>` tag. Alternatively for anything more complex an `IVerseLine[]` may be passed instead of a plain `string[]` See [the `IVerseLine[]` Docs](#verses--lines-iverseline) below.  |
-|`optionalBreak`   | `boolean`                    | No       | If `true` an application can decide to break the verse in two slides if it doesn’t fit on one screen  |
-|`lang`            | `string`                     | No       | The language this verse is written in. This should match languages specified elsewhere if different from the document language. |
-|`transliteration` | `string`                     | No       | If a verse has been transliterated from another language, store that language code here. Only set this when also setting `lang`  |
-
-
-
-#### `verses` => `lines: IVerseLine[]`
-| Property         | Type                         | Required | Default Value               |
-|:-----------------|:-----------------------------|:---------|:----------------------------|
-| `content`        | `IVerseLineContent[]`        | ⚠️Yes    | An array of items that can appear on this line of this verse. See [the `IVerseLineContent[]` docs](#verses--lines--content-iverselinecontent) below. |
+| `content`        | `IBuilderVerseLineContent[]` | ⚠️Yes    | An array of items that can appear on this line of this verse. See [the `IBuilderVerseLineContent[]` docs](#verses--lines--content-ibuilderverselinecontent) below. |
 | `part`           | `string`                     | No       | This line of this verse can have a part, for example `'men'` or `'women'` are common parts to use. Read more about this on [the OpenLyrics Verse Parts Docs](https://docs.openlyrics.org/en/latest/dataformat.html#verse-parts-groups-of-lines) |
 | `optionalBreak`  | `boolean`                    | No       | If `true` an application can decide to break this line in two slides if it doesn’t fit on one screen |
 | `repeat`         | `number`                     | No       | The number of times this particular line should be repeated. Read more about this on [the OpenLyrics Line Repeat Docs](https://docs.openlyrics.org/en/latest/dataformat.html#line-repeat)  |
 
 
-#### `verses` => `lines` => `content: IVerseLineContent[]`
+#### `verses` => `lines` => `content: IBuilderVerseLineContent[]`
 The content of a line on a verse can be one of four types: `'text'`, `'comment'`, `'tag'`, or `'chord'` . Each of these object types have slightly different properties.
 See the examples below to understand how to best use the objects together to get the desired XML output.
 
@@ -338,23 +337,23 @@ verses: {
 ### `instruments` Array
 This optional array of objects is used to describe all of the instrumental music in the song. It is very similar to the above `verses` but it cannot contain any words, only `chord`s or `beat`s. All `beat`s may only contain `chord`s. No text is allowed anywhere inside of `instruments`.  Read about the supported properties on [the OpenLyrics Instrumental Parts docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts)
 
-| Property  | Type                | Required | Default Value               |
-|:----------|:--------------------|:---------|:----------------------------|
-|`name`     | `string`            | ⚠️Yes    | The name of this instrumental section. Should be similar to a verse name like `'i'` (intro), `'s'` (solo), etc. See [the docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts) for examples.  |
-|`lines`    | `IInstrumentLine[]` | ⚠️Yes    | An array of instrument lines. See below for details. |
-
-
-
-#### `instruments` => `lines: IInstrumentLine[]`
 | Property  | Type                       | Required | Default Value               |
 |:----------|:---------------------------|:---------|:----------------------------|
-|`content`  | `IInstrumentLineContent[]` | ⚠️Yes    | An array of objects to create `<chord>`s and `<beat>`s in this line |
-|`part`     | `string`                   | No       | The name of this instrumental part, eg: `'piano'`, `'guitar'`, etc. |
-|`repeat`   | `number`                   | No       | The number of times this line should be repeated |
+|`name`     | `string`                   | ⚠️Yes    | The name of this instrumental section. Should be similar to a verse name like `'i'` (intro), `'s'` (solo), etc. See [the docs](https://docs.openlyrics.org/en/latest/dataformat.html#instrumental-parts) for examples.  |
+|`lines`    | `IBuilderInstrumentLine[]` | ⚠️Yes    | An array of instrument lines. See below for details. |
 
 
 
-#### `instruments` => `lines` => `content: IInstrumentLineContent[]`
+#### `instruments` => `lines: IBuilderInstrumentLine[]`
+| Property  | Type                              | Required | Default Value               |
+|:----------|:----------------------------------|:---------|:----------------------------|
+|`content`  | `IBuilderInstrumentLineContent[]` | ⚠️Yes    | An array of objects to create `<chord>`s and `<beat>`s in this line |
+|`part`     | `string`                          | No       | The name of this instrumental part, eg: `'piano'`, `'guitar'`, etc. |
+|`repeat`   | `number`                          | No       | The number of times this line should be repeated |
+
+
+
+#### `instruments` => `lines` => `content: IBuilderInstrumentLineContent[]`
 The `content` array for each line of an instrumental part can only contain one of two types of objects. `type: 'chord'`, or `type: 'beat'`. Nothing else is possible to add here.  An object with `type: 'chord'` works exactly like it does above for verses.  An object with `type: 'beat'` simply contains an array of `type: 'chord'` objects, it is only there as a container for chords.
 
 
