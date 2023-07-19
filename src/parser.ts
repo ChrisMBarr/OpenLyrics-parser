@@ -211,7 +211,7 @@ export class Parser {
       } else if (parsedTag.beat != null) {
         contentArr.push({
           type: 'beat',
-          chords: parsedTag.beat.chord.map((c: any) => this.getChordObject(c)),
+          chords: parsedTag.beat.chord.map((c: xmlModel.IXmlLineChord) => this.getChordObject(c)),
         });
       }
     }

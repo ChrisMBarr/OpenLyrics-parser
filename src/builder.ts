@@ -311,7 +311,7 @@ export class Builder {
 
   //============================================================
   //General utility methods
-  private isStringArray(x: any[]): x is string[] {
+  private isStringArray(x: (string | object)[]): x is string[] {
     return x.every((i) => typeof i === 'string');
   }
 

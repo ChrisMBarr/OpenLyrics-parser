@@ -22,6 +22,7 @@ export interface IBuilderMeta {
 //============================================
 //Properties
 export interface IBuilderProperties {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
   /**
      * @description The single author of this song as a simple string, or an array of IAuthor objects
