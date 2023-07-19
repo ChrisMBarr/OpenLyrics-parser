@@ -1,6 +1,6 @@
 {
   "name": "openlyrics-parser",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Parses and extracts data from OpenLyrics files, and creates them!",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
