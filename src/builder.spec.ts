@@ -116,8 +116,7 @@ describe('OpenLyricsBuilder', (): void => {
     <titles>
       <title lang="en-US" original="true">Amazing Grace</title>
       <title lang="en">Amazing Grace</title>
-      <title>
-Amazing      </title>
+      <title>Amazing</title>
       <title lang="de-DE" translit="en">Erstaunliche Anmut</title>
     </titles>
   </properties>
@@ -183,8 +182,7 @@ Amazing      </title>
       <title>Required</title>
     </titles>
     <authors>
-      <author>
-John Newton      </author>
+      <author>John Newton</author>
       <author type="words">Chris Rice</author>
       <author type="music">Richard Wagner</author>
       <author lang="cs" type="translation">František Foo</author>
@@ -257,8 +255,7 @@ John Newton      </author>
       <title>Required</title>
     </titles>
     <themes>
-      <theme>
-Adoration      </theme>
+      <theme>Adoration</theme>
       <theme lang="en-US">Grace</theme>
       <theme lang="pt-BR">Graça</theme>
     </themes>
