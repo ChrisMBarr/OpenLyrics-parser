@@ -1,11 +1,11 @@
-[![GitHub - release](https://img.shields.io/github/v/release/FiniteLooper/OpenLyrics-parser?style=flat)](https://github.com/FiniteLooper/OpenLyrics-parser/releases/latest)
+[![GitHub - release](https://img.shields.io/github/v/release/ChrisMBarr/OpenLyrics-parser?style=flat)](https://github.com/ChrisMBarr/OpenLyrics-parser/releases/latest)
 
 # OpenLyrics-parser
 [OpenLyrics](https://openlyrics.org/) is an open XML file format for storing song and lyric information about songs.
 
 This project will parse and extract data from OpenLyrics XML files written in OpenLyrics version 0.8 and 0.9, and it can create OpenLyrics 0.9 formatted documents.
 
-This project is used by my [LyricConverter](htt://github.com/FiniteLooper/LyricConverter) project which can convert your song lyric files between many common formats. If you need to convert some songs to another existing format I encourage you to check this project out first.
+This project is used by my [LyricConverter](htt://github.com/ChrisMBarr/LyricConverter) project which can convert your song lyric files between many common formats. If you need to convert some songs to another existing format I encourage you to check this project out first.
 
 ## Installation
 

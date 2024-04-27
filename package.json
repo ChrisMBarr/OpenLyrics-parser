@@ -5,13 +5,13 @@
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
   "module": "dist/module/index.js",
-  "homepage": "https://github.com/FiniteLooper/OpenLyrics-parser#readme",
+  "homepage": "https://github.com/ChrisMBarr/OpenLyrics-parser#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FiniteLooper/OpenLyrics-parser.git"
+    "url": "git+https://github.com/ChrisMBarr/OpenLyrics-parser.git"
   },
   "bugs": {
-    "url": "https://github.com/FiniteLooper/OpenLyrics-parser/issues"
+    "url": "https://github.com/ChrisMBarr/OpenLyrics-parser/issues"
   },
   "keywords": [
     "church",
