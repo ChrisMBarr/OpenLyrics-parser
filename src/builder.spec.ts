@@ -1,5 +1,5 @@
-import * as builderModel from './builder.model';
 import { OpenLyricsBuilder } from '.';
+import * as builderModel from './builder.model';
 
 //NOTE:
 // This test file will test the `OpenLyricsBuilder` method on the `index.ts` file

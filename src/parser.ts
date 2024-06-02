@@ -1,4 +1,5 @@
 import { XMLParser } from 'fast-xml-parser';
+
 import * as parserModel from './parser.model';
 import * as xmlModel from './parser.xml.model';
 

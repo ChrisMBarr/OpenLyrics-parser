@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
-import * as parserModel from './parser.model';
+
 import { OpenLyricsParser } from '.';
+import * as parserModel from './parser.model';
 
 //NOTE:
 // This test file will test the `OpenLyricsParser` method on the `index.ts` file

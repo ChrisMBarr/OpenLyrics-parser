@@ -3,7 +3,6 @@ import { XMLBuilder, XMLParser } from 'fast-xml-parser';
 import { Builder } from './builder';
 import { IBuilderOptions } from './builder.model';
 import { IBuilderXml } from './builder.xml.model';
-
 import { Parser } from './parser';
 import { IParserRoot } from './parser.model';
 import { IXmlDocRoot } from './parser.xml.model';
