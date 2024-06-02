@@ -27,6 +27,7 @@ export class Parser {
     };
   }
 
+  // eslint-disable-next-line complexity -- This does a lot of null coalescing, which is seen as a code branch that increases complexity. What this actually does is not that complex, so we ar OK to disable this rule here to allow our overall lint complexity to be enforced lower
   public getSongProperties(props: xmlModel.IXmlProperties): parserModel.IParserProperties {
     // console.log('props', props);
 
