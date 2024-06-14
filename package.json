@@ -1,6 +1,6 @@
 {
   "name": "openlyrics-parser",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Parses and extracts data from OpenLyrics files, and creates them!",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
@@ -72,7 +72,7 @@
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
     "clean": "rimraf dist coverage test-report.html",
-    "genversion":"npx genversion src/version.ts --es6 --semi",
+    "genversion": "npx genversion src/version.ts --es6 --semi",
     "lint": "eslint --fix .",
     "test": "jest --reporters=default",
     "test:html": "jest --reporters=jest-html-reporter --verbose=false",
