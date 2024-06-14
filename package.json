@@ -86,10 +86,10 @@
     "fast-xml-parser": "^4.4.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.4.0",
+    "@eslint/js": "^9.5.0",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.13.0",
+    "@types/node": "^20.14.2",
     "eslint": "^8.57.0",
     "eslint-plugin-simple-import-sort": "^12.1.0",
     "genversion": "^3.2.0",
