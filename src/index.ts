@@ -23,6 +23,7 @@ export const OpenLyricsParser = (fileContent: string): IParserRoot => {
     'song.lyrics.verse.lines',
     'song.lyrics.instrument',
     'song.lyrics.instrument.lines',
+    'song.format.tags.tag',
   ];
 
   const xmlParser = new XMLParser({
