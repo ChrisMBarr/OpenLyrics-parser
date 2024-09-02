@@ -224,9 +224,8 @@ export interface IBuilderInstrumentLine {
   repeat?: number;
 }
 
-export interface IBuilderInstrumentChord extends IBuilderChordBase {
-  //Same as the base chord object but renamed here
-}
+//Same as the base chord object but renamed here
+export type IBuilderInstrumentChord = IBuilderChordBase;
 
 export interface IBuilderInstrumentLineContentBeat {
   chords: IBuilderInstrumentChord[];
