@@ -14,8 +14,8 @@
     ".editorconfig": true,
     ".prettierignore": true,
     "node_modules": true,
-    "coverage": false,
-    "dist": false
+    "coverage": true,
+    "dist": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true
