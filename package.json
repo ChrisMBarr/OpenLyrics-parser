@@ -1,6 +1,6 @@
 {
   "name": "openlyrics-parser",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Parses and extracts data from OpenLyrics files, and creates them!",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
@@ -83,20 +83,20 @@
     "watch:test:html": "jest --watch --reporters=jest-html-reporter --verbose=false"
   },
   "dependencies": {
-    "fast-xml-parser": "^5.3.1"
+    "fast-xml-parser": "^5.3.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
+    "@eslint/js": "^9.39.2",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.10.0",
+    "@types/node": "^25.0.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "genversion": "^3.2.0",
     "jest-html-reporter": "^4.3.0",
     "jest": "^30.2.0",
-    "ts-jest": "^29.4.5",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
-    "typescript-eslint": "^8.46.3",
+    "typescript-eslint": "^8.51.0",
     "typescript": "^5.9.3"
   }
 }
